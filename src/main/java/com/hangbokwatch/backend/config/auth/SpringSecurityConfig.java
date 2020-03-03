@@ -40,10 +40,11 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable().headers().frameOptions().disable() // h2-console 화면을 사용하기 위한 설정
                 .and().authorizeRequests() // 메소드를 통해 여러 자식을 추가하여 URL에 대한 요구사항을 정의할 수 있다 (antMatch를 사용할 수 있다.).
-                    .antMatchers("/**", "/search/**", "/showPlayerList", "/crawlingPlayerList", "/getDetailData", "/refreshFavorite", "/getFavoriteData", "/getRankingData", "/getRankerData", "/showPlayerDetail/**", "/refreshPlayerDetail/**", "/myFavorite", "/ranking", "/login/** ","/css/**", "/images/**", "/js/**", "/font/**", "/scss/**").permitAll()
+                    .antMatchers("/", "/search/**", "/showPlayerList", "/crawlingPlayerList", "/getDetailData", "/refreshFavorite", "/getFavoriteData",
+                            "/getRankingData", "/getRankerData", "/showPlayerDetail/**", "/refreshPlayerDetail/**", "/myFavorite", "/ranking", "/login/** ",
+                            "/css/**", "/images/**", "/js/**", "/fonts/**", "/scss/**", "/logout", "/oauth2/**", "/HWimages/**").permitAll()
                     .antMatchers("/findDuo/**").hasRole(Role.USER.name()).anyRequest().authenticated()
-                    .antMatchers("/findDuo/**").hasRole(Role.ADMIN.name()).anyRequest().authenticated()
-                    .antMatchers("/management", "/getSeasonData").hasRole(Role.ADMIN.name()).anyRequest().authenticated()
+                    .antMatchers("/oNlYAdMIn", "/getSeasonData", "/resumeJob", "/getJobData", "/saveSeasonData", "/findDuo/**").hasRole(Role.ADMIN.name()).anyRequest().authenticated()
                 .and().logout().logoutSuccessUrl("/")
 
                 .and().oauth2Login().successHandler(successHandler())
