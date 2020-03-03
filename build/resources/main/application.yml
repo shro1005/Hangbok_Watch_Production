@@ -34,7 +34,7 @@ spring:
       enabled: false
   #이미지등 자원 경로
   HWresource:
-    HWimages: /Users/kyun/workspace/HangbokWatch_Project/HangbokWatch_Resource/HWimages/
+    HWimages: /Users/kyun/workspace/Hangbok-Optch/Hangbok_Watch_Production/HangbokWatch_Resource/HWimages/ #/Users/kyun/workspace/HangbokWatch_Project/HangbokWatch_Resource/HWimages/
   security:
     oauth2:
       client:
@@ -58,7 +58,7 @@ spring:
 logging:
   # file:
   max-history: 5
-  path: /Users/kyun/workspace/HangbokWatch_Project/HangbokWatch_Resource/LOGS
+  path: /Users/kyun/workspace/Hangbok-Optch/Hangbok_Watch_Production/HangbokWatch_Resource/LOGS
   level:
     root: info
     com.hangbokwatch.backend.service: debug
