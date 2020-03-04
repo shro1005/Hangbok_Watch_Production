@@ -51,6 +51,7 @@ public class CompetitiveDetailDto {
     private Trendline trendline;
     private int count;
     private String favorite;
+    private List<PlayerForRanking> playerForRankingList;
     private PlayerForRanking playerForRanking;
     private String message;
 }

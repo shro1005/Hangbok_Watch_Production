@@ -36,8 +36,12 @@ public class SearchPlayerListService {
 
         log.debug("{} | searchPlayerList 진행 | {}에 해당하는 플레이어 데이터({}건)", sessionBattleTag, playerName, searchResult.size());
         for (Player player : searchResult) {
-            Double winRate = (new Double(player.getWinGame())/new Double(player.getWinGame()+player.getLoseGame())*100);
-            Integer winRateInt = (int) (double) winRate;
+            Integer wingame = player.getWinGame(); Integer losegame = player.getLoseGame();
+            Double winRate = 0d; Integer winRateInt = 0;
+            if(wingame != null && losegame != null) {
+                winRate = (new Double(player.getWinGame()) / new Double(player.getWinGame() + player.getLoseGame()) * 100);
+                winRateInt = (int) (double) winRate;
+            }
 
             PlayerListDto playerListDto = new PlayerListDto(player.getId(), player.getBattleTag(), player.getPlayerName(), player.getForUrl(), player.getPlayerLevel()
             , player.getIsPublic(), player.getPlatform(), player.getPortrait(), player.getTankRatingPoint(), player.getDealRatingPoint(), player.getHealRatingPoint()

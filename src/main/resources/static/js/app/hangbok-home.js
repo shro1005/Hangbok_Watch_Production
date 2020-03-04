@@ -62,7 +62,7 @@ const main = {
         $('.navbar-nav .index-nav').addClass("active");
 
         const message = $(".message").val();
-        console.log(message);
+        // console.log(message);
         if(message != "") {
             alert(message);
         }
@@ -76,7 +76,7 @@ const main = {
         $(".more_btn_div").remove();
         $(".not-fount-base").remove();
         const noticeDiv = $('<div class="not-fount-base row"><div class="player not-found-player col-md-12">' +
-            '검색한 플레이어의 프로필을 조회중입니다.<br>잠시만 기다려 주세요.</div><div>');
+            '검색한 플레이어의 프로필을 조회중입니다.<br>잠시만 기다려 주세요.</div></div>');
         $(".player-list-container").append(noticeDiv);
 
         let playerName = $('input[id="playerName"]').val();
@@ -99,6 +99,10 @@ const main = {
         }
     },
     searchReal : function (userInput) {
+        $(".player-list-container").empty();
+        const noticeDiv = $('<div class="not-fount-base row"><div class="player not-found-player col-md-12">' +
+            '검색한 플레이어의 프로필을 조회중입니다.<br>잠시만 기다려 주세요.</div></div>');
+        $(".player-list-container").append(noticeDiv);
         playerName = userInput;
 
         const inputName = {

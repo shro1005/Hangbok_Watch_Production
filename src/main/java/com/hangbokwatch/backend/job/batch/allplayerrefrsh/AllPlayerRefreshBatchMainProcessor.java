@@ -109,7 +109,7 @@ public class AllPlayerRefreshBatchMainProcessor implements ItemProcessor<Player,
         if(player.getDealRatingPoint() == 0) {cnt--;}
         if(player.getHealRatingPoint() == 0) {cnt--;}
         if(cnt == 0 ) {cnt = 1;}
-        player.setTotalAvgRatingPoint((player.getTankRatingPoint() + player.getDealRatingPoint() + player.getHealRatingPoint())/cnt);
+        player.setTotalAvgRatingPoint((player.getTankRatingPoint() + player.getDealRatingPoint() + player.getHealRatingPoint())/3);
 
         /** 프로필 정보 추출 */
         log.debug("{} >>>>>>>> playerDetailItemProcessor | {} 플레이어 프로필 사진 추출", JOB_NAME, player.getBattleTag());

@@ -76,6 +76,7 @@ public class CrawlingDataJpaItemWriter<T> implements ItemWriter<T>, Initializing
                     Player player = ((CompetitiveDetailDto) item).getPlayer();
                     Trendline trendline = ((CompetitiveDetailDto) item).getTrendline();
                     List<PlayerDetail> playerDetailList = ((CompetitiveDetailDto) item).getPlayerDetailList();
+                    List<PlayerForRanking> playerForRankingList = ((CompetitiveDetailDto) item).getPlayerForRankingList();
                     PlayerForRanking playerForRanking = ((CompetitiveDetailDto) item).getPlayerForRanking();
 
                     //탱커
@@ -131,6 +132,14 @@ public class CrawlingDataJpaItemWriter<T> implements ItemWriter<T>, Initializing
                             mergeCount ++;
                         }
                     }
+                    if (playerForRankingList != null && playerForRankingList.size() > 0) {
+                        for (PlayerForRanking playerForRankingitem : playerForRankingList) {
+//                            log.debug("{}", playerDetail.getHeroName());
+                            entityManager.merge(playerForRankingitem);
+                            mergeCount ++;
+                        }
+                    }
+
                     if(playerForRanking != null) {
                         entityManager.merge(playerForRanking);
                         mergeCount++;

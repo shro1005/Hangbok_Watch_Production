@@ -12,6 +12,9 @@ import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Slf4j
 @Component
 @StepScope
@@ -108,7 +111,14 @@ public class RankingBaseDataUpdateBatchMainProcessor implements ItemProcessor<Pl
                                                                 player.getHealWinGame(), player.getHealLoseGame(), winGame, loseGame, drawGame,
                                                                 playTime, spentOnFire, envKill, "Y");
 
-        competitiveDetailDto.setPlayerForRanking(playerForRanking);
+        PlayerForRanking playerForRankingBaseN = new PlayerForRanking(player.getId(), player.getPlayerLevel(), 0, 0, 0,
+                0, 0, 0, 0, 0, 0, 0, 0, 0,
+                0l, 0l, 0, "N");
+
+        List<PlayerForRanking> list = new ArrayList<>();
+        list.add(playerForRanking); list.add(playerForRankingBaseN);
+
+        competitiveDetailDto.setPlayerForRankingList(list);
 
         return competitiveDetailDto;
     }

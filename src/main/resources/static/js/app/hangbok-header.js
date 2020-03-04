@@ -9,7 +9,7 @@ const header = {
         });
 
         $('#playerName-tap').focus(function () {
-            console.log("true");
+            // console.log("true");
             $(document).keypress(function (e) {
                 if (e.which == 13) {
                     // alert('enter key is pressed');
@@ -22,6 +22,7 @@ const header = {
 
         if(window.location.pathname.indexOf("myFavorite") > 0) {$('.navbar-nav .favorite-nav').addClass("active");}
         else if(window.location.pathname.indexOf("ranking") > 0) {$('.navbar-nav .ranking-nav').addClass("active");}
+        else if(window.location.pathname.indexOf("oNlYAdMIn") > 0) {$('.navbar-nav .maintain-nav').addClass("active");}
         else {$('.navbar-nav .index-nav').addClass("active");}
     },
     search : function () {

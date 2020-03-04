@@ -4,16 +4,17 @@ spring:
 
 ---
 
-# local 환경
+# local 환경  # jdbc:postgresql://localhost:5432/hangbokwatch #kyun #pass
 spring:
   profiles: local
 #    include: oauth
   datasource:
     hikari:
-      jdbc-url: jdbc:postgresql://localhost:5432/hangbokwatch
-      username: kyun
-      password: pass
+      jdbc-url: jdbc:postgresql://hangbok-watch-db.c6shpgnskepj.ap-northeast-2.rds.amazonaws.com:5432/hangbokwatch
+      username: kyun_admin
+      password: accurate45
       driver-class-name: org.postgresql.Driver
+      connection-timeout: 99999
   jpa:
     properties:
       hibernate:
@@ -67,6 +68,8 @@ logging:
     org.hibernate: error
     sql: info
 
+httpconnpool:
+  socket-timeout: 99999
 
 #로컬에서 https를 사용하기 위한 ssl 설정 및 포트 설정
 server:

@@ -53,7 +53,7 @@ const main = {
 };
 
 const getRankingData = () => {
-    console.log("getRankingData 호출");
+    // console.log("getRankingData 호출");
 
     // 표시할 랭킹 목록 생성
     let ranking_list = $("#our-ranking-list").html();
@@ -145,7 +145,7 @@ function drawList(i, data) {
 
 const drawMoreButton = (target) => {
     if(target == "total") {
-        if (total_offset <= 100) {
+        if (total_offset < 75) {
             const moreButtonDiv = $('<div class="more-btn-div" align="center">'
                 + '<hr><a id="more_btn" href="javascript:morePlayers(\''+target+'\');">더보기(More)</a><hr>'
                 + '</div>');
@@ -153,7 +153,7 @@ const drawMoreButton = (target) => {
         }
 
     }else if(target == "tank") {
-        if (tank_offset <= 100) {
+        if (tank_offset < 75) {
             const moreButtonDiv = $('<div class="more-btn-div" align="center">'
                 + '<hr><a id="more_btn" href="javascript:morePlayers(\''+target+'\');">더보기(More)</a><hr>'
                 + '</div>');
@@ -161,14 +161,14 @@ const drawMoreButton = (target) => {
         }
 
     }else if(target == "deal") {
-        if (deal_offset <= 100) {
+        if (deal_offset < 75) {
             const moreButtonDiv = $('<div class="more-btn-div" align="center">'
                 + '<hr><a id="more_btn" href="javascript:morePlayers(\''+target+'\');">더보기(More)</a><hr>'
                 + '</div>');
             $(".player-list-container").append(moreButtonDiv);
         }
     }else if(target == "heal") {
-        if (heal_offset <= 100) {
+        if (heal_offset < 75) {
             const moreButtonDiv = $('<div class="more-btn-div" align="center">'
                 + '<hr><a id="more_btn" href="javascript:morePlayers(\''+target+'\');">더보기(More)</a><hr>'
                 + '</div>');

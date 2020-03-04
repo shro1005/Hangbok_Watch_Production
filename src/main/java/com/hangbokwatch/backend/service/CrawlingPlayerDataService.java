@@ -269,7 +269,7 @@ public class CrawlingPlayerDataService {
             if(playerListDto.getDealRatingPoint() == 0) {cnt--;}
             if(playerListDto.getHealRatingPoint() == 0) {cnt--;}
             if(cnt == 0 ) {cnt = 1;}
-            playerListDto.setTotalAvgRatingPoint((playerListDto.getTankRatingPoint() + playerListDto.getDealRatingPoint() + playerListDto.getHealRatingPoint())/cnt);
+            playerListDto.setTotalAvgRatingPoint((playerListDto.getTankRatingPoint() + playerListDto.getDealRatingPoint() + playerListDto.getHealRatingPoint())/3);
             playerListDto.setCnt(cnt);
 
             stopWatch.stop();
@@ -363,11 +363,15 @@ public class CrawlingPlayerDataService {
             log.debug("{} >>>>>>>> crawlingPlayerDetail 진행중 | {}({}) 플레이어 player DB저장 완료", sessionBattleTag , playerListDto.getBattleTag(), playerListDto.getId());
             stopWatch.start("player 테이블에 저장");
 
+            Integer winGame = 0; Integer loseGame = 0;
+            if(playerListDto.getWinGame() != null) {winGame = playerListDto.getWinGame();}
+            if(playerListDto.getLoseGame() != null) {loseGame = playerListDto.getLoseGame();}
+
             // 최초 등록자의 경우 PlayerForRanking의 base 데이터를 등록해줘야 한다.
             if( playerForRankingRepository.countByIsBaseDataAndId("Y", playerListDto.getId()) == 0) {
                 PlayerForRanking playerForRanking = new PlayerForRanking(playerListDto.getId(), playerListDto.getPlayerLevel(), playerListDto.getTankRatingPoint(), playerListDto.getDealRatingPoint(),
                         playerListDto.getHealRatingPoint(), tankWinGame, tankLoseGame, dealWinGame,dealLoseGame,healWinGame,healLoseGame,
-                        playerListDto.getWinGame(), playerListDto.getLoseGame(), playerListDto.getDrawGame(), playerListDto.getPlayTime(), playerListDto.getSpentOnFire(), playerListDto.getEnvKill(),
+                        winGame, loseGame, playerListDto.getDrawGame(), playerListDto.getPlayTime(), playerListDto.getSpentOnFire(), playerListDto.getEnvKill(),
                         "Y");
 
                 playerForRankingRepository.save(playerForRanking);
@@ -377,7 +381,7 @@ public class CrawlingPlayerDataService {
             Player player = new Player(playerListDto.getId(), playerListDto.getBattleTag(), playerListDto.getPlayerName(), playerListDto.getPlayerLevel(), playerListDto.getForUrl(), playerListDto.getIsPublic(), playerListDto.getPlatform()
                     , playerListDto.getPortrait(), playerListDto.getTankRatingPoint(), playerListDto.getDealRatingPoint(), playerListDto.getHealRatingPoint(), playerListDto.getTotalAvgRatingPoint()
                     , playerListDto.getTankRatingImg(), playerListDto.getDealRatingImg(), playerListDto.getHealRatingImg(), tankWinGame, tankLoseGame,dealWinGame,dealLoseGame,healWinGame,healLoseGame
-                    , playerListDto.getWinGame(), playerListDto.getLoseGame(), playerListDto.getDrawGame(), playerListDto.getPlayTime(), playerListDto.getSpentOnFire(), playerListDto.getEnvKill()
+                    , winGame, loseGame, playerListDto.getDrawGame(), playerListDto.getPlayTime(), playerListDto.getSpentOnFire(), playerListDto.getEnvKill()
                     , playerListDto.getMostHero1(), playerListDto.getMostHero2(), playerListDto.getMostHero3());
             playerRepository.save(player);
 

@@ -303,15 +303,17 @@ public class ShowPlayerDetailService {
 
             PlayerDetail playerDetail = playerDetailRepository.findByIdAndSeasonAndHeroNameKR(4000l, season, heroName);
 
-            PlayerDetailDto playerDetailDto = new PlayerDetailDto(playerDetail.getId(), playerDetail.getSeason(), playerDetail.getHeroOrder(), playerDetail.getHeroName()
-                    , playerDetail.getHeroNameKR(), playerDetail.getKillPerDeath(), playerDetail.getWinRate(), playerDetail.getPlayTime()
-                    , playerDetail.getDeathAvg(), playerDetail.getSpentOnFireAvg(), playerDetail.getHealPerLife(), playerDetail.getBlockDamagePerLife(), playerDetail.getLastHitPerLife()
-                    , playerDetail.getDamageToHeroPerLife(), playerDetail.getDamageToShieldPerLife()
-                    , playerDetail.getIndex1(), playerDetail.getIndex2(), playerDetail.getIndex3(), playerDetail.getIndex4(), playerDetail.getIndex5()
-                    , playerDetail.getTitle1(), playerDetail.getTitle2(), playerDetail.getTitle3(), playerDetail.getTitle4(), playerDetail.getTitle5());
+            if(playerDetail != null) {
+                PlayerDetailDto playerDetailDto = new PlayerDetailDto(playerDetail.getId(), playerDetail.getSeason(), playerDetail.getHeroOrder(), playerDetail.getHeroName()
+                        , playerDetail.getHeroNameKR(), playerDetail.getKillPerDeath(), playerDetail.getWinRate(), playerDetail.getPlayTime()
+                        , playerDetail.getDeathAvg(), playerDetail.getSpentOnFireAvg(), playerDetail.getHealPerLife(), playerDetail.getBlockDamagePerLife(), playerDetail.getLastHitPerLife()
+                        , playerDetail.getDamageToHeroPerLife(), playerDetail.getDamageToShieldPerLife()
+                        , playerDetail.getIndex1(), playerDetail.getIndex2(), playerDetail.getIndex3(), playerDetail.getIndex4(), playerDetail.getIndex5()
+                        , playerDetail.getTitle1(), playerDetail.getTitle2(), playerDetail.getTitle3(), playerDetail.getTitle4(), playerDetail.getTitle5());
 
-            log.debug("{} >>>>>>>> selectPlayerHeroDetail 진행중 | {} ", sessionBattleTag, playerDetailDto.toString());
-            list.add(playerDetailDto);
+                log.debug("{} >>>>>>>> selectPlayerHeroDetail 진행중 | {} ", sessionBattleTag, playerDetailDto.toString());
+                list.add(playerDetailDto);
+            }
         }
 
         return list;

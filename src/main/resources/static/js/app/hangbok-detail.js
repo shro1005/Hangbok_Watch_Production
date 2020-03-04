@@ -151,8 +151,8 @@ const getDetailData = () => {
         async : false
     }).done(function (datas) {
         /* 영웅 상세정보 파싱*/
-        console.log(datas.tierDetail);
-        console.log(datas.rankerDetail);
+        // console.log(datas.tierDetail);
+        // console.log(datas.rankerDetail);
         count = datas.detail.length;
         $.each(datas.detail, function (i, val) {
             if (i <= 6) {
@@ -275,8 +275,8 @@ const drawDetail = (order) => {
             return false;
         }
     });
-    console.log(tierData);
-    console.log(rankerData);
+    // console.log(tierData);
+    // console.log(rankerData);
 
     // detail 부분
     let hero_detail = $("#hero-detail").html();
