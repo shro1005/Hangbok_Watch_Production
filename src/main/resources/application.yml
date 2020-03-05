@@ -90,44 +90,44 @@ spring:
       password: accurate45
       driver-class-name: org.postgresql.Driver
       connection-timeout: 99999
-    jpa:
-      properties:
-        hibernate:
-          dialect: org.hibernate.dialect.PostgreSQLDialect
-          jdbc.lob.non_contextual_creation: true
-      show-sql: false
+  jpa:
+    properties:
       hibernate:
-        ddl-auto: validate
-      generate-ddl: false
-    h2:
-      console:
-        enabled: true
-    data:
-      cassandra:
-        read-timeout: 99999
-    batch:
-      job:
-        enabled: false
-    #이미지등 자원 경로
-    HWresource:
-      HWimages: HangbokWatch_Resource/HWimages/
-    security:
-      oauth2:
-        client:
-          registration:
-            blizzard:
-              client-id: 5a3fed373e524b9c837a5a5afbee9205
-              client-secret: K8W12zv26fUE8D5vldBq2cvwJ1Qa1n9g
-              redirect-uri: https://localhost:8443/login/oauth2/code/blizzard
-              authorization-grant-type: authorization_code
-              scope: openid
-              client-name: Blizzard
-          provider:
-            blizzard:
-              authorization-uri: https://kr.battle.net/oauth/authorize
-              token-uri: https://kr.battle.net/oauth/token
-              user-info-uri: https://kr.battle.net/oauth/userinfo
-              jwk-set-uri: https://kr.battle.net/oauth/jwks/certs
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        jdbc.lob.non_contextual_creation: true
+    show-sql: false
+    hibernate:
+      ddl-auto: validate
+    generate-ddl: false
+  h2:
+    console:
+      enabled: true
+  data:
+    cassandra:
+      read-timeout: 99999
+  batch:
+    job:
+      enabled: false
+  #이미지등 자원 경로
+  HWresource:
+    HWimages: HangbokWatch_Resource/HWimages/
+  security:
+    oauth2:
+      client:
+        registration:
+          blizzard:
+            client-id: 5a3fed373e524b9c837a5a5afbee9205
+            client-secret: K8W12zv26fUE8D5vldBq2cvwJ1Qa1n9g
+            redirect-uri: https://localhost:8443/login/oauth2/code/blizzard
+            authorization-grant-type: authorization_code
+            scope: openid
+            client-name: Blizzard
+        provider:
+          blizzard:
+            authorization-uri: https://kr.battle.net/oauth/authorize
+            token-uri: https://kr.battle.net/oauth/token
+            user-info-uri: https://kr.battle.net/oauth/userinfo
+            jwk-set-uri: https://kr.battle.net/oauth/jwks/certs
 
 #로깅 설정
 logging:
