@@ -110,7 +110,7 @@ spring:
       enabled: false
   #이미지등 자원 경로
   HWresource:
-    HWimages: Hangbok-Watch_Production/HangbokWatch_Resource/HWimages/
+    HWimages: Hangbok_Watch_Production/HangbokWatch_Resource/HWimages/
   security:
     oauth2:
       client:
@@ -133,7 +133,7 @@ spring:
 logging:
   # file:
   max-history: 5
-  path: Hangbok-Watch_Production/HangbokWatch_Resource/LOGS/
+  path: Hangbok_Watch_Production/HangbokWatch_Resource/LOGS/
   level:
     root: info
     com.hangbokwatch.backend.service: info
