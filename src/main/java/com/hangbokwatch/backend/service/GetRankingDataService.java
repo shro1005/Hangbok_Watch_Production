@@ -108,7 +108,7 @@ public class GetRankingDataService {
         for (JobInstance jobInstance : jobInstanceList) {
             JobExecution jobExecution = jobExecutionRepository.selectJobExecutionByJobInstanceId(jobInstance.getJobInstanceId(),0,1);
             if("COMPLETED".equals(jobExecution.getStatus())) {
-                result = jobExecution.getEndTime();
+                result = jobExecution.getStartTime();
                 break;
             }
         }

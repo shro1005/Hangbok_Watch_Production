@@ -133,9 +133,9 @@ public class CrawlingDataJpaItemWriter<T> implements ItemWriter<T>, Initializing
                         }
                     }
                     if (playerForRankingList != null && playerForRankingList.size() > 0) {
-                        for (PlayerForRanking playerForRankingitem : playerForRankingList) {
+                        for (PlayerForRanking playerForRankingItem : playerForRankingList) {
 //                            log.debug("{}", playerDetail.getHeroName());
-                            entityManager.merge(playerForRankingitem);
+                            entityManager.merge(playerForRankingItem);
                             mergeCount ++;
                         }
                     }

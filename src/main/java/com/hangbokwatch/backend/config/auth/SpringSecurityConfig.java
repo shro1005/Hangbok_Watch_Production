@@ -67,20 +67,20 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
      * Token에 필요한 데이터가 함께 들어가 있기 때문에 따로 요청을 보내서 필요한 데이터를 받을 필요가 없어 오버헤드를 방지할 수 있다.
      */
 
-    @Bean
-    public ClientRegistrationRepository clientRegistrationRepository(
-            @Value("${spring.security.oauth2.client.registration.blizzard.client-id}") String blizzardClientId,
-            @Value("${spring.security.oauth2.client.registration.blizzard.client-secret}") String blizzardClientSecret
-    ) {
-        List<ClientRegistration> registrations = new ArrayList<>();
-        registrations.add(CustomOAuth2Provider.BLIZZARD.getBuilder("blizzard")
-                        .clientId(blizzardClientId)
-                        .clientSecret(blizzardClientSecret)
-                        .jwkSetUri("https://kr.battle.net/oauth/jwks/certs")
-                        .build());
-
-        return new InMemoryClientRegistrationRepository(registrations);
-    }
+//    @Bean
+//    public ClientRegistrationRepository clientRegistrationRepository(
+//            @Value("${spring.security.oauth2.client.registration.blizzard.client-id}") String blizzardClientId,
+//            @Value("${spring.security.oauth2.client.registration.blizzard.client-secret}") String blizzardClientSecret
+//    ) {
+//        List<ClientRegistration> registrations = new ArrayList<>();
+//        registrations.add(CustomOAuth2Provider.BLIZZARD.getBuilder("blizzard")
+//                        .clientId(blizzardClientId)
+//                        .clientSecret(blizzardClientSecret)
+//                        .jwkSetUri("https://kr.battle.net/oauth/jwks/certs")
+//                        .build());
+//
+//        return new InMemoryClientRegistrationRepository(registrations);
+//    }
 
     /**
      * AccessToken 을 받아 응답하는 클라이언트를 직접 구현할떄 사용

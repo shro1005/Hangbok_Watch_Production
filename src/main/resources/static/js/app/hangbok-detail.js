@@ -25,6 +25,8 @@ const chartColors = ['#fcb150', '#11a8ab' ,'#e64c65'];
 const heal_hero = "/아나/바티스트/브리기테/루시우/메르시/모이라/젠야타";
 const deal_hero = "/애쉬/바스티온/둠피스트/겐지/한조/정크랫/맥크리/메이/파라/리퍼/솔저: 76/솜브라/시메트라/토르비욘/트레이서/위도우메이커";
 const tank_hero = "/디바/오리사/라인하르트/윈스턴/자리야/로드호그/레킹볼/시그마";
+let season = 0;
+let nowSeason = 0;
 
 $(window).resize(function () {
    // 창크기 변화 감지
@@ -75,6 +77,10 @@ const main = {
         // console.log(message);
         if(message != "success") {
             alert(message);
+        }
+
+        if(season != nowSeason) {
+            alert("현재 조회하신 플레이어는 이번 시즌 경쟁전 플레이를 하지 않아 \n지난 시즌 경쟁전 정보를 보여줍니다.")
         }
     },
     search : function () {
@@ -154,6 +160,7 @@ const getDetailData = () => {
         // console.log(datas.tierDetail);
         // console.log(datas.rankerDetail);
         count = datas.detail.length;
+        nowSeason = datas.nowSeason;
         $.each(datas.detail, function (i, val) {
             if (i <= 6) {
                 const heroNameKR = val.heroNameKR;
@@ -163,6 +170,7 @@ const getDetailData = () => {
                 const spentOnFireAvg = val.spentOnFireAvg;
                 const order = val.order;
                 const killPerDeath = val.killPerDeath;
+                season = val.season;
 
                 hero.heros.push({
                     heroName: heroName,

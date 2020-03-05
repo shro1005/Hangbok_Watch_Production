@@ -34,7 +34,7 @@ public class RankingBaseDataUpdateBatchJobConfiguration {
     private final StepBuilderFactory stepBuilderFactory ; // 생성자 DI 받음
     private final EntityManagerFactory entityManagerFactory ; // JpaItemReader애서 지정해줘야 함.
 
-    private static final int chunkSize = 1000;
+    private static final int chunkSize = 150;
 
     @Autowired
     JobRegistry jobRegistry;
@@ -43,7 +43,7 @@ public class RankingBaseDataUpdateBatchJobConfiguration {
     public CronTriggerFactoryBean rankingBaseUpdateTrigger() throws DuplicateJobException {
         return BatchSettingHelper.cronTriggerFactoryBeanBuilder()
                 .name(JOB_NAME + "_trigger")
-                .cronExpression("0 30 3 ? * MON")
+                .cronExpression("0 30 3 * * ?")   //cronExpression("0 30 3 ? * MON")
                 .jobDetailFactoryBean(rankingBaseUpdateJobDetail())
                 .build();
     }

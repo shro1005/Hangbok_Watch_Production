@@ -412,4 +412,12 @@ public class ShowPlayerDetailService {
             favoriteRepository.save(new Favorite(sessionUser.getId(), clickedId, likeOrNot));
         }
     }
+
+    public Long getNowSeason(Map<String, Object> sessionItems) {
+        String sessionBattleTag = (String) sessionItems.get("sessionBattleTag");
+        log.info("{} >>>>>>>> getNowSeason 호출 | 현재 시즌 정보를 가져오기 위한 서비스 호출", sessionBattleTag);
+        Long season = seasonRepository.selectSeason(new SimpleDateFormat("yyyyMMddHHmmss").format(System.currentTimeMillis()));
+        log.info("{} >>>>>>>> getNowSeason 종료 | 현재 시즌 {} 데이터 반환", sessionBattleTag);
+        return season;
+    }
 }

@@ -73,11 +73,13 @@ public class WebRestController {
         List<PlayerDetailDto> tierDetailList = spd.getTierDetail(id, sessionItems, playerDetailList);
         List<PlayerDetailDto> rankerDetailList = spd.getRankerDetail(id, sessionItems, playerDetailList);
         List<TrendlindDto> trendlindList = spd.selectPlayerTrendline(id, sessionItems);
+        Long nowSeason = spd.getNowSeason(sessionItems);
 
         map.put("detail", playerDetailList);
         map.put("tierDetail", tierDetailList);
         map.put("rankerDetail", rankerDetailList);
         map.put("trendline", trendlindList);
+        map.put("nowSeason", nowSeason);
 
         log.info("{} >>>>>>>> getDetailData 종료 | detail {}건, trendline {}건 회신", sessionBattleTag, playerDetailList.size(), trendlindList.size());
         log.info("===================================================================");

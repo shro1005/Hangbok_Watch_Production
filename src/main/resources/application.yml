@@ -18,7 +18,7 @@ spring:
   jpa:
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        dialect: org.hibernate.dialect.PostgreSQLDialect
         jdbc.lob.non_contextual_creation: true
     show-sql: false
     hibernate:
@@ -35,7 +35,7 @@ spring:
       enabled: false
   #이미지등 자원 경로
   HWresource:
-    HWimages: /Users/kyun/workspace/Hangbok-Optch/Hangbok_Watch_Production/HangbokWatch_Resource/HWimages/ #/Users/kyun/workspace/HangbokWatch_Project/HangbokWatch_Resource/HWimages/
+    HWimages: HangbokWatch_Resource/HWimages/ #/Users/kyun/workspace/Hangbok-Optch/Hangbok_Watch_Production/HangbokWatch_Resource/HWimages/
   security:
     oauth2:
       client:
@@ -43,23 +43,23 @@ spring:
           blizzard:
             client-id: 5a3fed373e524b9c837a5a5afbee9205
             client-secret: K8W12zv26fUE8D5vldBq2cvwJ1Qa1n9g
-#            redirect-uri: https://localhost:8443/login/oauth2/code/blizzard
-##            redirect-uri: https://localhost:8443/oauth2/
-#            authorization-grant-type: authorization_code
-#            scope: openid
-#            client-name: Blizzard
-#        provider:
-#          blizzard:
-#            authorization-uri: https://kr.battle.net/oauth/authorize
-#            token-uri: https://kr.battle.net/oauth/token
-#            user-info-uri: https://kr.battle.net/oauth/userinfo
-#            jwk-set-uri: https://kr.battle.net/oauth/jwks/certs
+            redirect-uri: https://localhost:8443/login/oauth2/code/blizzard
+#            redirect-uri: https://localhost:8443/oauth2/
+            authorization-grant-type: authorization_code
+            scope: openid
+            client-name: Blizzard
+        provider:
+          blizzard:
+            authorization-uri: https://kr.battle.net/oauth/authorize
+            token-uri: https://kr.battle.net/oauth/token
+            user-info-uri: https://kr.battle.net/oauth/userinfo
+            jwk-set-uri: https://kr.battle.net/oauth/jwks/certs
 
 #로깅 설정
 logging:
   # file:
   max-history: 5
-  path: /Users/kyun/workspace/Hangbok-Optch/Hangbok_Watch_Production/HangbokWatch_Resource/LOGS
+  path: HangbokWatch_Resource/LOGS/ #/Users/kyun/workspace/Hangbok-Optch/Hangbok_Watch_Production/HangbokWatch_Resource/LOGS
   level:
     root: info
     com.hangbokwatch.backend.service: debug
@@ -67,9 +67,6 @@ logging:
     com.hangbokwatch.backend.config: debug
     org.hibernate: error
     sql: info
-
-httpconnpool:
-  socket-timeout: 99999
 
 #로컬에서 https를 사용하기 위한 ssl 설정 및 포트 설정
 server:
@@ -86,5 +83,63 @@ server:
 ---
 spring:
   profiles: production
+  datasource:
+    hikari:
+      jdbc-url: jdbc:postgresql://hangbok-watch-db.c6shpgnskepj.ap-northeast-2.rds.amazonaws.com:5432/hangbokwatch
+      username: kyun_admin
+      password: accurate45
+      driver-class-name: org.postgresql.Driver
+      connection-timeout: 99999
+    jpa:
+      properties:
+        hibernate:
+          dialect: org.hibernate.dialect.PostgreSQLDialect
+          jdbc.lob.non_contextual_creation: true
+      show-sql: false
+      hibernate:
+        ddl-auto: validate
+      generate-ddl: false
+    h2:
+      console:
+        enabled: true
+    data:
+      cassandra:
+        read-timeout: 99999
+    batch:
+      job:
+        enabled: false
+    #이미지등 자원 경로
+    HWresource:
+      HWimages: HangbokWatch_Resource/HWimages/
+    security:
+      oauth2:
+        client:
+          registration:
+            blizzard:
+              client-id: 5a3fed373e524b9c837a5a5afbee9205
+              client-secret: K8W12zv26fUE8D5vldBq2cvwJ1Qa1n9g
+              redirect-uri: https://localhost:8443/login/oauth2/code/blizzard
+              authorization-grant-type: authorization_code
+              scope: openid
+              client-name: Blizzard
+          provider:
+            blizzard:
+              authorization-uri: https://kr.battle.net/oauth/authorize
+              token-uri: https://kr.battle.net/oauth/token
+              user-info-uri: https://kr.battle.net/oauth/userinfo
+              jwk-set-uri: https://kr.battle.net/oauth/jwks/certs
+
+#로깅 설정
+logging:
+  # file:
+  max-history: 5
+  path: HangbokWatch_Resource/LOGS/
+  level:
+    root: info
+    com.hangbokwatch.backend.service: info
+    com.hangbokwatch.backend.job: info
+    com.hangbokwatch.backend.config: info
+    org.hibernate: error
+    sql: info
 
 

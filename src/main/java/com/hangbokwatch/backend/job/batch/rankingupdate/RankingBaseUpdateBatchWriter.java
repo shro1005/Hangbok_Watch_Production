@@ -71,10 +71,19 @@ public class RankingBaseUpdateBatchWriter<T> implements ItemWriter<T>, Initializ
                 if (item instanceof CompetitiveDetailDto) {
                     Player player = ((CompetitiveDetailDto) item).getPlayer();
                     PlayerForRanking playerForRanking = ((CompetitiveDetailDto) item).getPlayerForRanking();
+                    List<PlayerForRanking> playerForRankingList = ((CompetitiveDetailDto) item).getPlayerForRankingList();
 
                     if(player != null) {
                         entityManager.merge(player);
                         mergeCount++;
+                    }
+
+                    if (playerForRankingList != null && playerForRankingList.size() > 0) {
+                        for (PlayerForRanking playerForRankingItem : playerForRankingList) {
+//                            log.debug("{}", playerDetail.getHeroName());
+                            entityManager.merge(playerForRankingItem);
+                            mergeCount ++;
+                        }
                     }
 
                     if(playerForRanking != null) {

@@ -38,7 +38,7 @@ public class AllPlayerRefreshBatchJobConfiguration {
     private final StepBuilderFactory stepBuilderFactory ; // 생성자 DI 받음
     private final EntityManagerFactory entityManagerFactory ; // JpaItemReader애서 지정해줘야 함.
 
-    private static final int chunkSize = 50;
+    private static final int chunkSize = 150;
 
     @Autowired
     SeasonRepository seasonRepository;

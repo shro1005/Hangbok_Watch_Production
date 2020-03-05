@@ -85,9 +85,21 @@ public class PlayerForRanking {
     public PlayerForRanking(Long id, Integer playerLevel,
                   Integer tankRatingPoint, Integer dealRatingPoint, Integer healRatingPoint,
                   Integer tankWinGame, Integer tankLoseGame, Integer dealWinGame, Integer dealLoseGame, Integer healWinGame, Integer healLoseGame,
-                  Integer winGame, Integer loseGame, Integer drawGame, Long playTime, Long spentOnFire, Integer envKill, String isBaseData) {
+                  Integer winGame, Integer loseGame, Integer drawGame, Long playTime, Long spentOnFire, Integer envKill, String isBaseData, LocalDateTime udtDtm) {
         this.id = id ; this.playerLevel = playerLevel;
          this.tankRatingPoint = tankRatingPoint; this.dealRatingPoint = dealRatingPoint;
+        this.healRatingPoint = healRatingPoint; this.tankWinGame = tankWinGame; this.tankLoseGame = tankLoseGame;
+        this.dealWinGame = dealWinGame; this.dealLoseGame = dealLoseGame; this.healWinGame = healWinGame; this.healLoseGame = healLoseGame;
+        this.winGame = winGame; this.loseGame = loseGame; this.drawGame = drawGame; this.playTime = playTime;
+        this.spentOnFire = spentOnFire; this.envKill = envKill; this.isBaseData = isBaseData; this.udtDtm = udtDtm;
+    }
+
+    public PlayerForRanking(Long id, Integer playerLevel,
+                            Integer tankRatingPoint, Integer dealRatingPoint, Integer healRatingPoint,
+                            Integer tankWinGame, Integer tankLoseGame, Integer dealWinGame, Integer dealLoseGame, Integer healWinGame, Integer healLoseGame,
+                            Integer winGame, Integer loseGame, Integer drawGame, Long playTime, Long spentOnFire, Integer envKill, String isBaseData) {
+        this.id = id ; this.playerLevel = playerLevel;
+        this.tankRatingPoint = tankRatingPoint; this.dealRatingPoint = dealRatingPoint;
         this.healRatingPoint = healRatingPoint; this.tankWinGame = tankWinGame; this.tankLoseGame = tankLoseGame;
         this.dealWinGame = dealWinGame; this.dealLoseGame = dealLoseGame; this.healWinGame = healWinGame; this.healLoseGame = healLoseGame;
         this.winGame = winGame; this.loseGame = loseGame; this.drawGame = drawGame; this.playTime = playTime;

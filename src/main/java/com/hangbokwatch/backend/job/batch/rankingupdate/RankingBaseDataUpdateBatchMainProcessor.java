@@ -12,6 +12,9 @@ import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Component;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -110,6 +113,7 @@ public class RankingBaseDataUpdateBatchMainProcessor implements ItemProcessor<Pl
                                                                 player.getTankWinGame(), player.getTankLoseGame(), player.getDealWinGame(), player.getDealLoseGame(),
                                                                 player.getHealWinGame(), player.getHealLoseGame(), winGame, loseGame, drawGame,
                                                                 playTime, spentOnFire, envKill, "Y");
+//                LocalDateTime.parse(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(System.currentTimeMillis()), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
 
         PlayerForRanking playerForRankingBaseN = new PlayerForRanking(player.getId(), player.getPlayerLevel(), 0, 0, 0,
                 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -119,6 +123,8 @@ public class RankingBaseDataUpdateBatchMainProcessor implements ItemProcessor<Pl
         list.add(playerForRanking); list.add(playerForRankingBaseN);
 
         competitiveDetailDto.setPlayerForRankingList(list);
+
+//        competitiveDetailDto.setPlayerForRanking(playerForRanking);
 
         return competitiveDetailDto;
     }
