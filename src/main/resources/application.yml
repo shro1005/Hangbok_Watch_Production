@@ -136,9 +136,9 @@ logging:
   path: Hangbok_Watch_Production/HangbokWatch_Resource/LOGS/
   level:
     root: info
-    com.hangbokwatch.backend.service: info
-    com.hangbokwatch.backend.job: info
-    com.hangbokwatch.backend.config: info
+    com.hangbokwatch.backend.service: debug
+    com.hangbokwatch.backend.job: debug
+    com.hangbokwatch.backend.config: debug
     org.hibernate: error
     sql: info
 
