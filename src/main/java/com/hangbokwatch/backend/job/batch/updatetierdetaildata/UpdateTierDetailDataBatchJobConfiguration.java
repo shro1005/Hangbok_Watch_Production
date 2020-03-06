@@ -57,7 +57,7 @@ public class UpdateTierDetailDataBatchJobConfiguration {
     @Bean
     public CronTriggerFactoryBean updateTierDetailTrigger() throws DuplicateJobException {
         return BatchSettingHelper.cronTriggerFactoryBeanBuilder()
-                .cronExpression("0 50 4 * * ?")
+                .cronExpression("0 50 17 * * ?")
                 .jobDetailFactoryBean(updateTierDetailSchedule())
                 .name(JOB_NAME + "_trigger")
                 .build();
