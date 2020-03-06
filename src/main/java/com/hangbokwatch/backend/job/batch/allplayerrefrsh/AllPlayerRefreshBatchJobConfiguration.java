@@ -63,7 +63,7 @@ public class AllPlayerRefreshBatchJobConfiguration {
     @Bean
     public CronTriggerFactoryBean allPlayerRefreshTrigger() throws DuplicateJobException {
         return BatchSettingHelper.cronTriggerFactoryBeanBuilder()
-                .cronExpression("0 50 11 * * ?")
+                .cronExpression("0 50 12 * * ?")
                 .jobDetailFactoryBean(allPlayerRefreshSchedule())
                 .name(JOB_NAME + "_trigger")
                 .build();
