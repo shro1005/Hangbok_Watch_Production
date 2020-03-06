@@ -43,7 +43,7 @@ public class RankingBaseDataUpdateBatchJobConfiguration {
     public CronTriggerFactoryBean rankingBaseUpdateTrigger() throws DuplicateJobException {
         return BatchSettingHelper.cronTriggerFactoryBeanBuilder()
                 .name(JOB_NAME + "_trigger")
-                .cronExpression("0 0 11 * * ?") //cronExpression("0 30 3 ? * MON")
+                .cronExpression("0 30 11 * * ?") //cronExpression("0 30 3 ? * MON")
                 .jobDetailFactoryBean(rankingBaseUpdateJobDetail())
                 .build();
     }
