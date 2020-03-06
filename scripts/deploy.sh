@@ -30,4 +30,4 @@ echo "> $APPLICATION_JAR 배포"
 nohup java -jar \
         -Dspring.config.location=classpath:/application.yml \
         -Dspring.profiles.active=production \
-        $APPLICATION_JAR > /dev/null 2> /dev/null < /dev/null &
+        $APPLICATION_JAR > $DEPLOY_PATHnohup.out 2>&1 &
