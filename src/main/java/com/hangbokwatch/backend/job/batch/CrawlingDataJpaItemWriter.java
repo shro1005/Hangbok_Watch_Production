@@ -117,30 +117,33 @@ public class CrawlingDataJpaItemWriter<T> implements ItemWriter<T>, Initializing
                     Hanzo hanzo = ((CompetitiveDetailDto) item).getHanzo();
 
                     if(player != null) {
+                        log.debug("batch >>>>>>>> player 정보 등록 or 수정 | {} (id : {}) ", player.getBattleTag(), player.getId());
                         entityManager.merge(player);
                         mergeCount++;
                     }
 
                     if (trendline != null) {
+                        log.debug("batch >>>>>>>> trendline 정보 등록 or 수정 | {} ", trendline.getId());
                         entityManager.merge(trendline);
                         mergeCount++;
                     }
                     if (playerDetailList != null && playerDetailList.size() > 0) {
                         for (PlayerDetail playerDetail : playerDetailList) {
-//                            log.debug("{}", playerDetail.getHeroName());
+                            log.debug("batch >>>>>>>> playerDetail 정보 등록 or 수정 | id : {}, season : {}, hero : {} ", playerDetail.getId(), playerDetail.getSeason(), playerDetail.getHeroNameKR());
                             entityManager.merge(playerDetail);
                             mergeCount ++;
                         }
                     }
                     if (playerForRankingList != null && playerForRankingList.size() > 0) {
                         for (PlayerForRanking playerForRankingItem : playerForRankingList) {
-//                            log.debug("{}", playerDetail.getHeroName());
+                            log.debug("batch >>>>>>>> playerForRanking 정보 등록 or 수정 | id : {}, is base : {} ", playerForRankingItem.getId(), playerForRankingItem.getIsBaseData());
                             entityManager.merge(playerForRankingItem);
                             mergeCount ++;
                         }
                     }
 
                     if(playerForRanking != null) {
+                        log.debug("batch >>>>>>>> playerForRanking 정보 등록 or 수정 | id : {}, is base : {} ", playerForRanking.getId(), playerForRanking.getIsBaseData());
                         entityManager.merge(playerForRanking);
                         mergeCount++;
                     }
