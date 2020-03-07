@@ -1,8 +1,8 @@
 #!/bin/bash
-REPOSITORY=/home/ec2-user/app/pro/
+REPOSITORY=/home/ec2-user/app/pro
 
 echo "> build 파일 복사"
-cp $REPOSITORY/build/*.jar $REPOSITORY
+cp $REPOSITORY/build/*.jar $REPOSITORY/
 
 echo "> 현재 실행중인 애플리케이션 pid 확인"
 CURRENT_PID=$(pgrep -fl backend | grep jar | awk '{pring $1}')
@@ -33,4 +33,4 @@ echo "> $JAR_NAME 실행"
 nohup java -jar \
         -Dspring.config.location=classpath:/application.yml \
         -Dspring.profiles.active=production \
-        $JAR_NAME > $DEPLOY_PATHnohup.out 2>&1 &
+        $JAR_NAME > $REPOSITORY/nohup.out 2>&1 &
