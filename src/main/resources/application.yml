@@ -190,9 +190,9 @@ spring:
       client:
         registration:
           blizzard:
-            client-id: 5a3fed373e524b9c837a5a5afbee9205
-            client-secret: K8W12zv26fUE8D5vldBq2cvwJ1Qa1n9g
-            redirect-uri: https://localhost:8443/login/oauth2/code/blizzard
+            client-id: c66e6eea5aca4886bba672ad32e5375c
+            client-secret: I2l9DfLZVohT9XZjJQ4L5QGyhEqa99sK
+            redirect-uri: http://www.hangbok-watch.com/login/oauth2/code/blizzard
             authorization-grant-type: authorization_code
             scope: openid
             client-name: Blizzard
