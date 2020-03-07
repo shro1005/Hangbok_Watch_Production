@@ -285,6 +285,8 @@ public class CrawlingPlayerDataService {
             Element progressData = competitiveDatas.selectFirst("div.progress-category");
             Elements playedHeros = progressData.select("div.ProgressBar-title");
 
+            log.debug("{} >>>>>>>> crawlingPlayerDetail 진행중 | 크롤링한 데이터에서 경쟁전 데이터 추출", sessionBattleTag);
+
 //            //competitiveDatas 추출
 //            file = new File(portraitPath + "competitiveData_html_"+playerListDto.getPlayerName()+".txt");
 //            try {
@@ -299,6 +301,8 @@ public class CrawlingPlayerDataService {
 //            }
 
             Long season = seasonRepository.selectSeason(new SimpleDateFormat("yyyyMMddHHmmss").format(System.currentTimeMillis()));
+            log.debug("{} >>>>>>>> crawlingPlayerDetail 진행중 | 현재 시즌 정보 추출 : {}", sessionBattleTag, season);
+
             playerDetailRepository.deletePlayerDetailsByIdAndSeason(playerListDto.getId(), season);
 
             log.debug("{} >>>>>>>> crawlingPlayerDetail 진행중 | {} 플레이한 영웅 : {}", sessionBattleTag, playerListDto.getBattleTag(), playedHeros.text());
