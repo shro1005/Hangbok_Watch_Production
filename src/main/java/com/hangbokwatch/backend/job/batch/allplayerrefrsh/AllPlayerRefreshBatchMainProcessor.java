@@ -58,12 +58,13 @@ public class AllPlayerRefreshBatchMainProcessor implements ItemProcessor<Player,
         Elements competitiveRole = rawData.select("div.competitive-rank-role");
         String tierUrl ="";
         String substrTier = "";
-
+        Integer tankRatingPoint = 0; Integer dealRatingPoint = 0; Integer healRatingPoint = 0;
         for (Element roleElement : competitiveRole) {
             Element roleIcon = roleElement.selectFirst("img[class=competitive-rank-role-icon]");
             if("https://static.playoverwatch.com/img/pages/career/icon-tank-8a52daaf01.png".equals(roleIcon.attr("src"))){
                 log.debug("{} >>>>>>>> playerDetailItemProcessor | {} 플레이어 탱커 탱커 및 티어 이미지 추출", JOB_NAME, player.getBattleTag());
-                player.setTankRatingPoint(Integer.parseInt(roleElement.text()));
+//                player.setTankRatingPoint(Integer.parseInt(roleElement.text()));
+                tankRatingPoint = Integer.parseInt(roleElement.text());
 
                 //탱커 티어 이미지 추출
                 Element tierIcon = roleElement.selectFirst("img[class=competitive-rank-tier-icon]");
@@ -76,7 +77,8 @@ public class AllPlayerRefreshBatchMainProcessor implements ItemProcessor<Player,
 
             }else if("https://static.playoverwatch.com/img/pages/career/icon-offense-6267addd52.png".equals(roleIcon.attr("src"))){
                 log.debug("{} >>>>>>>> playerDetailItemProcessor | {} 플레이어 딜러 탱커 및 티어 이미지 추출", JOB_NAME, player.getBattleTag());
-                player.setDealRatingPoint(Integer.parseInt(roleElement.text()));
+//                player.setDealRatingPoint(Integer.parseInt(roleElement.text()));
+                dealRatingPoint = Integer.parseInt(roleElement.text());
 
                 //딜러 티어 이미지 추출
                 Element tierIcon = roleElement.selectFirst("img[class=competitive-rank-tier-icon]");
@@ -89,7 +91,8 @@ public class AllPlayerRefreshBatchMainProcessor implements ItemProcessor<Player,
 
             }else if("https://static.playoverwatch.com/img/pages/career/icon-support-46311a4210.png".equals(roleIcon.attr("src"))){
                 log.debug("{} >>>>>>>> playerDetailItemProcessor | {} 플레이어 힐러 탱커 및 티어 이미지 추출", JOB_NAME, player.getBattleTag());
-                player.setHealRatingPoint(Integer.parseInt(roleElement.text()));
+//                player.setHealRatingPoint(Integer.parseInt(roleElement.text()));
+                healRatingPoint = Integer.parseInt(roleElement.text());
 
                 //힐러 티어 이미지 추출
                 Element tierIcon = roleElement.selectFirst("img[class=competitive-rank-tier-icon]");
@@ -102,6 +105,9 @@ public class AllPlayerRefreshBatchMainProcessor implements ItemProcessor<Player,
 
             }
         }
+        player.setTankRatingPoint(tankRatingPoint);
+        player.setDealRatingPoint(dealRatingPoint);
+        player.setHealRatingPoint(healRatingPoint);
 
         // 평균점수 측정
         int cnt = 3;

@@ -1,6 +1,7 @@
 package com.hangbokwatch.backend.controller;
 
 import com.hangbokwatch.backend.domain.Season;
+import com.hangbokwatch.backend.domain.hero.BanHero;
 import com.hangbokwatch.backend.dto.*;
 import com.hangbokwatch.backend.dto.auth.SessionUser;
 import com.hangbokwatch.backend.service.*;
@@ -103,7 +104,7 @@ public class WebRestController {
         return "Success";
     }
 
-    @PostMapping("/getFavoriteData")
+    @PostMapping("/myFavorite/getFavoriteData")
     public Map<String, Object> getFavoriteData() {
         Map<String, Object> sessionItems = sessionCheck();
         String sessionBattleTag = (String) sessionItems.get("sessionBattleTag");
@@ -123,7 +124,7 @@ public class WebRestController {
         return map;
     }
 
-    @PostMapping("/getRankingData")
+    @PostMapping("/ranking/getRankingData")
     public Map<String, Object> getRankingData() {
         Map<String, Object> sessionItems = sessionCheck();
         String sessionBattleTag = (String) sessionItems.get("sessionBattleTag");
@@ -151,7 +152,7 @@ public class WebRestController {
         return map;
     }
 
-    @PostMapping("/getRankerData")
+    @PostMapping("/ranking/getRankerData")
     public List<PlayerListDto> getRankerData(@RequestBody HashMap<String, Object> recvMap) {
         Map<String, Object> sessionItems = sessionCheck();
         String sessionBattleTag = (String) sessionItems.get("sessionBattleTag");
@@ -179,7 +180,7 @@ public class WebRestController {
         return rankerList;
     }
 
-    @PostMapping("/getSeasonData")
+    @PostMapping("/oNlYAdMIn/getSeasonData")
     public List<Season> getSeasonData() {
         Map<String, Object> sessionItems = sessionCheck();
         String sessionBattleTag = (String) sessionItems.get("sessionBattleTag");
@@ -194,7 +195,7 @@ public class WebRestController {
         return seasonList;
     }
 
-    @PostMapping("/saveSeasonData")
+    @PostMapping("/oNlYAdMIn/saveSeasonData")
     public SeasonDto saveSeassonData(@RequestBody HashMap<String, Object> recvMap) {
         Map<String, Object> sessionItems = sessionCheck();
         String sessionBattleTag = (String) sessionItems.get("sessionBattleTag");
@@ -213,7 +214,7 @@ public class WebRestController {
         return seasonDto;
     }
 
-    @PostMapping("/getJobData")
+    @PostMapping("/oNlYAdMIn/getJobData")
     public List<JobDto> getJobData() {
         Map<String, Object> sessionItems = sessionCheck();
         String sessionBattleTag = (String) sessionItems.get("sessionBattleTag");
@@ -228,7 +229,7 @@ public class WebRestController {
         return jobDtoList;
     }
 
-    @PostMapping("/resumeJob")
+    @PostMapping("/oNlYAdMIn/resumeJob")
     public JobDto resumeJob(@RequestBody HashMap<String, Object> recvMap) {
         Map<String, Object> sessionItems = sessionCheck();
         String sessionBattleTag = (String) sessionItems.get("sessionBattleTag");
@@ -243,6 +244,51 @@ public class WebRestController {
         log.info("===================================================================");
 
         return jobDto;
+    }
+
+    @PostMapping("/oNlYAdMIn/getBanHeroList")
+    public List<BanHero> getBanHeroList() {
+        Map<String, Object> sessionItems = sessionCheck();
+        String sessionBattleTag = (String) sessionItems.get("sessionBattleTag");
+
+        log.info("{} >>>>>>>> resumeJob 호출 | 관리자 화면에서 밴 영웅 조회 ", sessionBattleTag);
+
+        List<BanHero> banHeroList = mps.getBanHeroFromMgtServie(sessionItems);
+
+        log.info("{} >>>>>>>> resumeJob 호출 | 관리자 화면에서 밴 영웅 조회 완료", sessionBattleTag);
+        log.info("===================================================================");
+
+        return banHeroList;
+    }
+
+    @PostMapping("/oNlYAdMIn/saveBanHeroData")
+    public BanHero saveBanHeroData(@RequestBody HashMap<String, Object> recvMap) {
+        Map<String, Object> sessionItems = sessionCheck();
+        String sessionBattleTag = (String) sessionItems.get("sessionBattleTag");
+
+        log.info("{} >>>>>>>> saveSeassonData 호출 | 관리자 화면에서 시즌 정보 등록 및 수정 ", sessionBattleTag);
+
+        BanHero banHero = mps.saveBanHeroService(sessionItems, recvMap);
+
+        log.info("{} >>>>>>>> saveSeassonData 호출 | 시즌 정보 등록 및 수정 완료", sessionBattleTag);
+        log.info("===================================================================");
+
+        return banHero;
+    }
+
+    @PostMapping("/getBanHero")
+    public BanHeroDto getBanHero() {
+        Map<String, Object> sessionItems = sessionCheck();
+        String sessionBattleTag = (String) sessionItems.get("sessionBattleTag");
+
+        log.info("{} >>>>>>>> resumeJob 호출 | 초기 화면에서 밴 영웅 조회 ", sessionBattleTag);
+
+        BanHeroDto banHeroDto = mps.getBanHeroListService(sessionItems);
+
+        log.info("{} >>>>>>>> resumeJob 호출 | 초기 화면에서 밴 영웅 조회 완료", sessionBattleTag);
+        log.info("===================================================================");
+
+        return banHeroDto;
     }
 
     private Map<String, Object> sessionCheck() {

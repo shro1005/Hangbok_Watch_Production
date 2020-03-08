@@ -37,6 +37,18 @@
                 </a>
             </div>
         </div>
+        <div class = "ban-container">
+            <div class = "ban-hero">
+                <div class="row justify-content-center">
+                    <div class="col-md-12 heading-section text-center ftco-animate mb-5">
+                        <span class="subheading">금지 영웅 리스트</span>
+                    </div>
+                </div>
+                <div class="ban-hero-list">
+
+                </div>
+            </div>
+        </div>
 
         <section class="ftco-section goto-here">
             <div class="resultContainer-s">	<!--container-->
@@ -69,8 +81,6 @@
 
     {{!--=================== scripts content ======================--}}
     {{#*inline "scripts-blick"}}
-        <script src="/js/app/hangbok-home.js" charset="UTF-8"></script>
-
         <script id="player_list" type="text/x-handlebars-template" charset="UTF-8">
             <p class="grid-header"></p>
             <div class="row" id="search-result">
@@ -171,6 +181,45 @@
             </tr>
             \{{/players}}
         </script>
+
+        <script id="ban_hero_card" type="text/x-handlebars-template" charset="UTF-8">
+            \{{#hero}}
+            <div class="ban-col-3 tank-container">
+                <div class="rank-role">
+                    <img src="/HWimages/role/icon-tank-8a52daaf01.png">
+                </div>
+                <div class="rank-image">
+                    <img class="\{{heroNameTank}}-img hero-round-img" src="\{{srcTank}}" onerror="this.src = '/HWimages/hero/default.png';" alt=""></br>\{{heroNameKRTank}}
+                </div>
+            </div>
+            <div class="ban-col-3 deal-container">
+                <div class="rank-role">
+                    <img src="/HWimages/role/icon-offense-6267addd52.png">
+                </div>
+                <div class="rank-image">
+                    <img class="\{{heroNameDeal1}}-img hero-round-img" src="\{{srcDeal1}}" onerror="this.src = '/HWimages/hero/default.png';" alt=""></br>\{{heroNameKRDeal1}}
+                </div>
+            </div>
+            <div class="ban-col-3 deal-container">
+                <div class="rank-role">
+                    <img src="/HWimages/role/icon-offense-6267addd52.png">
+                </div>
+                <div class="rank-image">
+                    <img class="\{{heroNameDeal2}}-img hero-round-img" src="\{{srcDeal2}}" onerror="this.src = '/HWimages/hero/default.png';" alt=""></br>\{{heroNameKRDeal2}}
+                </div>
+            </div>
+            <div class="ban-col-3 heal-container">
+                <div class="rank-role">
+                    <img src="/HWimages/role/icon-support-46311a4210.png">
+                </div>
+                <div class="rank-image">
+                    <img class="\{{heroNameHeal}}-img hero-round-img" src="\{{srcHeal}}" onerror="this.src = '/HWimages/hero/default.png';" alt=""></br>\{{heroNameKRHeal}}
+                </div>
+            </div>
+            \{{/hero}}
+        </script>
+
+        <script src="/js/app/hangbok-home.js" charset="UTF-8"></script>
     {{/inline}}
 
 {{/layouts/base}}

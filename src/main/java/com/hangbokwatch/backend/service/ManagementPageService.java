@@ -3,9 +3,12 @@ package com.hangbokwatch.backend.service;
 import com.hangbokwatch.backend.dao.JobExecutionRepository;
 import com.hangbokwatch.backend.dao.JobInstanceRepository;
 import com.hangbokwatch.backend.dao.SeasonRepository;
+import com.hangbokwatch.backend.dao.hero.BanHeroRepository;
 import com.hangbokwatch.backend.domain.Season;
+import com.hangbokwatch.backend.domain.hero.BanHero;
 import com.hangbokwatch.backend.domain.job.JobExecution;
 import com.hangbokwatch.backend.domain.job.JobInstance;
+import com.hangbokwatch.backend.dto.BanHeroDto;
 import com.hangbokwatch.backend.dto.JobDto;
 import com.hangbokwatch.backend.dto.SeasonDto;
 import lombok.RequiredArgsConstructor;
@@ -44,6 +47,8 @@ public class ManagementPageService {
     JobInstanceRepository jobInstanceRepository;
     @Autowired
     JobExecutionRepository jobExecutionRepository;
+    @Autowired
+    BanHeroRepository banHeroRepository;
 
     private final HttpSession httpSession;
 
@@ -77,6 +82,81 @@ public class ManagementPageService {
         seasonDto.setIsSuccess("Y");
         log.info("{} >>>>>>>> saveSeasonData 종료 | 시즌 데이터 수정 or 등록 성공", sessionBattleTag);
         return seasonDto;
+    }
+
+    public BanHeroDto getBanHeroListService(Map<String, Object> sessionItems) {
+        String sessionBattleTag = (String) sessionItems.get("sessionBattleTag");
+
+        log.info("{} >>>>>>>> getBanHeroListService 호출 | 밴 영웅 리스트 조회", sessionBattleTag);
+        BanHeroDto banHeroDto = new BanHeroDto();
+
+        List<BanHero> banHeroList = banHeroRepository.findAllByUseYN("Y");
+
+        for (BanHero banHero : banHeroList) {
+            switch (banHero.getRole()) {
+                case "Tank":
+                    banHeroDto.setHeroNameTank(banHero.getHeroName());
+                    banHeroDto.setHeroNameKRTank(banHero.getHeroNameKR());
+                    break;
+                case "Deal1":
+                    banHeroDto.setHeroNameDeal1(banHero.getHeroName());
+                    banHeroDto.setHeroNameKRDeal1(banHero.getHeroNameKR());
+                    break;
+                case "Deal2":
+                    banHeroDto.setHeroNameDeal2(banHero.getHeroName());
+                    banHeroDto.setHeroNameKRDeal2(banHero.getHeroNameKR());
+                    break;
+                case "Heal":
+                    banHeroDto.setHeroNameHeal(banHero.getHeroName());
+                    banHeroDto.setHeroNameKRHeal(banHero.getHeroNameKR());
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        log.info("{} >>>>>>>> getBanHeroListService 종료 | 밴 영웅 리스트 조회 완료", sessionBattleTag);
+        return banHeroDto;
+    }
+
+    public BanHero saveBanHeroService(Map<String, Object> sessionItems, Map<String, Object> recvMap) {
+        String sessionBattleTag = (String) sessionItems.get("sessionBattleTag");
+
+        log.info("{} >>>>>>>> saveBanHeroService 호출 | 시즌 데이터 수정 or 등록 ", sessionBattleTag);
+
+        String role = (String) recvMap.get("role");
+        String heroNameKR = (String) recvMap.get("heroNameKR");
+        String heroName = (String) recvMap.get("heroName");
+        String startDate = (String) recvMap.get("startDate");
+        String endDate = (String) recvMap.get("endDate");
+        String useYN = (String) recvMap.get("useYN");
+
+        log.info("{} >>>>>>>> saveBanHeroService 호출 | 영웅 밴 정보 등록 및 수정 | role : {} , heroNameKR : {}, heroName : {}, startDate : {}, endDate : {} useYn : {}",
+                sessionBattleTag , role, heroNameKR, heroName, startDate, endDate, useYN);
+
+
+        BanHero banHero = new BanHero(role, heroName, heroNameKR, startDate, endDate,useYN);
+
+        try {
+            banHeroRepository.save(banHero);
+        }catch (Exception e) {
+            log.info("{} >>>>>>>> saveBanHeroService 종료 | 시즌 데이터 수정 or 등록 실패", sessionBattleTag);
+
+        }
+
+        log.info("{} >>>>>>>> saveBanHeroService 종료 | 시즌 데이터 수정 or 등록 성공", sessionBattleTag);
+        return banHero;
+    }
+
+    public List<BanHero> getBanHeroFromMgtServie(Map<String, Object> sessionItems) {
+        String sessionBattleTag = (String) sessionItems.get("sessionBattleTag");
+
+        log.info("{} >>>>>>>> getBanHeroFromMgtServie 호출 | 밴 영웅 리스트 조회", sessionBattleTag);
+
+        List<BanHero> banHeroList = banHeroRepository.findAllByUseYN("Y");
+
+        log.info("{} >>>>>>>> getBanHeroFromMgtServie 종료 | 밴 영웅 리스트 조회 완료", sessionBattleTag);
+        return banHeroList;
     }
 
     public List<JobDto> getJobDataInService(Map<String, Object> sessionItems) {

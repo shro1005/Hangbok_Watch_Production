@@ -41,7 +41,7 @@ const main = {
 
         $.ajax({
             type: 'POST',
-            url: '/getFavoriteData',
+            url: '/myFavorite/getFavoriteData',
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             async : false

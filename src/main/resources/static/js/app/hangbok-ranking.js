@@ -73,7 +73,7 @@ const getRankingData = () => {
 
     // 랭킹 목록에 들어갈 각 내용들 조회
     $.ajax({type: 'POST',
-        url: '/getRankingData',
+        url: '/ranking/getRankingData',
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         async : false
@@ -114,7 +114,7 @@ const getRankerData = (target, offset, limit) => {
 
     // 랭커 목록에 들어갈 각 내용들 조회
     $.ajax({type: 'POST',
-        url: '/getRankerData',
+        url: '/ranking/getRankerData',
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(input),

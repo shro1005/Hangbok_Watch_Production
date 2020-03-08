@@ -66,6 +66,8 @@ const main = {
         if(message != "") {
             alert(message);
         }
+
+        drawBanHero();
     },
     search : function (userInput) {
         // alert('main search 호출');
@@ -158,7 +160,6 @@ const main = {
         $('input[id="playerName"]').val("");
     }
 };
-main.init();
 
 function initPlayers(template) {
     $(".not-fount-base").remove();
@@ -254,3 +255,43 @@ function drawList(data) {
     dealRatingImg: data.dealRatingImg, healRatingImg: data.healRatingImg, wingame: data.winGame, losegame: data.loseGame, udtDtm: data.udtDtm};
 }
 
+function drawBanHero() {
+    // console.log("drawBanHero 호출");
+    let items = {
+        hero: []
+    };
+
+    $.ajax({
+        type: 'POST',
+        url: '/getBanHero',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        async : false
+    }).done(function (datas) {
+        console.log(datas);
+        if(datas.length != 0) {
+            items.hero.push({
+                heroNameTank: datas.heroNameTank,
+                srcTank: "/HWimages/hero/" + datas.heroNameTank + "_s.png",
+                heroNameKRTank: datas.heroNameKRTank,
+                heroNameDeal1: datas.heroNameDeal1,
+                srcDeal1: "/HWimages/hero/" + datas.heroNameDeal1 + "_s.png",
+                heroNameKRDeal1: datas.heroNameKRDeal1,
+                heroNameDeal2: datas.heroNameDeal2,
+                srcDeal2: "/HWimages/hero/" + datas.heroNameDeal2 + "_s.png",
+                heroNameKRDeal2: datas.heroNameKRDeal2,
+                heroNameHeal: datas.heroNameHeal,
+                srcHeal: "/HWimages/hero/" + datas.heroNameHeal + "_s.png",
+                heroNameKRHeal: datas.heroNameKRHeal
+            });
+            let ban_list = $("#ban_hero_card").html();
+            console.log(ban_list);
+            let template = Handlebars.compile(ban_list);
+
+            const ban_hero_card = template(items);
+            $('.ban-hero-list').append(ban_hero_card);
+        }
+    });
+}
+
+main.init();
