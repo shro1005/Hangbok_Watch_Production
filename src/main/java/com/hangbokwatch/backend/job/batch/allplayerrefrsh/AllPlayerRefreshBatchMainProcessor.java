@@ -59,6 +59,9 @@ public class AllPlayerRefreshBatchMainProcessor implements ItemProcessor<Player,
         String tierUrl ="";
         String substrTier = "";
         Integer tankRatingPoint = 0; Integer dealRatingPoint = 0; Integer healRatingPoint = 0;
+        String tankRatingTierImg = "/HWimages/tier/default.png";
+        String dealRatingTierImg = "/HWimages/tier/default.png";
+        String healRatingTierImg = "/HWimages/tier/default.png";
         for (Element roleElement : competitiveRole) {
             Element roleIcon = roleElement.selectFirst("img[class=competitive-rank-role-icon]");
             if("https://static.playoverwatch.com/img/pages/career/icon-tank-8a52daaf01.png".equals(roleIcon.attr("src"))){
@@ -73,7 +76,8 @@ public class AllPlayerRefreshBatchMainProcessor implements ItemProcessor<Player,
 
                 //탱커 티어 이미지 저장
                 tierUrl = saveImg(tierUrl, substrTier, "tier");
-                player.setTankRatingImg(tierUrl);
+                tankRatingTierImg = tierUrl;
+//                player.setTankRatingImg(tierUrl);
 
             }else if("https://static.playoverwatch.com/img/pages/career/icon-offense-6267addd52.png".equals(roleIcon.attr("src"))){
                 log.debug("{} >>>>>>>> playerDetailItemProcessor | {} 플레이어 딜러 탱커 및 티어 이미지 추출", JOB_NAME, player.getBattleTag());
@@ -87,7 +91,8 @@ public class AllPlayerRefreshBatchMainProcessor implements ItemProcessor<Player,
 
                 //딜러 티어 이미지 저장
                 tierUrl = saveImg(tierUrl, substrTier, "tier");
-                player.setDealRatingImg(tierUrl);
+                dealRatingTierImg = tierUrl;
+//                player.setDealRatingImg(tierUrl);
 
             }else if("https://static.playoverwatch.com/img/pages/career/icon-support-46311a4210.png".equals(roleIcon.attr("src"))){
                 log.debug("{} >>>>>>>> playerDetailItemProcessor | {} 플레이어 힐러 탱커 및 티어 이미지 추출", JOB_NAME, player.getBattleTag());
@@ -101,13 +106,17 @@ public class AllPlayerRefreshBatchMainProcessor implements ItemProcessor<Player,
 
                 //힐러 티어 이미지 저장
                 tierUrl = saveImg(tierUrl, substrTier, "tier");
-                player.setHealRatingImg(tierUrl);
+                healRatingTierImg = tierUrl;
+//                player.setHealRatingImg(tierUrl);
 
             }
         }
         player.setTankRatingPoint(tankRatingPoint);
         player.setDealRatingPoint(dealRatingPoint);
         player.setHealRatingPoint(healRatingPoint);
+        player.setTankRatingImg(tankRatingTierImg);
+        player.setDealRatingImg(dealRatingTierImg);
+        player.setHealRatingImg(healRatingTierImg);
 
         // 평균점수 측정
         int cnt = 3;
