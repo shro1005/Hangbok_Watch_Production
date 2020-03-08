@@ -214,6 +214,9 @@ public class AllPlayerRefreshBatchMainProcessor implements ItemProcessor<Player,
 
         // 플레이어 전체 승수 및 패배수
         heroDetailParsing(competitiveDetailDto, playerDetailList, player, null, competitiveDatas,"0x02E00000FFFFFFFF", "");
+        player.setTankWinGame(tankWinGame); player.setTankLoseGame(tankLoseGame);
+        player.setDealWinGame(dealWinGame); player.setDealLoseGame(dealLoseGame);
+        player.setHealWinGame(healWinGame); player.setHealLoseGame(healLoseGame);
 
         log.debug("{} >>>>>>>> playerDetailItemProcessor | {} 플레이어 ({}) >>> player객체 JopParameter에 저장", JOB_NAME , player.getBattleTag(), player.getId());
 
