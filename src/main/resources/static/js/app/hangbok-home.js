@@ -268,7 +268,7 @@ function drawBanHero() {
         contentType: 'application/json; charset=utf-8',
         async : false
     }).done(function (datas) {
-        console.log(datas);
+        // console.log(datas);
         if(datas.length != 0) {
             items.hero.push({
                 heroNameTank: datas.heroNameTank,
@@ -285,7 +285,7 @@ function drawBanHero() {
                 heroNameKRHeal: datas.heroNameKRHeal
             });
             let ban_list = $("#ban_hero_card").html();
-            console.log(ban_list);
+            // console.log(ban_list);
             let template = Handlebars.compile(ban_list);
 
             const ban_hero_card = template(items);

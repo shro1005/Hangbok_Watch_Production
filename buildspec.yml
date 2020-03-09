@@ -16,6 +16,7 @@ artifacts:
     - appspec.yml
     - build/libs/*.jar
     - scripts/**
+    - HangbokWatch_Resource/HWimages/util
   discard-paths: yes
 
 cache:

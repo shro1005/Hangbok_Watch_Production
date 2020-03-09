@@ -10440,3 +10440,32 @@ a:hover {
   width: 100%;
 }
 
+.info {
+  display: flex;
+  border-bottom: 1px solid #1f253d;
+  padding-bottom: 10px;
+}
+
+.info-img-box{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.info-text-box{
+  padding-left: 10px;
+  font-size: 12px;
+  color: wheat;
+}
+
+.info-text-box-inrankingpage{
+  padding-left: 10px;
+  font-size: 12px;
+  color: black;
+}
+
+.info-text-box-inindexpage{
+  padding-left: 10px;
+  font-size: 14px;
+  color: black;
+}

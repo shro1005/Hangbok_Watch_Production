@@ -358,9 +358,9 @@ const setContainerHeight = () => {
     let first_row_left = 0;
     let second_row_left = 0;
     let third_row_left = 0;
-    let first_row_height = 0;
-    let second_row_height = 0;
-    let third_row_height = 0;
+    let first_row_height = 60;
+    let second_row_height = 60;
+    let third_row_height = 60;
 
     if(window_width >= 1200) {
         second_row_left = resultContainer_width/3;
