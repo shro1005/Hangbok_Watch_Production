@@ -1,0 +1,138 @@
+{{!-- index page => mobile-search.hbs --}}
+
+{{#> layouts/mobile-base}}
+{{!--=================== head content ======================--}}
+
+{{!--=================== Main content ======================--}}
+    {{#*inline "content-block"}}
+        <input type="hidden" class="fromDetail" style="display: none" id="{{isFromDetail}}" value="{{userInput}}" >
+        <input type="hidden" class="messsage" value="{{messageFromServer}}">
+        <div class="mb-hero-wrap ftco-degree-bg" style="background-color: #ffffff;">
+            <div class="main-img-box"><img class="main-img" src="/HWimages/util/bg_11.jpg"></div>
+            <div class="overlay-top"></div>
+            <div class="overlay-bot"></div>
+            <div class="overlay-left"></div>
+            <div class="overlay-right"></div>
+            <div class="container">
+                <div class="row justify-content-center mb-align-items-center no-gutters mb-slider-text">
+                    <div class="col-md-11 ftco-animate pb-5 text-center">   <!--class="col-lg-8 col-md-6 ftco-animate text-center"-->
+                        <div class="text text-center" style="font-size: 18px; color: #0b0b0b;">
+                            <form action="#" class="mb-search-location mt-md-5">
+                                <div class="row justify-content-center">
+                                    <div class="col-lg-10 align-items-end">
+                                        <div class="mb-form-group">
+                                            <div class="form-field">
+                                                <input type="text" id="playerName" class="form-control" placeholder=" 오버워치 플레이어 검색">
+                                                <button type="button" id="btn-search"><span class="ion-ios-search"></span></button>  <!---->
+                                            </div>
+                                        </div>
+                                        <div class="mb-info">
+                                            <div class="mb-info-img-box">
+                                                <img class="mb-info-img" src="/HWimages/util/info.png">
+                                            </div>
+                                            <div class="mb-info-text-box-inindexpage">
+                                                &emsp;&nbsp;- 최초 검색시 반드시 배틀태그#0000 로 입력해 주시기 바랍니다.<br>
+                                                - 배틀태그 확인은 블리자드 공식 홈페이지에서 할 수 있습니다.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class = "mb-container-first2">
+            <div class = "col-md-11 mb-inline-block-box">
+                <div class="row player-list-container">
+
+                </div>
+                <div class="mb-more-button">
+
+                </div>
+            </div>
+        </div>
+        <div class="empty-div" style="height: 150px;">
+
+        </div>
+
+    {{/inline}}
+
+    {{!--=================== scripts content ======================--}}
+    {{#*inline "scripts-blick"}}
+        <script id="player_list" type="text/x-handlebars-template" charset="UTF-8">
+            <table class="table table-hover">
+                <thead>
+                <tr class="mb-tr">
+                    <th>플레이어</th>
+                    <th>돌격</th>
+                    <th>공격</th>
+                    <th>지원</th>
+                    <th>승률</th>
+                </tr>
+                </thead>
+                <tbody class="tbody">
+                \{{#players}}
+                <tr>
+                    <td class="align-items-left" href="javascript:void(0);" onclick="playerDetail(this); return false;" attr-p="\{{isPublic}}" attr-u="\{{forUrl}}" style="cursor: pointer; text-align: left; display: flex;">
+                        <img class="mb-profile-img mr-2" src="\{{portrait}}" onerror="this.src = '/HWimages/portrait/default.png';" alt="">
+                        <div class="mb-player-name" title="\{{battleTag}}"> \{{battleTag}} <br><div class="mb-player-level-inlist">Lv. \{{playerLevel}}</div></div>
+                    </td>
+                    <td href="javascript:void(0);" onclick="playerDetail(this); return false;" attr-p="\{{isPublic}}" attr-u="\{{forUrl}}" style="cursor: pointer">
+                        <img class="mb-player-tier" src="\{{tankRatingImg}}" onerror="this.src = '/HWimages/tier/default.png';" alt="">
+                        <div class="mb-rank-point">\{{tankRatingPoint}}</div>
+                    </td>
+                    <td href="javascript:void(0);" onclick="playerDetail(this); return false;" attr-p="\{{isPublic}}" attr-u="\{{forUrl}}" style="cursor: pointer">
+                        <img class="mb-player-tier" src="\{{dealRatingImg}}" onerror="this.src = '/HWimages/tier/default.png';" alt="">
+                        <div class="mb-rank-point">\{{dealRatingPoint}}</div>
+                    </td>
+                    <td href="javascript:void(0);" onclick="playerDetail(this); return false;" attr-p="\{{isPublic}}" attr-u="\{{forUrl}}" style="cursor: pointer">
+                        <img class="mb-player-tier" src="\{{healRatingImg}}" onerror="this.src = '/HWimages/tier/default.png';" alt="">
+                        <div class="mb-rank-point">\{{healRatingPoint}}</div>
+                    </td>
+                    <td class="mb-progress" href="javascript:void(0);" onclick="playerDetail(this); return false;" attr-p="\{{isPublic}}" attr-u="\{{forUrl}}" style="cursor: pointer">
+                        <div class="progress progress-slim">
+                            <div class="progress-bar bg-info progress-bar-striped" role="progressbar" style="width: \{{winRate}}%" aria-valuenow="\{{winRate}}" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <div class="mb-player-winlose"><div class="wingame">W\{{wingame}}</div><div class="losegame">L\{{losegame}}</div></div>
+                    </td>
+                </tr>
+                \{{/players}}
+                </tbody>
+            </table>
+        </script>
+
+        <script id="more_player_list" type="text/x-handlebars-template" charset="UTF-8">
+            \{{#players}}
+            <tr>
+                <td class="align-items-left" href="javascript:void(0);" onclick="playerDetail(this); return false;" attr-p="\{{isPublic}}" attr-u="\{{forUrl}}" style="cursor: pointer; text-align: left; display: flex;">
+                    <img class="mb-profile-img mr-2" src="\{{portrait}}" onerror="this.src = '/HWimages/portrait/default.png';" alt="">
+                    <div class="mb-player-name" title="\{{battleTag}}"> \{{battleTag}} <br><div class="mb-player-level-inlist">Lv. \{{playerLevel}}</div></div>
+                </td>
+                <td href="javascript:void(0);" onclick="playerDetail(this); return false;" attr-p="\{{isPublic}}" attr-u="\{{forUrl}}" style="cursor: pointer">
+                    <img class="mb-player-tier" src="\{{tankRatingImg}}" onerror="this.src = '/HWimages/tier/default.png';" alt="">
+                    <div class="mb-rank-point">\{{tankRatingPoint}}</div>
+                </td>
+                <td href="javascript:void(0);" onclick="playerDetail(this); return false;" attr-p="\{{isPublic}}" attr-u="\{{forUrl}}" style="cursor: pointer">
+                    <img class="mb-player-tier" src="\{{dealRatingImg}}" onerror="this.src = '/HWimages/tier/default.png';" alt="">
+                    <div class="mb-rank-point">\{{dealRatingPoint}}</div>
+                </td>
+                <td href="javascript:void(0);" onclick="playerDetail(this); return false;" attr-p="\{{isPublic}}" attr-u="\{{forUrl}}" style="cursor: pointer">
+                    <img class="mb-player-tier" src="\{{healRatingImg}}" onerror="this.src = '/HWimages/tier/default.png';" alt="">
+                    <div class="mb-rank-point">\{{healRatingPoint}}</div>
+                </td>
+                <td class="mb-progress" href="javascript:void(0);" onclick="playerDetail(this); return false;" attr-p="\{{isPublic}}" attr-u="\{{forUrl}}" style="cursor: pointer">
+                    <div class="progress progress-slim">
+                        <div class="progress-bar bg-info progress-bar-striped" role="progressbar" style="width: \{{winRate}}%" aria-valuenow="\{{winRate}}" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <div class="mb-player-winlose"><div class="wingame">W\{{wingame}}</div><div class="losegame">L\{{losegame}}</div></div>
+                </td>
+            </tr>
+            \{{/players}}
+        </script>
+
+        <script src="/js/mobile/mobile-search.js" charset="UTF-8"></script>
+    {{/inline}}
+
+{{/layouts/mobile-base}}

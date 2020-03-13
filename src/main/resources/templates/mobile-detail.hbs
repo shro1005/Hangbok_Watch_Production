@@ -1,0 +1,216 @@
+{{!-- playerDeatil page => playerDetail.hbs --}}
+
+{{#> layouts/mobile-base}}
+{{!--=================== head content ======================--}}
+    {{#*inline "head-block"}}
+        <link rel="stylesheet" href="/fonts/iconfonts/mdi/css/materialdesignicons.css">
+    {{/inline}}
+
+    {{!--=================== Main content ======================--}}
+    {{#*inline "content-block"}}
+        <div class = "mb-container-first2">
+            <div class = "col-md-12 mb-inline-block-box">
+<!--                <div class="row player-detail-container">-->
+
+<!--                </div>-->
+                <div class="profile"> <!-- PROFILE (MIDDLE-CONTAINER) -->
+                    <div class="row mb-inside-block">
+                        <div class="col-md-5 clear">
+                            <input type="hidden" class="message" value="{{messageFromServer}}">
+                            <img class="mb-player-portrait" src="{{player.portrait}}" onerror="this.src = '/HWimages/portrait/default.png';" alt="" >
+                            <div class="cover-player-level"><div class="mb-player-level" style="width: fit-content; display: inline-block; padding: 0 15px 0 15px;">LV. {{player.playerLevel}}</div></div>
+                            <div class="mb-user-name in-detail-profile" id="{{player.id}}">{{player.playerName}} </div>
+                            <div class="mb-tag">{{tag}}</div>
+                            <div class="profile-buttons">
+                                <button class="btn mb-action-btn btn-refresh mb-btn-outline-primary btn-rounded component-flat">
+                                    <i class="mdi mdi-autorenew"></i>
+                                </button>
+
+
+                            </div>
+                        </div>
+
+                        <div class="col-md-7 mb-profile-details">
+                            <!-- js로 영웅 경쟁전 프로필 채워 넣는 부분 -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class = "mb-container">
+            <div class = "mb-inline-block-box">
+                <div class="trendline"> <!-- TRENDLINE  -->
+                    <div class="mb-inside-block2">
+                        <div class="trendline-body">
+                            <!-- js로 추세선 채워 넣는 부분 -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class = "mb-container">
+            <div class = "mb-inline-block-box">
+                <div class="row justify-content-center">
+                    <div class="mb-col-2 menu-box"> <!-- MENU BOX (LEFT-CONTAINER) -->
+                        <div class="mb-inside-block2" style="padding-left: 25px;">
+                            <ul class="mb-menu-box-menu">
+                                <!-- js로 영웅 목록 li 채워 넣는 부분 -->
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="mb-col-10 detail-box"> <!-- DETAIL BOX  -->
+                        <div class="mb-inside-block2 detail" style="padding-right: 25px;">
+                            <!-- js로 영웅별 상세 데이터 채워 넣는 부분-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="empty-div" style="height: 150px;">
+
+        </div>
+    {{/inline}}
+
+    {{!--=================== scripts content ======================--}}
+    {{#*inline "scripts-blick"}}
+        <script src="/js/Chart.min.js"></script>
+        <script src="/js/chartjs.addon.js"></script>
+        <script src="/js/moment.min.js"></script>
+        <script src="/js/moment-with-locales.min.js"></script>
+
+        <script id="favorite-button-check" type="text/x-handlebars-template">
+            \{{#isLike}}
+            <button class="btn mb-action-btn btn-like mb-btn-outline-danger btn-rounded clicked">
+                <i class="mdi mdi-heart"></i>
+            </button>
+            \{{else}}
+            <button class="btn mb-action-btn btn-like mb-btn-outline-danger btn-rounded">
+                <i class="mdi mdi-heart-outline"></i>
+            </button>
+            \{{/isLike}}
+        </script>
+
+        <script id="competitive-points" type="text/x-handlebars-template">
+            \{{#roles}}
+            <div class="mb-col-4 \{{role}} mb-border">
+                <div class="mb-rank-role">
+                    <img class="mb-role-img" src="\{{roleImgPath}}">
+                </div>
+                <div class="mb-rank-image">
+                    <img src="\{{rankImgPath}}" onerror="this.src ='/HWimages/tier/default.png';" alt=""></br>\{{rankPoint}}
+                </div>
+                <div class="col-12">
+                    <div class="mb-progress-container" id="\{{wingame}}/\{{losegame}}"></div>
+                    <div class="mb-winlose"><div class="wingame">W\{{wingame}}</div><div class="losegame">L\{{losegame}}</div></div>
+                </div>
+            </div>
+            \{{/roles}}
+        </script>
+
+        <script id="hero-list" type="text/x-handlebars-template">
+            \{{#heros}}
+            <li>
+                <a class="mb-menu-box-tab" id="order-\{{order}}" href="\{{detail}};">
+                    <img class="\{{heroName}}-img mb-hero-round-img2" src="\{{src}}" onerror="this.src = '/HWimages/hero/default.png';" alt="">
+                </a>
+            </li>
+            \{{/heros}}
+        </script>
+
+        <script id="hero-detail" type="text/x-handlebars-template">
+            \{{#detail}}
+            <div class="mb-titular detail-header">
+                <div class="mb-left-side"><p>\{{heroNameKR}}</p></div>
+                <div class="mb-right-side">
+                    <div class="mb-detail-header-text"><div class="detail-content"><div class="title">K/D</div><div class="content">\{{killPerDeath}}</div></div></div>
+                    <div class="mb-detail-header-text"><div class="detail-content"><div class="title">승률</div><div class="content">\{{winRate}}</div></div></div>
+                    <div class="mb-detail-header-text"><div class="detail-content"><div class="title">평균 폭주</div><div class="content">\{{spentOnFireAvg}}</div></div></div>
+                    <div class="mb-detail-header-text"><div class="detail-content"><div class="title">플레이시간</div><div class="content">\{{playTime}}</div></div></div>
+                </div>
+            </div>
+            <div class="detail-body">
+                <div class="index-chart">
+                    <div class="mb-info-detail" style="margin-top : 0; font-size: 25px;">
+                        <div class="mb-info-img-box">
+                            <img class="mb-info-img" src="/HWimages/util/info.png">
+                        </div>
+                        <div class="mb-info-text-box-detail" style="text-align: left;">
+                             배치중의 경우 속한 티어 평균이 보이지 않습니다.
+                            <br>  상위권 평균은 그마 평균으로 그마 유저는 두 지표가 같습니다.
+                            <br>  평균의 경우 10분당 평균을 의미합니다.
+                        </div>
+                    </div>
+
+                    <canvas id="chartjs-radar-chart" width="100%" height="100%" style="margin-top: 15px;"></canvas>
+                </div>
+                <div class="row index-text">
+
+                </div>
+            </div>
+            \{{/detail}}
+        </script>
+
+        <script id="detail-text" type="text/x-handlebars-template">
+            \{{#detailText}}
+            <div class="col-md-6 mb-index-border">
+                <div class="mb-index-title">\{{title}}</div>
+                <div class="mb-index">\{{index}}</div>
+            </div>
+            \{{/detailText}}
+        </script>
+
+        <script id="trendline-body" type="text/x-handlebars-template">
+            \{{#role}}
+            <div class="mb-\{{role}}-trendline">
+                <div class="mb-\{{role}}-trendline-color mb-rank-role2"><img class="mb-role-img" src="\{{roleImgPath}}"></div>
+                <canvas id="\{{role}}-trendline-chart" style="display:block; width:100vw; height: 230px;"></canvas>
+            </div>
+            \{{/role}}
+            <!--    <div style="height: 10px;"></div>-->
+        </script>
+
+        <script type="text/javascript">
+
+            const competitive_points = $("#competitive-points").html();
+            const template = Handlebars.compile(competitive_points);
+
+
+            let ratingPoint = ["{{player.tankRatingPoint}}","{{player.dealRatingPoint}}", "{{player.healRatingPoint}}"];
+            $.each(ratingPoint, function (i, point) {
+                if(point == "0") {ratingPoint[i] = "배치중";}
+            });
+
+            const data = {
+                roles:[
+                    {role: "tank-container", roleImgPath: "/HWimages/role/icon-tank-8a52daaf01.png", rankImgPath: "{{player.tankRatingImg}}", rankPoint: ratingPoint[0], wingame: "{{player.tankWinGame}}", losegame: "{{player.tankLoseGame}}"},
+                    {role: "deal-container", roleImgPath: "/HWimages/role/icon-offense-6267addd52.png", rankImgPath: "{{player.dealRatingImg}}", rankPoint: ratingPoint[1], wingame: "{{player.dealWinGame}}", losegame: "{{player.dealLoseGame}}"},
+                    {role: "heal-container", roleImgPath: "/HWimages/role/icon-support-46311a4210.png", rankImgPath: "{{player.healRatingImg}}", rankPoint: ratingPoint[2], wingame: "{{player.healWinGame}}", losegame: "{{player.healLoseGame}}"}
+                ]
+            };
+            const item = template(data);
+            $('.mb-profile-details').append(item);
+
+            Handlebars.registerHelper('isLike',function (options) {
+                <!--console.log('즐겨찾기 여부 : {{favorite}}');-->
+                const like_or_not = '{{favorite}}';
+                if(like_or_not === 'Y') {
+                    return options.fn(this);
+                }else {
+                    return options.inverse(this);
+                }
+            });
+
+            const favorite_button_check = $("#favorite-button-check").html();
+            const template_favorite_button = Handlebars.compile(favorite_button_check);
+            const favorite_button = template_favorite_button();
+            $('.profile-buttons').append(favorite_button);
+        </script>
+
+        <script src="/js/mobile/mobile-detail.js"></script>
+    {{/inline}}
+
+{{/layouts/mobile-base}}

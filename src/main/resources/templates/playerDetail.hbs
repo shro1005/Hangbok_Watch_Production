@@ -210,7 +210,7 @@
             $('.profile-details').append(item);
 
             Handlebars.registerHelper('isLike',function (options) {
-                console.log('즐겨찾기 여부 : {{favorite}}');
+                <!--console.log('즐겨찾기 여부 : {{favorite}}');-->
                 const like_or_not = '{{favorite}}';
                 if(like_or_not === 'Y') {
                     return options.fn(this);

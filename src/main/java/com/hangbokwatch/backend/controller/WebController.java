@@ -8,12 +8,15 @@ import com.hangbokwatch.backend.service.ShowPlayerDetailService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mobile.device.Device;
+import org.springframework.mobile.device.DeviceUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
@@ -31,22 +34,38 @@ public class WebController {
     private final HttpSession httpSession;
 
     @GetMapping("/")
-    public String goToIndexView(Model model) {
+    public String goToIndexView(Model model, Device device) {
+
+        Map<String, Object> sessionItems = sessionCheck(model);
+        String sessionBattleTag = (String) sessionItems.get("sessionBattleTag");
+
+        String result = "index";
+        if(device.isMobile()) {
+            result = "mobile-" + result;
+        }
+
+        log.info("{} >>>>>>>> goToIndexView 호출 | 검색 화면으로 이동", sessionBattleTag);
+        return result;
+    }
+
+    @GetMapping("/mobile")
+    public String goToMobiileIndexView(Model model) {
         Map<String, Object> sessionItems = sessionCheck(model);
         String sessionBattleTag = (String) sessionItems.get("sessionBattleTag");
         log.info("{} >>>>>>>> goToIndexView 호출 | 검색 화면으로 이동", sessionBattleTag);
 
-        return "index";
+        return "mobile-index";
     }
 
     @GetMapping("/showPlayerDetail/{forUrl}")
-    public String showPlayerDetail(@PathVariable String forUrl, Model model) {
+    public String showPlayerDetail(@PathVariable String forUrl, Model model, Device device) {
         Map<String, Object> sessionItems = sessionCheck(model);
         String sessionBattleTag = (String) sessionItems.get("sessionBattleTag");
 
         log.info("{} >>>>>>>> showPlayerDetail 호출 | 조회 url : {}", sessionBattleTag, forUrl);
         CompetitiveDetailDto cdDto = spd.showPlayerDetailService(forUrl, sessionItems);
         String returnUrl = "playerDetail";
+
         if(cdDto.getPlayer() != null) {
             String battleTag = cdDto.getPlayer().getBattleTag();
             String tag = battleTag.substring(battleTag.indexOf("#"));
@@ -58,6 +77,10 @@ public class WebController {
             model.addAttribute("favorite", cdDto.getFavorite());
             model.addAttribute("messageFromServer", cdDto.getMessage());
 //            log.info("like or not : " + cdDto.getFavorite());
+
+            if(device.isMobile()) {
+                returnUrl = "mobile-detail";
+            }
         }else {
 
             model.addAttribute("messageFromServer", cdDto.getMessage());
@@ -66,7 +89,12 @@ public class WebController {
 
             returnUrl = "index";
 
+            if(device.isMobile()) {
+                returnUrl = "mobile-index";
+            }
+
         }
+
         log.info("{} >>>>>>>> showPlayerDetail 종료 | {}.html 화면 이동", sessionBattleTag, returnUrl);
         log.info("===================================================================");
 
@@ -74,7 +102,7 @@ public class WebController {
     }
 
     @GetMapping("/search/{userInput}")
-    public String search(@PathVariable String userInput, Model model) {
+    public String search(@PathVariable String userInput, Model model, Device device) {
         Map<String, Object> sessionItems = sessionCheck(model);
         String sessionBattleTag = (String) sessionItems.get("sessionBattleTag");
 
@@ -84,13 +112,20 @@ public class WebController {
         }
         model.addAttribute("isFromDetail", "Y");
         model.addAttribute("userInput", userInput);
-        log.info("{} >>>>>>>> search 종료 | index.html 화면 이동", sessionBattleTag);
+
+        String result = "index";
+
+        if(device.isMobile()) {
+            result = "mobile-search";
+        }
+
+        log.info("{} >>>>>>>> search 종료 | {}.html 화면 이동", sessionBattleTag, result);
         log.info("===================================================================");
-        return "index";
+        return result;
     }
 
     @GetMapping("/refreshPlayerDetail/{forUrl}")
-    public String refreshPlayerDetail(@PathVariable String forUrl, Model model) {
+    public String refreshPlayerDetail(@PathVariable String forUrl, Model model, Device device) {
         Map<String, Object> sessionItems = sessionCheck(model);
         String sessionBattleTag = (String) sessionItems.get("sessionBattleTag");
 
@@ -106,6 +141,10 @@ public class WebController {
             //model.addAttribute("playerDetails", cdDto.getPlayerDetailList());
             model.addAttribute("favorite", cdDto.getFavorite());
             model.addAttribute("messageFromServer", cdDto.getMessage());
+
+            if(device.isMobile()) {
+                returnUrl = "mobile-detail";
+            }
 
         }else {
 

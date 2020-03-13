@@ -8,6 +8,9 @@ spring:
 spring:
   profiles: local
 #    include: oauth
+  mobile:
+    devicedelegatingviewresolver:
+      enabled: true
   datasource:
     hikari:
       jdbc-url: jdbc:postgresql://hangbok-watch-db.c6shpgnskepj.ap-northeast-2.rds.amazonaws.com:5432/hangbokwatch

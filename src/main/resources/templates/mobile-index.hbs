@@ -1,0 +1,171 @@
+{{!-- index page => index.hbs --}}
+
+{{#> layouts/mobile-base}}
+{{!--=================== head content ======================--}}
+
+{{!--=================== Main content ======================--}}
+    {{#*inline "content-block"}}
+        <input type="hidden" class="fromDetail" style="display: none" id="{{isFromDetail}}" value="{{userInput}}" >
+        <input type="hidden" class="messsage" value="{{messageFromServer}}">
+        <div class="mb-hero-wrap ftco-degree-bg" style="background-color: #ffffff;">
+            <div class="main-img-box"><img class="main-img" src="/HWimages/util/bg_11.jpg"></div>
+            <div class="overlay-top"></div>
+            <div class="overlay-bot"></div>
+            <div class="overlay-left"></div>
+            <div class="overlay-right"></div>
+            <div class="container">
+                <div class="row justify-content-center mb-align-items-center no-gutters mb-slider-text">
+                    <div class="col-md-11 ftco-animate pb-5 text-center">   <!--class="col-lg-8 col-md-6 ftco-animate text-center"-->
+                        <div class="text text-center" style="font-size: 18px; color: #0b0b0b;">
+                            <form action="#" class="mb-search-location mt-md-5">
+                                <div class="row justify-content-center">
+                                    <div class="col-lg-10 align-items-end">
+                                        <div class="mb-form-group">
+                                            <div class="form-field">
+                                                <input type="text" id="playerName" class="form-control" placeholder=" 오버워치 플레이어 검색">
+                                                <button type="button" id="btn-search"><span class="ion-ios-search"></span></button>  <!---->
+                                            </div>
+                                        </div>
+                                        <div class="mb-info">
+                                            <div class="mb-info-img-box">
+                                                <img class="mb-info-img" src="/HWimages/util/info.png">
+                                            </div>
+                                            <div class="mb-info-text-box-inindexpage">
+                                                &emsp;&nbsp;- 최초 검색시 반드시 배틀태그#0000 로 입력해 주시기 바랍니다.<br>
+                                                - 배틀태그 확인은 블리자드 공식 홈페이지에서 할 수 있습니다.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class = "mb-container-first">
+            <div class = "col-md-11 mb-inline-block-box">
+                <div class="row justify-content-center">
+                    <div class="col-md-12 heading-section text-center ftco-animate mb-5">
+                        <span class="mb-subheading">금지 영웅 리스트</span>
+                    </div>
+                </div>
+                <div class="row ban-hero-list">
+
+                </div>
+            </div>
+        </div>
+        <div class = "mb-container">
+            <div class = "col-md-11 mb-inline-block-box">
+                <div class="row justify-content-center">
+                    <div class="col-md-12 heading-section text-center ftco-animate mb-5">
+                        <span class="mb-subheading">즐겨찾기</span>
+                    </div>
+                </div>
+                <div class="row mb-favorite-player-list-container">
+
+                </div>
+                <div class="mb-favorite-player-list-container-more-button">
+
+                </div>
+            </div>
+        </div>
+        <div class="empty-div" style="height: 150px;">
+
+        </div>
+
+    {{/inline}}
+
+    {{!--=================== scripts content ======================--}}
+    {{#*inline "scripts-blick"}}
+        <script id="favorite_list" type="text/x-handlebars-template" charset="UTF-8">
+            \{{#favorites}}
+            <div class="mb-col-4 fav-card mb-border cl\{{playerId}}">
+                <div class="mb-profile-buttons">
+                    <button class="btn action-btn btn-like mb-btn-outline-danger btn-rounded clicked" onclick="delFavorite(\{{playerId}}, '\{{playerName}}')">
+                        <img class="mb-heart-img-s" src="/HWimages/util/like.png">
+                    </button>
+                </div>
+                <div class="mb-portrait-image" href="javascript:void(0);" onclick="playerDetail(this); return false;" attr-p="\{{isPublic}}" attr-u="\{{forUrl}}" style="cursor: pointer">
+                    <img class="mb-fav-portrait-round-img" src="\{{portrait}}" onerror="this.src = '/HWimages/portrait/default.png';" alt="">
+                    <div class="mb-player-level">Lv. \{{playerLevel}}</div>
+                </div>
+                <div class="mb-fav-contents" href="javascript:void(0);" onclick="playerDetail(this); return false;" attr-p="\{{isPublic}}" attr-u="\{{forUrl}}" style="cursor: pointer">
+                    <div class="mb-player-name">\{{playerName}}<div class="mb-player-tagNum">\{{tagNum}}</div></div>
+                    <div class="mb-competitive-boxs">
+                        <div class="mb-cp-box tank-container">
+                            <div class="mb-rank-role-s"><img class= "mb-role-img-s" src="/HWimages/role/icon-tank-8a52daaf01.png"></div>
+                            \{{tankRatingPoint}}
+                        </div>
+                        <div class="mb-cp-box deal-container">
+                            <div class="mb-rank-role-s"><img class= "mb-role-img-s" src="/HWimages/role/icon-offense-6267addd52.png"></div>
+                            \{{dealRatingPoint}}</div>
+                        <div class="mb-cp-box-end heal-container">
+                            <div class="mb-rank-role-s"><img class= "mb-role-img-s" src="/HWimages/role/icon-support-46311a4210.png"></div>
+                            \{{healRatingPoint}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            \{{/favorites}}
+        </script>
+
+        <script id="empty_favorite_list" type="text/x-handlebars-template" charset="UTF-8">
+            \{{#favorites}}
+            <div class="fav-card mb-border" style="width: 100%;">
+                <div class="mb-profile-buttons">
+
+                </div>
+                <div class="mb-portrait-image">
+                    <img class="mb-fav-portrait-round-img" src="\{{portrait}}" onerror="this.src = '/HWimages/portrait/default.png';" alt="">
+<!--                    <div class="mb-player-level">Lv. \{{playerLevel}}</div>-->
+                </div>
+                <div class="mb-fav-contents">
+                    <div class="col-md-12 mb-player-name">즐겨찾기한 유저가 없습니다. <br>검색한 유저를 즐겨찾기 할 수 있습니다. <br>배틀넷 연동 이후에는 즐겨찾기 데이터가 유지됩니다.</div>
+
+                </div>
+            </div>
+            \{{/favorites}}
+        </script>
+
+        <script id="ban_hero_card" type="text/x-handlebars-template" charset="UTF-8">
+            \{{#hero}}
+            <div class="mb-col-3 tank-container mb-border">
+                <div class="mb-rank-role">
+                    <img class= "mb-role-img" src="/HWimages/role/icon-tank-8a52daaf01.png">
+                </div>
+                <div class="mb-hero-image">
+                    <img class="\{{heroNameTank}}-img mb-hero-round-img" src="\{{srcTank}}" onerror="this.src = '/HWimages/hero/default.png';" alt=""><br>\{{heroNameKRTank}}
+                </div>
+            </div>
+            <div class="mb-col-3 deal-container mb-border">
+                <div class="mb-rank-role">
+                    <img class= "mb-role-img" src="/HWimages/role/icon-offense-6267addd52.png">
+                </div>
+                <div class="mb-hero-image">
+                    <img class="\{{heroNameDeal1}}-img mb-hero-round-img" src="\{{srcDeal1}}" onerror="this.src = '/HWimages/hero/default.png';" alt=""><br>\{{heroNameKRDeal1}}
+                </div>
+            </div>
+            <div class="mb-col-3 deal-container mb-border">
+                <div class="mb-rank-role">
+                    <img class= "mb-role-img" src="/HWimages/role/icon-offense-6267addd52.png">
+                </div>
+                <div class="mb-hero-image">
+                    <img class="\{{heroNameDeal2}}-img mb-hero-round-img" src="\{{srcDeal2}}" onerror="this.src = '/HWimages/hero/default.png';" alt=""><br>\{{heroNameKRDeal2}}
+                </div>
+            </div>
+            <div class="mb-col-3 heal-container mb-border-end">
+                <div class="mb-rank-role">
+                    <img class= "mb-role-img" src="/HWimages/role/icon-support-46311a4210.png">
+                </div>
+                <div class="mb-hero-image">
+                    <img class="\{{heroNameHeal}}-img mb-hero-round-img" src="\{{srcHeal}}" onerror="this.src = '/HWimages/hero/default.png';" alt=""><br>\{{heroNameKRHeal}}
+                </div>
+            </div>
+            \{{/hero}}
+        </script>
+
+        <script src="/js/mobile/mobile-home.js" charset="UTF-8"></script>
+    {{/inline}}
+
+{{/layouts/mobile-base}}
