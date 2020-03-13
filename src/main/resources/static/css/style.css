@@ -10511,6 +10511,10 @@ a:hover {
   font-size: 25px;
 }
 
+.mf-search:hover, .mf-ranker:hover, .mf-ranking:hover{
+  background-color: rgba(0, 0, 0, 0.04) !important;
+}
+
 .mb-navbar-brand {
   font-weight: 800;
   font-size: 38px; }
@@ -10806,9 +10810,6 @@ a:hover {
 /*}*/
 
 .mb-border {
-  /*border-left: 1px solid #1f253d;*/
-  /*border-bottom: 1px solid #1f253d;*/
-  /*border-top: 1px solid #1f253d;*/
   border-radius: 20px;
   margin-right: 2%;
   background-color: rgba(0, 0, 0, 0.04) !important;
@@ -10817,12 +10818,10 @@ a:hover {
 }
 
 .mb-border-end {
-  /*border-left: 1px solid #1f253d;*/
-  /*border-bottom: 1px solid #1f253d;*/
-  /*border-right: 1px solid #1f253d;*/
-  /*border-top: 1px solid #1f253d;*/
   border-radius: 20px;
   background-color: rgba(0, 0, 0, 0.04) !important;
+  border-bottom: 3px solid rgba(0, 0, 0, 0.11) !important;
+  border-right: 3px solid rgba(0, 0, 0, 0.11) !important;
 
 }
 
@@ -10922,6 +10921,9 @@ a:hover {
 
 .fav-card {
   margin-bottom: 20px;
+}
+.fav-card:hover {
+  background-color: rgba(0, 0, 0, 0.07) !important;
 }
 
 .mb-fav-contents {
@@ -11052,6 +11054,11 @@ a:hover {
   display: flex;
   text-align: center;
   align-items: center;
+  background-color: white;
+  border-color: white;
+  box-shadow: none;
+  border-bottom: white;
+  border-right: white;
 }
 
 .mb-battlenet-text {
@@ -11305,7 +11312,7 @@ a:hover {
 .mb-tank-trendline, .mb-deal-trendline, .mb-heal-trendline{
   height: 230px;
   padding : 10px 0 0 10px;
-  background-color: rgba(0, 0, 0, 0.06);
+  background-color: rgba(0, 0, 0, 0.04);
 }
 .mb-tank-trendline, .mb-deal-trendline{
   border-bottom: 1px solid #ffffff;
@@ -11344,13 +11351,13 @@ a:hover {
   border-radius:  15px 0 0 15px;
 }
 .mb-menu-box-tab:hover {
-  background: rgba(0, 0, 0, 0.06) !important;
+  background: rgba(0, 0, 0, 0.04) !important;
   border-bottom: 3px solid rgba(0, 0, 0, 0.11) !important;
   text-decoration: none;
 }
 
 .mb-menu-box-tab.clicked{
-  background: rgba(0, 0, 0, 0.06) !important;
+  background: rgba(0, 0, 0, 0.04) !important;
   border-bottom: 3px solid rgba(0, 0, 0, 0.11) !important;
   text-decoration: none;
   pointer-events: none;
@@ -11373,7 +11380,7 @@ a:hover {
 }
 
 .detail-header.mb-titular{
-  background: rgba(0, 0, 0, 0.06) !important;
+  background: rgba(0, 0, 0, 0.04) !important;
   width: 100%;
   display: table;
   line-height: 40px;
@@ -11437,7 +11444,7 @@ a:hover {
 }
 
 .mb-inside-block2 .detail-body {
-  background-color: rgba(0, 0, 0, 0.06) !important;
+  background-color: rgba(0, 0, 0, 0.04) !important;
   border-right: 3px solid rgba(0, 0, 0, 0.11) !important;
   border-bottom: 3px solid rgba(0, 0, 0, 0.11) !important;
 }
@@ -11475,4 +11482,8 @@ a:hover {
 
 .mb-action-btn.btn-like:hover {
   color: #dc3545;
+}
+
+.mb-navbar-brand:hover {
+  background-color: rgba(0, 0, 0, 0.07) !important;
 }

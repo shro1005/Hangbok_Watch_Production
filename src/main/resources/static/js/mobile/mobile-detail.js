@@ -575,7 +575,7 @@ const drawRadarChart = () => {
             backgroundColor: chartColors[0],
             borderColor: chartColors[0],
             borderWidth: 5,
-            pointRadius: 2.5,
+            pointRadius: 0,
             fill: false
         }, {
             label: "속한 티어 평균",
@@ -583,7 +583,7 @@ const drawRadarChart = () => {
             backgroundColor: chartColors[1],
             borderColor: chartColors[1],
             borderWidth: 5,
-            pointRadius: 2.5,
+            pointRadius: 0,
             fill: false
         },  {
             label: "상위권 평균",
@@ -591,7 +591,7 @@ const drawRadarChart = () => {
             backgroundColor: chartColors[2],
             borderColor: chartColors[2],
             borderWidth: 5,
-            pointRadius: 2.5,
+            pointRadius: 0,
             fill: false
         }]
     };
