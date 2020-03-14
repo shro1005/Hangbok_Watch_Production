@@ -41,7 +41,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable().headers().frameOptions().disable() // h2-console 화면을 사용하기 위한 설정
                 .and().authorizeRequests() // 메소드를 통해 여러 자식을 추가하여 URL에 대한 요구사항을 정의할 수 있다 (antMatch를 사용할 수 있다.).
                     .antMatchers("/", "/search/**", "/showPlayerList", "/crawlingPlayerList", "/getDetailData", "/refreshFavorite", "/getFavoriteData",
-                            "/showPlayerDetail/**", "/refreshPlayerDetail/**", "/myFavorite/**", "/ranking/**", "/login/** ", "/mobile/**",
+                            "/showPlayerDetail/**", "/refreshPlayerDetail/**", "/myFavorite/**", "/ranking/**", "/login/** ", "/mobile/**", "/ranker/**",
                             "/css/**", "/images/**", "/js/**", "/fonts/**", "/scss/**", "/logout", "/oauth2/**", "/HWimages/**", "/profile", "/getBanHero").permitAll()
                     .antMatchers("/findDuo/**").hasRole(Role.USER.name()).anyRequest().authenticated()
                     .antMatchers("/oNlYAdMIn/**", "/findDuo/**").hasRole(Role.ADMIN.name()).anyRequest().authenticated()

@@ -8,11 +8,6 @@ let deal_offset = 0;
 let heal_offset = 0;
 const limit = 25;
 
-$(window).resize(function () {
-    // 창크기 변화 감지
-    setContainerHeight();
-});
-
 const main = {
     init: function () {
         // console.log("main.init 호출");
@@ -33,8 +28,6 @@ const main = {
         });
 
         getRankingData();
-        setContainerHeight();
-        showRankerList("total");
 
         $('.mobile-footer-container .mf-search').removeClass("mb-active");
         $('.mobile-footer-container .mf-ranking').addClass("mb-active");

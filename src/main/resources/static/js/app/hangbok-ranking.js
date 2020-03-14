@@ -7,6 +7,12 @@ let tank_offset = 0;
 let deal_offset = 0;
 let heal_offset = 0;
 const limit = 25;
+const chartColors = ['#fcb150', '#11a8ab' ,'#e64c65'];
+
+$(window).resize(function () {
+    // 창크기 변화 감지
+    setContainerHeight();
+});
 
 const main = {
     init: function () {
@@ -28,6 +34,21 @@ const main = {
         });
 
         getRankingData();
+        setContainerHeight();
+        showRankerList("total");
+    },
+    search: function () {
+        // alert('main search 호출');
+        let playerName = $('input[id="playerName"]').val();
+        if (playerName == "") {
+            return false;
+        } else if (playerName.indexOf("#") != -1) {
+            // alert("detail playerName # : " + playerName);
+            playerName = playerName.replace("#", "-");
+        }
+        // alert("detail playerName - : " + playerName);
+        // console.log("검색한 playerName : " + playerName);
+        location.href = "/search/" + playerName;
     }
 };
 
