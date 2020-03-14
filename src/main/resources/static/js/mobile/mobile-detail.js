@@ -183,8 +183,17 @@ const getDetailData = () => {
         $('.mb-menu-box-menu').append(item);
     });
 
-    drawDetail(1);
     drawTrendline();
+    drawDetail(1);
+
+    // const heroLists = $('.menu-box')[0];
+    // const heroDetailTitle = $('.detail-header')[0];
+    // const heroDetail = $('.detail-body')[0];
+    // const emptyBox = $('.empty-detail-box')[0];
+    //
+    // if(heroLists.offsetHeight > heroDetail.offsetHeight + heroDetailTitle.offsetHeight) {
+    //     emptyBox.style.height = heroLists.offsetHeight - (heroDetail.offsetHeight + heroDetailTitle.offsetHeight) + "px";
+    // }
 };
 
 const drawDetail = (order) => {

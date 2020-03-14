@@ -193,9 +193,9 @@ label {
 button {
   border-radius: 0; }
 
-button:focus {
-  outline: 1px dotted;
-  outline: 5px auto -webkit-focus-ring-color; }
+/*button:focus {*/
+/*  outline: 1px dotted;*/
+/*  outline: 5px auto -webkit-focus-ring-color; }*/
 
 input,
 button,
@@ -10489,14 +10489,12 @@ a:hover {
   position: fixed;
   z-index: 30; /*-- 다른 div나 항목들에 비해 앞쪽으로 -*/
   width: 100%;
-  padding: 10px 0 10px 0;
   background: white;
 }
 
 .mobile-footer-container {
   max-width: 100%;
   display: flex;
-  padding-top: 10px;
 }
 
 .mf-search, .mf-ranker, .mf-ranking {
@@ -10509,6 +10507,7 @@ a:hover {
   color: black;
   text-align: center;
   font-size: 25px;
+  height: 115px;
 }
 
 .mf-search:hover, .mf-ranker:hover, .mf-ranking:hover{
@@ -10598,6 +10597,7 @@ a:hover {
 .mb-navbar {
   position: fixed;
   height: 100px;
+  z-index: 30;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -10706,6 +10706,9 @@ a:hover {
 .mb-slider-text {
   height: 660px; }
 
+.mb-slider-text-ranking {
+  height: 570px; }
+
 .mb-align-items-center {
   -webkit-box-align: center !important;
   -ms-flex-align: center !important;
@@ -10728,6 +10731,7 @@ a:hover {
   display: flex;
   justify-content: center;
   align-items: center;
+  padding-left: 10px;
 }
 
 .mb-info-text-box{
@@ -10745,6 +10749,12 @@ a:hover {
 .mb-info-text-box-inindexpage{
   padding-left: 10px;
   font-size: 25px;
+  color: black;
+}
+
+.mb-info-text-box-ranking{
+  padding-left: 10px;
+  font-size: 30px;
   color: black;
 }
 
@@ -10770,6 +10780,19 @@ a:hover {
   margin-top: 100px;
   text-align: center;
 }
+
+.mb-container-ranking {
+  width: 100%;
+  margin-top: 70px;
+  text-align: center;
+}
+
+.mb-container-ranker {
+  width: 100%;
+  margin-top: 170px;
+  text-align: center;
+}
+
 
 .mb-inline-block-box {
   display: inline-block;
@@ -11030,6 +11053,7 @@ a:hover {
 .footer-img {
   height: 50px;
   width: 50px;
+  margin-top: 15px;
 }
 
 .mb-battlenet-img-s {
@@ -11061,6 +11085,12 @@ a:hover {
   border-right: white;
 }
 
+.mb-battlenet:hover {
+  background-color: rgba(0, 0, 0, 0.04) !important;
+  border-top: white;
+  border-left: white;
+}
+
 .mb-battlenet-text {
   font-size: 35px;
   margin-right: 10px;
@@ -11090,8 +11120,11 @@ a:hover {
 
 .mb-player-name {
   font-size: 30px;
-  padding-left: 10px;
   font-weight: 700;
+}
+
+.align-items-left .mb-player-name {
+  padding-left: 10px;
 }
 
 .mb-player-level-inlist{
@@ -11120,7 +11153,6 @@ a:hover {
   width: 50%;
   display:table-cell; vertical-align:middle;
   text-align: left;
-  padding-right: 10px;
   padding-right: 10px;
 }
 .mb-player-winlose .losegame {
@@ -11313,24 +11345,37 @@ a:hover {
   height: 230px;
   padding : 10px 0 0 10px;
   background-color: rgba(0, 0, 0, 0.04);
+  border-radius: 15px;
+  border-bottom: 5px solid rgba(0, 0, 0, 0.11);
 }
 .mb-tank-trendline, .mb-deal-trendline{
-  border-bottom: 1px solid #ffffff;
+
   margin-bottom: 20px;
 }
 
 .mb-tank-trendline-color {
   background-color: #fcb150;
+  border-radius: 15px 0 0 15px;
+  border-bottom: 5px solid rgba(0, 0, 0, 0.11);
 }
 .mb-deal-trendline-color{
   background-color: #11a8ab;
+  border-radius: 15px 0 0 15px;
+  border-bottom: 5px solid rgba(0, 0, 0, 0.11);
 }
 .mb-heal-trendline-color{
   background-color: #e64c65;
+  border-radius: 15px 0 0 15px;
+  border-bottom: 5px solid rgba(0, 0, 0, 0.11);
 }
 
 .mb-titular {
   font-size: 35px;
+}
+
+.mb-menu-box-menu {
+  height: 1848px;
+  overflow: scroll;
 }
 
 .mb-menu-box-menu li{
@@ -11403,7 +11448,7 @@ a:hover {
   color: black;
   display:table-cell;
   vertical-align: middle;
-  padding-left: 15px;
+  padding-left: 20px;
   text-align: left;
   font-weight: bold;
   font-size: 35px;
@@ -11447,11 +11492,12 @@ a:hover {
   background-color: rgba(0, 0, 0, 0.04) !important;
   border-right: 3px solid rgba(0, 0, 0, 0.11) !important;
   border-bottom: 3px solid rgba(0, 0, 0, 0.11) !important;
+  height: 1695px;
 }
 
 .mb-info-text-box-detail{
   font-size: 28px;
-  padding-left: 10px;
+  padding-left: 15px;
 }
 
 .mb-info-detail {
@@ -11486,4 +11532,78 @@ a:hover {
 
 .mb-navbar-brand:hover {
   background-color: rgba(0, 0, 0, 0.07) !important;
+}
+
+.mb-ranking-1 {
+  display: block;
+  text-align: center;
+  color: black;
+}
+
+.mb-ranking-2 {
+  display: block;
+  text-align: center;
+  color: black;
+}
+.mb-ranking-3 {
+  display: block;
+  text-align: center;
+  color: black;
+}
+
+.mb-ranking-1 .mb-rank-role, .mb-ranking-2 .mb-rank-role, .mb-ranking-3 .mb-rank-role {
+  background-color: rgba(0, 0, 0, 0.07) !important;;
+}
+
+.mb-ranking-contents {
+  font-size: 35px;
+  margin-bottom: 20px;
+}
+
+.ranking-col {
+  font-size: 25px;
+  font-weight: 740;
+}
+
+.mb-ranking-tab {
+  width: 100%;
+  height: 70px;
+  position: fixed;
+  top: 100px;
+  font-size: 35px;
+  z-index: 30;
+}
+
+.mb-ranking-tab div {
+  float: left;
+  padding: 0;
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 25%;
+  flex: 0 0 25%;
+  max-width: 25%;
+  border-right: 1px solid transparent;
+}
+
+.mb-ranking-tab .mb-titular-ranker {
+  background: #394264;
+  color: white;
+  font-weight: bold;
+}
+
+.mb-ranking-tab .active {
+  background: #fcb150;
+}
+
+.mb-titular-ranker {
+  display: block;
+  line-height: 70px;
+  margin: 0;
+  text-align: center;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+
+.mb-ranking-tab h1 {
+  font-size: 30px;
+  font-weight: 550;
 }

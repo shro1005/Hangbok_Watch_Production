@@ -40,7 +40,7 @@ const main = {
         $('.mobile-footer-container .mf-search').addClass("mb-active");
         $('.mobile-footer-container .mf-ranking').removeClass("mb-active");
         $('.mobile-footer-container .mf-ranker').removeClass("mb-active");
-        $('.mobile-footer-container .mf-search').html("<img class=\"footer-img\" src=\"/HWimages/util/search-active.png\"><br>검색")
+        $('.mobile-footer-container .mf-search').html("<img class=\"footer-img\" src=\"/HWimages/util/search-active.png\"><br>검색");
 
     },
     search : function (userInput) {

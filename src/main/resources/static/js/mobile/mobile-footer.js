@@ -5,13 +5,13 @@ $(function(){
 });
 
 function stickyFooter(){
-    document_height = $(document).height(); // 문서 전체 높이
-    document_scrollTop = $(document).scrollTop(); // 문서 전체 높이 중 스크롤 위치
-    window_height = $(window).height(); // 창 높이
-    footer_height = $("footer").height();
+    let document_height = $(document).height(); // 문서 전체 높이
+    let document_scrollTop = $(document).scrollTop(); // 문서 전체 높이 중 스크롤 위치
+    let window_height = $(window).height(); // 창 높이
+    let footer_height = $("footer").height();
 
-    gap = document_height - footer_height - window_height;
-    bottom = document_scrollTop - gap ;
+    let gap = document_height - footer_height - window_height;
+    let bottom = document_scrollTop - gap ;
 
     $("footer").css("bottom","0");
 
@@ -48,19 +48,19 @@ const footer = {
         if($(".mf-search").hasClass("mb-active") === true) {
             return false;
         }
-        location.href = "/mobile";
+        location.href = "/";
     },
     ranking: function () {
         if($(".mf-ranking").hasClass("mb-active") === true) {
             return false;
         }
-        location.href = "/mobile/ranking";
+        location.href = "/ranking";
     },
     ranker: function () {
         if($(".mf-ranker").hasClass("mb-active") === true) {
             return false;
         }
-        location.href = "/mobile/ranker";
+        location.href = "/ranker";
     }
 };
 

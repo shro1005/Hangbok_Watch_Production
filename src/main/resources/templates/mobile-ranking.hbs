@@ -1,0 +1,119 @@
+{{!-- playerDeatil page => playerDetail.hbs --}}
+
+{{#> layouts/mobile-base}}
+{{!--=================== head content ======================--}}
+    {{#*inline "head-block"}}
+        <link rel="stylesheet" href="/fonts/iconfonts/mdi/css/materialdesignicons.css">
+    {{/inline}}
+
+    {{!--=================== Main content ======================--}}
+    {{#*inline "content-block"}}
+        <div class="mb-hero-wrap ftco-degree-bg" style="background-color: #ffffff;">
+            <div class="main-img-box"><img class="main-img" src="/HWimages/util/bg_11.jpg"></div>
+            <div class="overlay-top"></div>
+            <div class="overlay-bot"></div>
+            <div class="overlay-left"></div>
+            <div class="overlay-right"></div>
+            <div class="container">
+                <div class="row justify-content-center mb-align-items-center no-gutters mb-slider-text-ranking ">
+                    <div class="col-md-11 ftco-animate pb-5 text-center" style="">   <!--class="col-lg-8 col-md-6 ftco-animate text-center"-->
+                        <div class="text text-center" style="font-size: 18px; color: #0b0b0b;">
+                            <div class="mb-info">
+                                <div class="mb-info-img-box">
+                                    <img class="mb-info-img" src="/HWimages/util/info.png">
+                                </div>
+                                <div class="mb-info-text-box-ranking">
+                                    &emsp;&nbsp;- 해당 랭킹은 행복워치 자체 데이터로 추출한 내용입니다.<br>
+                                    - 매주 월요일 03:30 및 시즌 초기화시 리셋됩니다.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class = "mb-ranking-container">
+
+        </div>
+        <div class="empty-div" style="height: 150px;">
+
+        </div>
+    {{/inline}}
+
+    {{!--=================== scripts content ======================--}}
+    {{#*inline "scripts-blick"}}
+        <script id="our-ranking-list" type="text/x-handlebars-template">
+            \{{#list}}
+            <div class = "mb-container-ranking">
+                <div class = "col-md-11 mb-inline-block-box">
+                    <div class="row justify-content-center">
+                        <div class="col-md-12 heading-section text-center">
+                            <span class="mb-subheading">\{{title}}</span>
+                        </div>
+                    </div>
+                    <div class="\{{className}}">
+
+                    </div>
+                </div>
+            </div>
+            \{{/list}}
+        </script>
+
+        <script id="our-ranking-contents" type="text/x-handlebars-template" charset="UTF-8">
+            \{{#ranking}}
+            <div class="mb-col-4 fav-card mb-border cl\{{playerId}} \{{ranking}}" onclick="playerDetail(this); return false;" attr-u="\{{forUrl}}" style="cursor: pointer;">
+                <div class="mb-rank-role">
+                    <img class="mb-role-img" style="margin: 10px 0 10px 0;" src="\{{rankingImgPath}}">
+                </div>
+                <div class="mb-portrait-image" href="javascript:void(0);">
+                    <img class="mb-fav-portrait-round-img" src="\{{playerPortrait}}" onerror="this.src = '/HWimages/portrait/default.png';" alt="">
+                </div>
+                <div class="mb-ranking-contents" href="javascript:void(0);">
+                    <div class="mb-player-name">\{{playerName}}</div>
+                    <div class="mb-player-tagNum">\{{score}}</div>
+                </div>
+            </div>
+            \{{/ranking}}
+        </script>
+
+        <script id="ban_hero_card" type="text/x-handlebars-template" charset="UTF-8">
+            \{{#hero}}
+            <div class="mb-col-3 tank-container mb-border">
+                <div class="mb-rank-role">
+                    <img class= "mb-role-img" src="/HWimages/role/icon-tank-8a52daaf01.png">
+                </div>
+                <div class="mb-hero-image">
+                    <img class="\{{heroNameTank}}-img mb-hero-round-img" src="\{{srcTank}}" onerror="this.src = '/HWimages/hero/default.png';" alt=""><br>\{{heroNameKRTank}}
+                </div>
+            </div>
+            <div class="mb-col-3 deal-container mb-border">
+                <div class="mb-rank-role">
+                    <img class= "mb-role-img" src="/HWimages/role/icon-offense-6267addd52.png">
+                </div>
+                <div class="mb-hero-image">
+                    <img class="\{{heroNameDeal1}}-img mb-hero-round-img" src="\{{srcDeal1}}" onerror="this.src = '/HWimages/hero/default.png';" alt=""><br>\{{heroNameKRDeal1}}
+                </div>
+            </div>
+            <div class="mb-col-3 deal-container mb-border">
+                <div class="mb-rank-role">
+                    <img class= "mb-role-img" src="/HWimages/role/icon-offense-6267addd52.png">
+                </div>
+                <div class="mb-hero-image">
+                    <img class="\{{heroNameDeal2}}-img mb-hero-round-img" src="\{{srcDeal2}}" onerror="this.src = '/HWimages/hero/default.png';" alt=""><br>\{{heroNameKRDeal2}}
+                </div>
+            </div>
+            <div class="mb-col-3 heal-container mb-border-end">
+                <div class="mb-rank-role">
+                    <img class= "mb-role-img" src="/HWimages/role/icon-support-46311a4210.png">
+                </div>
+                <div class="mb-hero-image">
+                    <img class="\{{heroNameHeal}}-img mb-hero-round-img" src="\{{srcHeal}}" onerror="this.src = '/HWimages/hero/default.png';" alt=""><br>\{{heroNameKRHeal}}
+                </div>
+            </div>
+            \{{/hero}}
+        </script>
+
+        <script src="/js/mobile/mobile-ranking.js"></script>
+    {{/inline}}
+
+{{/layouts/mobile-base}}

@@ -325,9 +325,11 @@ public class GetRankingDataService {
     public List<PlayerListDto> parseDomainToDTO2(List<Player> playerList) {
         List<PlayerListDto> playerDtoList = new ArrayList<>();
         for (Player player : playerList) {
+
             Double winRate = (new Double(player.getWinGame())/new Double(player.getWinGame()+player.getLoseGame())*100);
             Integer winRateInt = (int) (double) winRate;
-
+//            System.out.println(player);
+//            System.out.println(player.getId() + " / " + player.getBattleTag());
             PlayerListDto playerListDto = new PlayerListDto(player.getId(), player.getBattleTag(), player.getPlayerName(), player.getForUrl(), player.getPlayerLevel()
                     , player.getIsPublic(), player.getPlatform(), player.getPortrait(), player.getTankRatingPoint(), player.getDealRatingPoint(), player.getHealRatingPoint()
                     , player.getTotalAvgRatingPoint(), player.getTankRatingImg(), player.getDealRatingImg(), player.getHealRatingImg()

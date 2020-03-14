@@ -24,7 +24,7 @@ const init = () => {
         $('.mb-navbar-brand').html("<img class='mb-back-img' src='/HWimages/util/back.png'>");
     }
     else if(window.location.pathname.indexOf("refreshPlayerDetail") > 0) {
-        $('.mb-navbar-brand').attr("href","javascript:history.back();");
+        $('.mb-navbar-brand').attr("href","/");
         $('.mb-navbar-brand').html("<img class='mb-back-img' src='/HWimages/util/back.png'>");
     }
 };
