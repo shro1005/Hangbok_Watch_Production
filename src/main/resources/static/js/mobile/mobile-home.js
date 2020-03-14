@@ -184,18 +184,38 @@ function drawBanHero() {
         // console.log(datas);
         if(datas.length != 0) {
             items.hero.push({
-                heroNameTank: datas.heroNameTank,
-                srcTank: "/HWimages/hero/" + datas.heroNameTank + "_s.png",
-                heroNameKRTank: datas.heroNameKRTank,
-                heroNameDeal1: datas.heroNameDeal1,
-                srcDeal1: "/HWimages/hero/" + datas.heroNameDeal1 + "_s.png",
-                heroNameKRDeal1: datas.heroNameKRDeal1,
-                heroNameDeal2: datas.heroNameDeal2,
-                srcDeal2: "/HWimages/hero/" + datas.heroNameDeal2 + "_s.png",
-                heroNameKRDeal2: datas.heroNameKRDeal2,
-                heroNameHeal: datas.heroNameHeal,
-                srcHeal: "/HWimages/hero/" + datas.heroNameHeal + "_s.png",
-                heroNameKRHeal: datas.heroNameKRHeal
+                // heroNameTank: datas.heroNameTank,
+                // srcTank: "/HWimages/hero/" + datas.heroNameTank + "_s.png",
+                // heroNameKRTank: datas.heroNameKRTank,
+                // heroNameDeal1: datas.heroNameDeal1,
+                // srcDeal1: "/HWimages/hero/" + datas.heroNameDeal1 + "_s.png",
+                // heroNameKRDeal1: datas.heroNameKRDeal1,
+                // heroNameDeal2: datas.heroNameDeal2,
+                // srcDeal2: "/HWimages/hero/" + datas.heroNameDeal2 + "_s.png",
+                // heroNameKRDeal2: datas.heroNameKRDeal2,
+                // heroNameHeal: datas.heroNameHeal,
+                // srcHeal: "/HWimages/hero/" + datas.heroNameHeal + "_s.png",
+                // heroNameKRHeal: datas.heroNameKRHeal
+                heroNameTank: datas.heroName1,
+                srcTank: "/HWimages/hero/" + datas.heroName1 + "_s.png",
+                heroNameKRTank: datas.heroNameKR1,
+                heroNameDeal1: datas.heroName2,
+                srcDeal1: "/HWimages/hero/" + datas.heroName2 + "_s.png",
+                heroNameKRDeal1: datas.heroNameKR2,
+                heroNameDeal2: datas.heroName3,
+                srcDeal2: "/HWimages/hero/" + datas.heroName3 + "_s.png",
+                heroNameKRDeal2: datas.heroNameKR3,
+                heroNameHeal: datas.heroName4,
+                srcHeal: "/HWimages/hero/" + datas.heroName4 + "_s.png",
+                heroNameKRHeal: datas.heroNameKR4,
+                container1 : datas.heroRole1+"-container",
+                container2 : datas.heroRole2+"-container",
+                container3 : datas.heroRole3+"-container",
+                container4 : datas.heroRole4+"-container",
+                src1 : getSrc(datas.heroRole1),
+                src2 : getSrc(datas.heroRole2),
+                src3 : getSrc(datas.heroRole3),
+                src4 : getSrc(datas.heroRole4),
             });
             let ban_list = $("#ban_hero_card").html();
             // console.log(ban_list);
@@ -321,5 +341,15 @@ function initPlayers(template, target) {
     //     $("#"+target+"-more-button").append(moreButtonDiv);
     // }
 }
+
+const getSrc = (role) => {
+    if(role == "tank") {
+        return "/HWimages/role/icon-tank-8a52daaf01.png";
+    }else if (role == "deal") {
+        return "/HWimages/role/icon-offense-6267addd52.png";
+    }else if (role == "heal") {
+        return "/HWimages/role/icon-support-46311a4210.png";
+    }
+};
 
 main.init();

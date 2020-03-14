@@ -204,33 +204,33 @@
 
         <script id="ban_hero_card" type="text/x-handlebars-template" charset="UTF-8">
             \{{#hero}}
-            <div class="ban-col-3 tank-container">
+            <div class="ban-col-3 \{{container1}}">
                 <div class="rank-role">
-                    <img src="/HWimages/role/icon-tank-8a52daaf01.png">
+                    <img src="\{{src1}}">
                 </div>
                 <div class="rank-image">
                     <img class="\{{heroNameTank}}-img hero-round-img" src="\{{srcTank}}" onerror="this.src = '/HWimages/hero/default.png';" alt=""></br>\{{heroNameKRTank}}
                 </div>
             </div>
-            <div class="ban-col-3 deal-container">
+            <div class="ban-col-3 \{{container2}}">
                 <div class="rank-role">
-                    <img src="/HWimages/role/icon-offense-6267addd52.png">
+                    <img src="\{{src2}}">
                 </div>
                 <div class="rank-image">
                     <img class="\{{heroNameDeal1}}-img hero-round-img" src="\{{srcDeal1}}" onerror="this.src = '/HWimages/hero/default.png';" alt=""></br>\{{heroNameKRDeal1}}
                 </div>
             </div>
-            <div class="ban-col-3 deal-container">
+            <div class="ban-col-3 \{{container3}}">
                 <div class="rank-role">
-                    <img src="/HWimages/role/icon-offense-6267addd52.png">
+                    <img src="\{{src3}}">
                 </div>
                 <div class="rank-image">
                     <img class="\{{heroNameDeal2}}-img hero-round-img" src="\{{srcDeal2}}" onerror="this.src = '/HWimages/hero/default.png';" alt=""></br>\{{heroNameKRDeal2}}
                 </div>
             </div>
-            <div class="ban-col-3 heal-container">
+            <div class="ban-col-3 \{{container4}}">
                 <div class="rank-role">
-                    <img src="/HWimages/role/icon-support-46311a4210.png">
+                    <img src="\{{src4}}">
                 </div>
                 <div class="rank-image">
                     <img class="\{{heroNameHeal}}-img hero-round-img" src="\{{srcHeal}}" onerror="this.src = '/HWimages/hero/default.png';" alt=""></br>\{{heroNameKRHeal}}

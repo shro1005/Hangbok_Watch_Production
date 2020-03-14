@@ -95,20 +95,24 @@ public class ManagementPageService {
         for (BanHero banHero : banHeroList) {
             switch (banHero.getRole()) {
                 case "Tank":
-                    banHeroDto.setHeroNameTank(banHero.getHeroName());
-                    banHeroDto.setHeroNameKRTank(banHero.getHeroNameKR());
+                    banHeroDto.setHeroName1(banHero.getHeroName());
+                    banHeroDto.setHeroNameKR1(banHero.getHeroNameKR());
+                    banHeroDto.setHeroRole1("tank");
                     break;
                 case "Deal1":
-                    banHeroDto.setHeroNameDeal1(banHero.getHeroName());
-                    banHeroDto.setHeroNameKRDeal1(banHero.getHeroNameKR());
+                    banHeroDto.setHeroName2(banHero.getHeroName());
+                    banHeroDto.setHeroNameKR2(banHero.getHeroNameKR());
+                    banHeroDto.setHeroRole2("deal");
                     break;
                 case "Deal2":
-                    banHeroDto.setHeroNameDeal2(banHero.getHeroName());
-                    banHeroDto.setHeroNameKRDeal2(banHero.getHeroNameKR());
+                    banHeroDto.setHeroName3(banHero.getHeroName());
+                    banHeroDto.setHeroNameKR3(banHero.getHeroNameKR());
+                    banHeroDto.setHeroRole3("heal");
                     break;
                 case "Heal":
-                    banHeroDto.setHeroNameHeal(banHero.getHeroName());
-                    banHeroDto.setHeroNameKRHeal(banHero.getHeroNameKR());
+                    banHeroDto.setHeroName4(banHero.getHeroName());
+                    banHeroDto.setHeroNameKR4(banHero.getHeroNameKR());
+                    banHeroDto.setHeroRole4("heal");
                     break;
                 default:
                     break;

@@ -10490,6 +10490,7 @@ a:hover {
   z-index: 30; /*-- 다른 div나 항목들에 비해 앞쪽으로 -*/
   width: 100%;
   background: white;
+  bottom : 0;
 }
 
 .mobile-footer-container {
