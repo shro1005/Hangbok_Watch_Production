@@ -581,16 +581,16 @@ const drawRadarChart = () => {
         datasets: [{
             label: "플레이어",
             data: radarData,
-            backgroundColor: chartColors[0],
-            borderColor: chartColors[0],
+            backgroundColor: chartColors[1],
+            borderColor: chartColors[1],
             borderWidth: 5,
             pointRadius: 0,
             fill: false
         }, {
             label: "속한 티어 평균",
             data: tierRadarData,
-            backgroundColor: chartColors[1],
-            borderColor: chartColors[1],
+            backgroundColor: chartColors[0],
+            borderColor: chartColors[0],
             borderWidth: 5,
             pointRadius: 0,
             fill: false

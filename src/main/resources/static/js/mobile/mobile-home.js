@@ -47,6 +47,14 @@ const main = {
 
         drawBanHero();
         drawFavorite();
+
+        const message = $(".message").val();
+        // console.log(message);
+        if (message == undefined) {
+
+        }else if(message != "") {
+            alert(message);
+        }
     },
     search : function (userInput) {
         // alert('main search 호출');
