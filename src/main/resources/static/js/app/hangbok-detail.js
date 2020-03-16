@@ -344,55 +344,55 @@ const checkHero = (hero, detail, text, radar_data, radar_label) => {
     // console.log(heroNameKR);
     text.detailText.push({title: "평균 죽음", index: deathAvg});
     text.detailText.push({title: "목숨당 처치", index: killPerDeath});
-    text.detailText.push({title: "목숨당 영웅 피해량", index: damageToHeroPerLife});
-    radar_label.push("평균 죽음"); radar_label.push("목숨당 처치"); radar_label.push("목숨당 영웅 딜량");
+    text.detailText.push({title: "평균 영웅 피해량", index: damageToHeroPerLife});
+    radar_label.push("평균 죽음"); radar_label.push("목숨당 처치"); radar_label.push("평균 영웅 딜량");
     if (deathAvg >= 10) { deathAvg = 20;} else if(deathAvg >= 2) {deathAvg = 100 - (deathAvg-2)*10; } else { deathAvg = 100;}
     if (killPerDeath >= 8) { killPerDeath = 100;} else { killPerDeath = 8*killPerDeath + 32; }
     radar_data.push(Math.round(deathAvg*100)/100.0); radar_data.push(Math.round(killPerDeath*100)/100.0);
 
     if(heal_hero.indexOf(heroNameKR) > 0){          // 힐러 영웅일 시
-        if(damageToHeroPerLife >= 1000) { damageToHeroPerLife= 100;} else {damageToHeroPerLife = 0.1*damageToHeroPerLife ;}
+        if(damageToHeroPerLife >= 8000) { damageToHeroPerLife= 100;} else {damageToHeroPerLife = damageToHeroPerLife/80 ;}
         radar_data.push(Math.round(damageToHeroPerLife*100)/100.0);
-        text.detailText.push({title: "목숨당 힐량", index: healPerLife});
-        radar_label.push("목숨당 힐량");
-        if(healPerLife >= 2000) { healPerLife= 100;} else {healPerLife = 0.05*healPerLife ;}
+        text.detailText.push({title: "평균 치유량", index: healPerLife});
+        radar_label.push("평균 치유량");
+        if(healPerLife >= 12000) { healPerLife= 100;} else {healPerLife = healPerLife/120 ;}
         radar_data.push(Math.round(healPerLife*100)/100.0);
         if("바티스트" == heroNameKR) {
-            text.detailText.push({title: "목숨당 방벽 피해량", index: damageToShieldPerLife});
-            radar_label.push("목숨당 방벽 피해량");
-            if(damageToShieldPerLife >= 1000) { damageToShieldPerLife= 100;} else {damageToShieldPerLife = 0.1*damageToShieldPerLife ;}
+            text.detailText.push({title: "평균 방벽 피해량", index: damageToShieldPerLife});
+            radar_label.push("평균 방벽 피해량");
+            if(damageToShieldPerLife >= 3000) { damageToShieldPerLife= 100;} else {damageToShieldPerLife = damageToShieldPerLife/30 ;}
             radar_data.push(Math.round(damageToShieldPerLife*100)/100.0);
         }
     }else if(deal_hero.indexOf(heroNameKR) > 0) {   // 딜러 영웅일 시
-        if(damageToHeroPerLife >= 1500) { damageToHeroPerLife = 100;} else {damageToHeroPerLife = damageToHeroPerLife/15;}
+        if(damageToHeroPerLife >= 15000) { damageToHeroPerLife = 100;} else {damageToHeroPerLife = damageToHeroPerLife/150;}
         radar_data.push(Math.round(damageToHeroPerLife*100)/100.0);
         if("둠피스트" != heroNameKR) {
-            text.detailText.push({title: "목숨당 방벽 피해량", index: damageToShieldPerLife});
-            radar_label.push("목숨당 방벽 피해량");
-            if(damageToShieldPerLife >= 1500) { damageToShieldPerLife= 100;} else {damageToShieldPerLife = damageToShieldPerLife/15;}
+            text.detailText.push({title: "평균 방벽 피해량", index: damageToShieldPerLife});
+            radar_label.push("평균 방벽 피해량");
+            if(damageToShieldPerLife >= 6000) { damageToShieldPerLife= 100;} else {damageToShieldPerLife = damageToShieldPerLife/60;}
             radar_data.push(Math.round(damageToShieldPerLife*100)/100.0);
         }
-        text.detailText.push({title: "목숨당 결정타(킬캐치)", index: lastHitPerLife});
-        radar_label.push("목숨당 결정타(킬캐치)");
-        if (lastHitPerLife >= 5) { lastHitPerLife = 100;} else { lastHitPerLife = 20*lastHitPerLife; }
+        text.detailText.push({title: "평균 결정타(킬캐치)", index: lastHitPerLife});
+        radar_label.push("평균 결정타(킬캐치)");
+        if (lastHitPerLife >= 20) { lastHitPerLife = 100;} else { lastHitPerLife = lastHitPerLife*5; }
         radar_data.push(Math.round(lastHitPerLife*100)/100.0);
         if("/메이/시메트라".indexOf(heroNameKR) > 0 ) {
-            text.detailText.push({title: "목숨당 막은피해", index: blockDamagePerLife});
-            radar_label.push("목숨당 막은피해");
-            if(blockDamagePerLife >= 1000) { blockDamagePerLife= 100;} else {blockDamagePerLife = 0.1*blockDamagePerLife ;}
+            text.detailText.push({title: "평균 막은피해", index: blockDamagePerLife});
+            radar_label.push("평균 막은피해");
+            if(blockDamagePerLife >= 5000) { blockDamagePerLife= 100;} else {blockDamagePerLife = blockDamagePerLife/50 ;}
             radar_data.push(Math.round(blockDamagePerLife*100)/100.0);
         }
     }else if(tank_hero.indexOf(heroNameKR) > 0) {   // 탱커 영웅일 시
-        if(damageToHeroPerLife >= 1800) { damageToHeroPerLife= 100;} else {damageToHeroPerLife = damageToHeroPerLife/18 ;}
+        if(damageToHeroPerLife >= 8000) { damageToHeroPerLife= 100;} else {damageToHeroPerLife = damageToHeroPerLife/80 ;}
         radar_data.push(Math.round(damageToHeroPerLife*100)/100.0);
-        text.detailText.push({title: "목숨당 방벽 피해량", index: damageToShieldPerLife});
-        radar_label.push("목숨당 방벽 피해량");
-        if(damageToShieldPerLife >= 1500) { damageToShieldPerLife= 100;} else {damageToShieldPerLife = damageToShieldPerLife/15 ;}
+        text.detailText.push({title: "평균 방벽 피해량", index: damageToShieldPerLife});
+        radar_label.push("평균 방벽 피해량");
+        if(damageToShieldPerLife >= 6000) { damageToShieldPerLife= 100;} else {damageToShieldPerLife = damageToShieldPerLife/60 ;}
         radar_data.push(Math.round(damageToShieldPerLife*100)/100.0);
         if("/로드호그/레킹볼".indexOf(heroNameKR) <= 0 ) {
-            text.detailText.push({title: "목숨당 막은피해", index: blockDamagePerLife});
-            radar_label.push("목숨당 막은피해");
-            if(blockDamagePerLife >= 3000) { blockDamagePerLife= 100;} else {blockDamagePerLife = 0.033*blockDamagePerLife ;}
+            text.detailText.push({title: "평균 막은피해", index: blockDamagePerLife});
+            radar_label.push("평균 막은피해");
+            if(blockDamagePerLife >= 15000) { blockDamagePerLife= 100;} else {blockDamagePerLife = blockDamagePerLife/150 ;}
             radar_data.push(Math.round(blockDamagePerLife*100)/100.0);
         }
     }
@@ -424,19 +424,19 @@ const checkHero = (hero, detail, text, radar_data, radar_label) => {
                 }
             }else {
                 index_val = parseFloat(index[i]);
-                if("목숨당 흡수한 피해" == title[i]) {
-                    if (index_val >= 600) { index_val = 100;} else { index_val = index_val/6; }
+                if("평균 흡수한 피해" == title[i]) {
+                    if (index_val >= 2800) { index_val = 100;} else { index_val = index_val/28; }
                 }else if("평균 주는방벽" == title[i] ) {
                     if (index_val >= 33) { index_val = 100;} else { index_val = index_val*3; }
                 }else if("평균 고에너지 처치" == title[i] || "평균 경계모드 처치" == title[i]) {
                     if (index_val >= 25) { index_val = 100;} else { index_val = index_val*4; }
                 }else if("평균 초월 힐" == title[i]) {
-                    if (index_val >= 250) { index_val = 100;} else { index_val = index_val/2.5; }
+                    if (index_val >= 2500) { index_val = 100;} else { index_val = index_val/25; }
                 }else if("평균 자폭 처치" == title[i] || "평균 대지분쇄 처치" == title[i] ||
                     "평균 나노강화제 주입" == title[i] || "평균 불사장치 세이브" == title[i] || "평균 강화메트릭스 사용" == title[i] ||
                     "평균 전차모드 처치" == title[i] || "평균 죽이는 타이어 처치" == title[i] || "평균 난사 처치" == title[i] ||
                     "평균 BOB 처치" == title[i] || "평균 초고열 용광로 처치" == title[i] || "평균 눈보라 처치" == title[i] ||
-                    "평균 중력자탄 처치" == title[i]) {
+                    "평균 중력자탄 처치" == title[i] ) {
                     if (index_val >= 5.5) { index_val = 100;} else { index_val = index_val*18; }
                 }else if("평균 끈 적" == title[i] || "평균 직접 처치" == title[i]) {
                     if (index_val >= 18) { index_val = 100;} else { index_val = index_val*5.55; }
@@ -447,17 +447,17 @@ const checkHero = (hero, detail, text, radar_data, radar_label) => {
                 }else if("평균 생체수류탄 처치" == title[i] || "평균 융화 처치" == title[i] || "평균 부활" == title[i] || "평균 용검 처치" ==title[i] ||
                     "평균 충격 지뢰 처치" == title[i] || "평균 죽음의꽃 처치" == title[i] || "평균 다이너마이트 처치" == title[i] ||
                     "평균 포화 처치" == title[i] || "평균 폭풍 화살 처치" == title[i] || "평균 처치시야 지원" == title[i] ||
-                    "평균 강착 처치" == title[i]) {
+                    "평균 강착 처치" == title[i] || "평균 재운적" == title[i]) {
                     if (index_val >= 8) { index_val = 100;} else { index_val = index_val*13.33; }
-                }else if("평균 재운적" == title[i]) {
+                }else if("empty" == title[i]) {
                     if (index_val >= 2) { index_val = 100;} else { index_val = index_val*50; }
-                }else if("목숨당 방어력 제공" == title[i]) {
-                    if (index_val >= 1000) { index_val = 100;} else { index_val = index_val/10; }
+                }else if("평균 방어력 제공" == title[i]) {
+                    if (index_val >= 3800) { index_val = 100;} else { index_val = index_val/38; }
                 }else if("평균 융화 힐" == title[i] || "평균 공격력 증폭" == title[i] || "평균 튕겨낸 피해량" == title[i] ||
                     "평균 보호막 생성량" == title[i]) {
                     if (index_val >= 2600) { index_val = 100;} else { index_val = index_val/26; }
-                }else if("목숭당 자힐량" == title[i]) {
-                    if (index_val >= 600) { index_val = 100;} else { index_val = index_val/6; }  //350
+                }else if("평균 자힐량" == title[i]) {
+                    if (index_val >= 5000) { index_val = 100;} else { index_val = index_val/50; }  //350
                 }else if("평균 소리방벽 사용" == title[i] || "평균 덫으로 묶은 적" == title[i] || "평균 포탑 처치" == title[i] ||
                     "평균 얼린적" == title[i] || "평균 감시포탑 처치" == title[i] || "평균 중력붕괴 처치" == title[i]) {
                     if (index_val >= 15) { index_val = 100;} else { index_val = index_val*6.66; }
@@ -507,38 +507,38 @@ const checkTierAndRankerData = (hero, radar_data) => {
     radar_data.push(Math.round(deathAvg*100)/100.0); radar_data.push(Math.round(killPerDeath*100)/100.0);
 
     if(heal_hero.indexOf(heroNameKR) > 0){          // 힐러 영웅일 시
-        if(damageToHeroPerLife >= 1000) { damageToHeroPerLife= 100;} else {damageToHeroPerLife = 0.1*damageToHeroPerLife ;}
+        if(damageToHeroPerLife >= 8000) { damageToHeroPerLife= 100;} else {damageToHeroPerLife = damageToHeroPerLife/80 ;}
         radar_data.push(Math.round(damageToHeroPerLife*100)/100.0);
 
-        if(healPerLife >= 2000) { healPerLife= 100;} else {healPerLife = 0.05*healPerLife ;}
+        if(healPerLife >= 12000) { healPerLife= 100;} else {healPerLife = healPerLife/120 ;}
         radar_data.push(Math.round(healPerLife*100)/100.0);
         if("바티스트" == heroNameKR) {
-            if(damageToShieldPerLife >= 1000) { damageToShieldPerLife= 100;} else {damageToShieldPerLife = 0.1*damageToShieldPerLife ;}
+            if(damageToShieldPerLife >= 3000) { damageToShieldPerLife= 100;} else {damageToShieldPerLife = damageToShieldPerLife/30 ;}
             radar_data.push(Math.round(damageToShieldPerLife*100)/100.0);
         }
     }else if(deal_hero.indexOf(heroNameKR) > 0) {   // 딜러 영웅일 시
-        if(damageToHeroPerLife >= 1500) { damageToHeroPerLife= 100;} else {damageToHeroPerLife = damageToHeroPerLife/15;}
+        if(damageToHeroPerLife >= 15000) { damageToHeroPerLife= 100;} else {damageToHeroPerLife = damageToHeroPerLife/150;}
         radar_data.push(Math.round(damageToHeroPerLife*100)/100.0);
         if("둠피스트" != "heroNameKR") {
-            if(damageToShieldPerLife >= 1500) { damageToShieldPerLife= 100;} else {damageToShieldPerLife = damageToShieldPerLife/15;}
+            if(damageToShieldPerLife >= 6000) { damageToShieldPerLife= 100;} else {damageToShieldPerLife = damageToShieldPerLife/60;}
             radar_data.push(Math.round(damageToShieldPerLife*100)/100.0);
         }
-        if (lastHitPerLife >= 5) { lastHitPerLife = 100;} else { lastHitPerLife = 20*lastHitPerLife; }
+        if (lastHitPerLife >= 20) { lastHitPerLife = 100;} else { lastHitPerLife = 5*lastHitPerLife; }
         radar_data.push(Math.round(lastHitPerLife*100)/100.0);
         if("/메이/시메트라".indexOf(heroNameKR) > 0 ) {
             // radar_label.push("목숨당 막은피해");
-            if(blockDamagePerLife >= 1000) { blockDamagePerLife= 100;} else {blockDamagePerLife = 0.1*blockDamagePerLife ;}
+            if(blockDamagePerLife >= 5000) { blockDamagePerLife= 100;} else {blockDamagePerLife = blockDamagePerLife/50 ;}
             radar_data.push(Math.round(blockDamagePerLife*100)/100.0);
         }
     }else if(tank_hero.indexOf(heroNameKR) > 0) {   // 탱커 영웅일 시
-        if(damageToHeroPerLife >= 1800) { damageToHeroPerLife= 100;} else {damageToHeroPerLife = damageToHeroPerLife/18 ;}
+        if(damageToHeroPerLife >= 8000) { damageToHeroPerLife= 100;} else {damageToHeroPerLife = damageToHeroPerLife/80 ;}
         radar_data.push(Math.round(damageToHeroPerLife*100)/100.0);
         // radar_label.push("목숨당 방벽 피해량");
-        if(damageToShieldPerLife >= 1500) { damageToShieldPerLife= 100;} else {damageToShieldPerLife = damageToShieldPerLife/15 ;}
+        if(damageToShieldPerLife >= 6000) { damageToShieldPerLife= 100;} else {damageToShieldPerLife = damageToShieldPerLife/60 ;}
         radar_data.push(Math.round(damageToShieldPerLife*100)/100.0);
         if("/로드호그/레킹볼".indexOf(heroNameKR) <= 0 ) {
             // radar_label.push("목숨당 막은피해");
-            if(blockDamagePerLife >= 3000) { blockDamagePerLife= 100;} else {blockDamagePerLife = 0.033*blockDamagePerLife ;}
+            if(blockDamagePerLife >= 15000) { blockDamagePerLife= 100;} else {blockDamagePerLife = blockDamagePerLife/150 ;}
             radar_data.push(Math.round(blockDamagePerLife*100)/100.0);
         }
     }
@@ -563,14 +563,14 @@ const checkTierAndRankerData = (hero, radar_data) => {
                 }
             }else {
                 index_val = parseFloat(index[i]);
-                if("목숨당 흡수한 피해" == title[i]) {
-                    if (index_val >= 600) { index_val = 100;} else { index_val = index_val/6; }
+                if("평균 흡수한 피해" == title[i]) {
+                    if (index_val >= 2800) { index_val = 100;} else { index_val = index_val/28; }
                 }else if("평균 주는방벽" == title[i] ) {
                     if (index_val >= 33) { index_val = 100;} else { index_val = index_val*3; }
                 }else if("평균 고에너지 처치" == title[i] || "평균 경계모드 처치" == title[i]) {
                     if (index_val >= 25) { index_val = 100;} else { index_val = index_val*4; }
                 }else if("평균 초월 힐" == title[i]) {
-                    if (index_val >= 250) { index_val = 100;} else { index_val = index_val/2.5; }
+                    if (index_val >= 2500) { index_val = 100;} else { index_val = index_val/25; }
                 }else if("평균 자폭 처치" == title[i] || "평균 대지분쇄 처치" == title[i] ||
                     "평균 나노강화제 주입" == title[i] || "평균 불사장치 세이브" == title[i] || "평균 강화메트릭스 사용" == title[i] ||
                     "평균 전차모드 처치" == title[i] || "평균 죽이는 타이어 처치" == title[i] || "평균 난사 처치" == title[i] ||
@@ -586,17 +586,17 @@ const checkTierAndRankerData = (hero, radar_data) => {
                 }else if("평균 생체수류탄 처치" == title[i] || "평균 융화 처치" == title[i] || "평균 부활" == title[i] || "평균 용검 처치" ==title[i] ||
                     "평균 충격 지뢰 처치" == title[i] || "평균 죽음의꽃 처치" == title[i] || "평균 다이너마이트 처치" == title[i] ||
                     "평균 포화 처치" == title[i] || "평균 폭풍 화살 처치" == title[i] || "평균 처치시야 지원" == title[i] ||
-                    "평균 강착 처치" == title[i]) {
+                    "평균 강착 처치" == title[i] || "평균 재운적" == title[i]) {
                     if (index_val >= 8) { index_val = 100;} else { index_val = index_val*13.33; }
-                }else if("평균 재운적" == title[i]) {
+                }else if("empty" == title[i]) {
                     if (index_val >= 2) { index_val = 100;} else { index_val = index_val*50; }
-                }else if("목숨당 방어력 제공" == title[i]) {
-                    if (index_val >= 1000) { index_val = 100;} else { index_val = index_val/10; }
+                }else if("평균 방어력 제공" == title[i]) {
+                    if (index_val >= 8000) { index_val = 100;} else { index_val = index_val/38; }
                 }else if("평균 융화 힐" == title[i] || "평균 공격력 증폭" == title[i] || "평균 튕겨낸 피해량" == title[i] ||
                     "평균 보호막 생성량" == title[i]) {
                     if (index_val >= 2600) { index_val = 100;} else { index_val = index_val/26; }
-                }else if("목숭당 자힐량" == title[i]) {
-                    if (index_val >= 600) { index_val = 100;} else { index_val = index_val/6; }  //350
+                }else if("평균 자힐량" == title[i]) {
+                    if (index_val >= 5000) { index_val = 100;} else { index_val = index_val/50; }  //350
                 }else if("평균 소리방벽 사용" == title[i] || "평균 덫으로 묶은 적" == title[i] || "평균 포탑 처치" == title[i] ||
                     "평균 얼린적" == title[i] || "평균 감시포탑 처치" == title[i] || "평균 중력붕괴 처치" == title[i]) {
                     if (index_val >= 15) { index_val = 100;} else { index_val = index_val*6.66; }
