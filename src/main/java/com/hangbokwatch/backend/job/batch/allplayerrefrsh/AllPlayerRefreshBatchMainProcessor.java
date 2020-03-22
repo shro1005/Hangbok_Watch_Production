@@ -1047,6 +1047,8 @@ public class AllPlayerRefreshBatchMainProcessor implements ItemProcessor<Player,
                     Long armor = 0l;
                     String inspireActiveRate = "0%";
                     String armorAvg = "0";
+                    String attackSupprotAvg = "0";
+                    String blockSupprotAvg = "0";
 
                     for (Element tr : detailDatas) {
                         Elements td;
@@ -1062,6 +1064,14 @@ public class AllPlayerRefreshBatchMainProcessor implements ItemProcessor<Player,
                             case "0x0860000000000612":                  // 결려 지속량 (%)
                                 td = tr.select("td");
                                 inspireActiveRate = td.last().text();
+                                break;
+                            case "0x08600000000004F7":                  // 공격형 도움 - 10분당 평균
+                                td = tr.select("td");
+                                attackSupprotAvg = td.last().text();
+                                break;
+                            case "0x08600000000004F4":                  // 방어형 도움 - 10분당 평균
+                                td = tr.select("td");
+                                blockSupprotAvg = td.last().text();
                                 break;
                             default:
                                 break;
@@ -1079,7 +1089,7 @@ public class AllPlayerRefreshBatchMainProcessor implements ItemProcessor<Player,
 
                     PlayerDetail playerDetail = new PlayerDetail(pdDto.getId(), pdDto.getSeason(), pdDto.getOrder(), hero, pdDto.getHeroNameKR(), killPerDeath,
                             winRate, playTime, deathAvg, spentOnFireAvg, healAvg, "0", "0", damageToHeroAvg, "0",
-                            armorAvg, inspireActiveRate, "", "", "", "평균 방어력 제공", "격려(패시브) 지속률", "", "", "");
+                            armorAvg, inspireActiveRate, attackSupprotAvg, blockSupprotAvg, "", "평균 방어력 제공", "격려(패시브) 지속률", "평균 공격형 도움", "평균 방어형 도움", "");
 
                     playerDetailList.add(playerDetail);
 
@@ -1095,6 +1105,8 @@ public class AllPlayerRefreshBatchMainProcessor implements ItemProcessor<Player,
                 } else if ("0x02E0000000000079".equals(heroDetails.attr("data-category-id"))) {
                     //루시우 영웅 특별 데이터
                     String soundwaveAvg = "0";
+                    String attackSupprotAvg = "0";
+                    String blockSupprotAvg = "0";
 
                     for (Element tr : detailDatas) {
                         Elements td;
@@ -1102,6 +1114,14 @@ public class AllPlayerRefreshBatchMainProcessor implements ItemProcessor<Player,
                             case "0x08600000000004D2":                  // 평균 소리방볍 제공 (10분)
                                 td = tr.select("td");
                                 soundwaveAvg = td.last().text();
+                                break;
+                            case "0x08600000000004F7":                  // 공격형 도움 - 10분당 평균
+                                td = tr.select("td");
+                                attackSupprotAvg = td.last().text();
+                                break;
+                            case "0x08600000000004F4":                  // 방어형 도움 - 10분당 평균
+                                td = tr.select("td");
+                                blockSupprotAvg = td.last().text();
                                 break;
                             default:
                                 break;
@@ -1117,7 +1137,7 @@ public class AllPlayerRefreshBatchMainProcessor implements ItemProcessor<Player,
 
                     PlayerDetail playerDetail = new PlayerDetail(pdDto.getId(), pdDto.getSeason(), pdDto.getOrder(), hero, pdDto.getHeroNameKR(), killPerDeath,
                             winRate, playTime, deathAvg, spentOnFireAvg, healAvg, "0", "0", damageToHeroAvg, "0",
-                            soundwaveAvg, "", "", "", "", "평균 소리방벽 사용", "", "", "", "");
+                            soundwaveAvg, attackSupprotAvg, blockSupprotAvg, "", "", "평균 소리방벽 사용", "평균 공격형 도움", "평균 방어형 도움", "", "");
 
                     playerDetailList.add(playerDetail);
 
@@ -1134,6 +1154,8 @@ public class AllPlayerRefreshBatchMainProcessor implements ItemProcessor<Player,
                     //메르시 영웅 특별 데이터
                     String resurrectAvg = "0";
                     String damageAmpAvg = "0";
+                    String attackSupprotAvg = "0";
+                    String blockSupprotAvg = "0";
 
                     for (Element tr : detailDatas) {
                         Elements td;
@@ -1145,6 +1167,14 @@ public class AllPlayerRefreshBatchMainProcessor implements ItemProcessor<Player,
                             case "0x08600000000004F3":                  // 평균 공격력 증폭 (10분)
                                 td = tr.select("td");
                                 damageAmpAvg = td.last().text();
+                                break;
+                            case "0x08600000000004F7":                  // 공격형 도움 - 10분당 평균
+                                td = tr.select("td");
+                                attackSupprotAvg = td.last().text();
+                                break;
+                            case "0x08600000000004F4":                  // 방어형 도움 - 10분당 평균
+                                td = tr.select("td");
+                                blockSupprotAvg = td.last().text();
                                 break;
                             default:
                                 break;
@@ -1160,7 +1190,7 @@ public class AllPlayerRefreshBatchMainProcessor implements ItemProcessor<Player,
 
                     PlayerDetail playerDetail = new PlayerDetail(pdDto.getId(), pdDto.getSeason(), pdDto.getOrder(), hero, pdDto.getHeroNameKR(), killPerDeath,
                             winRate, playTime, deathAvg, spentOnFireAvg, healAvg, "0", "0", damageToHeroAvg, "0",
-                            resurrectAvg, damageAmpAvg, "", "", "", "평균 부활", "평균 공격력 증폭", "", "", "");
+                            resurrectAvg, damageAmpAvg, attackSupprotAvg, blockSupprotAvg, "", "평균 부활", "평균 공격력 증폭", "평균 공격형 도움", "평균 방어형 도움", "");
 
                     playerDetailList.add(playerDetail);
 
@@ -1229,6 +1259,8 @@ public class AllPlayerRefreshBatchMainProcessor implements ItemProcessor<Player,
                 } else if ("0x02E0000000000020".equals(heroDetails.attr("data-category-id"))) {
                     //젠야타 영웅 특별 데이터
                     Double transcendenceHeal = 0d; String timeValue = "0";
+                    String attackSupprotAvg = "0";
+                    String blockSupprotAvg = "0";
 
                     for (Element tr : detailDatas) {
                         Elements td;
@@ -1247,6 +1279,14 @@ public class AllPlayerRefreshBatchMainProcessor implements ItemProcessor<Player,
                                 time += Long.parseLong(timeValue.substring(timeValue.lastIndexOf(":")-2, timeValue.lastIndexOf(":"))) * 60;
                                 time += Long.parseLong(timeValue.substring(timeValue.lastIndexOf(":")+1));
                                 break;
+                            case "0x08600000000004F7":                  // 공격형 도움 - 10분당 평균
+                                td = tr.select("td");
+                                attackSupprotAvg = td.last().text();
+                                break;
+                            case "0x08600000000004F4":                  // 방어형 도움 - 10분당 평균
+                                td = tr.select("td");
+                                blockSupprotAvg = td.last().text();
+                                break;
                             default:
                                 break;
                         }
@@ -1261,7 +1301,7 @@ public class AllPlayerRefreshBatchMainProcessor implements ItemProcessor<Player,
                     competitiveDetailDto.setZenyatta(zenyatta);
                     PlayerDetail playerDetail = new PlayerDetail(pdDto.getId(), pdDto.getSeason(), pdDto.getOrder(), hero, pdDto.getHeroNameKR(), killPerDeath,
                             winRate, playTime, deathAvg, spentOnFireAvg, healAvg, "0", "0", damageToHeroAvg, "0",
-                            transcendenceHealAvg.toString(), "", "", "", "", "평균 초월 힐", "", "", "", "");
+                            transcendenceHealAvg.toString(), attackSupprotAvg, blockSupprotAvg, "", "", "평균 초월 힐", "평균 공격형 도움", "평균 방어형 도움", "", "");
 
                     playerDetailList.add(playerDetail);
 
