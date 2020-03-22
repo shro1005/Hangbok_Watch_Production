@@ -2295,7 +2295,7 @@ public class UpdateTierDetailDataBatchJobProcessor implements ItemProcessor<List
                 calculateData(datas[26][12],brigitteCnt), calculateData(datas[26][2],brigitteCnt), calculateData(datas[26][3],brigitteCnt), calculateData(datas[26][4],brigitteCnt),
                 calculateData(datas[26][5],brigitteCnt), calculateData(datas[26][6],brigitteCnt), calculateData(datas[26][7],brigitteCnt),
                 calculateData(datas[26][8],brigitteCnt), calculateData(datas[26][9],brigitteCnt), calculateData(datas[26][10],brigitteCnt),
-                calculateData(datas[26][11],brigitteCnt), "목숨당 방어력 제공", "격려(패시브) 지속률", "", "", "");
+                calculateData(datas[26][11],brigitteCnt), "목숨당 방어력 제공", "격려(패시브) 지속률", "평균 공격형 도움", "평균 방어형 도움", "");
 
         playerDetailList.add(brigitteDetail);
 
@@ -2315,7 +2315,7 @@ public class UpdateTierDetailDataBatchJobProcessor implements ItemProcessor<List
                 calculateData(datas[28][12],zenyattaCnt), calculateData(datas[28][2],zenyattaCnt), calculateData(datas[28][3],zenyattaCnt), calculateData(datas[28][4],zenyattaCnt),
                 calculateData(datas[28][5],zenyattaCnt), calculateData(datas[28][6],zenyattaCnt), calculateData(datas[28][7],zenyattaCnt),
                 calculateData(datas[28][8],zenyattaCnt), calculateData(datas[28][9],zenyattaCnt), calculateData(datas[28][10],zenyattaCnt),
-                calculateData(datas[28][11],zenyattaCnt), "평균 초월 힐", "", "", "", "");
+                calculateData(datas[28][11],zenyattaCnt), "평균 초월 힐", "평균 공격형 도움", "평균 방어형 도움", "", "");
 
         playerDetailList.add(zenyattaDetail);
 
@@ -2325,7 +2325,7 @@ public class UpdateTierDetailDataBatchJobProcessor implements ItemProcessor<List
                 calculateData(datas[29][12],lucioCnt), calculateData(datas[29][2],lucioCnt), calculateData(datas[29][3],lucioCnt), calculateData(datas[29][4],lucioCnt),
                 calculateData(datas[29][5],lucioCnt), calculateData(datas[29][6],lucioCnt), calculateData(datas[29][7],lucioCnt),
                 calculateData(datas[29][8],lucioCnt), calculateData(datas[29][9],lucioCnt), calculateData(datas[29][10],lucioCnt),
-                calculateData(datas[29][11],lucioCnt), "평균 소리방벽 사용", "", "", "", "");
+                calculateData(datas[29][11],lucioCnt), "평균 소리방벽 사용", "평균 공격형 도움", "평균 방어형 도움", "", "");
 
         playerDetailList.add(lucioDetail);
 
@@ -2335,7 +2335,7 @@ public class UpdateTierDetailDataBatchJobProcessor implements ItemProcessor<List
                 calculateData(datas[30][12],mercyCnt), calculateData(datas[30][2],mercyCnt), calculateData(datas[30][3],lucioCnt), calculateData(datas[30][4],mercyCnt),
                 calculateData(datas[30][5],mercyCnt), calculateData(datas[30][6],mercyCnt), calculateData(datas[30][7],mercyCnt),
                 calculateData(datas[30][8],mercyCnt), calculateData(datas[30][9],mercyCnt), calculateData(datas[30][10],mercyCnt),
-                calculateData(datas[03][11],mercyCnt), "평균 부활", "평균 공격력 증폭", "", "", "");
+                calculateData(datas[03][11],mercyCnt), "평균 부활", "평균 공격력 증폭", "평균 공격형 도움", "평균 방어형 도움", "");
 
         playerDetailList.add(mercyDetail);
 
