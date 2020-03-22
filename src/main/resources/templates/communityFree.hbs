@@ -1,0 +1,129 @@
+{{!-- cmnmunity page => communityFree.hbs --}}
+
+{{#> layouts/base}}
+{{!--=================== head content ======================--}}
+
+{{!--=================== Main content ======================--}}
+    {{#*inline "content-block"}}
+        <div class="hero-wrap-s" style="background-image: url('/HWimages/background/bg_5.jpg');" data-stellar-background-ratio="0.5">
+            <div class="overlay"></div>
+            <div class="container">
+                <div class="row justify-content-center align-items-center no-gutters slider-text-s">
+                    <div class="col-md-9 ftco-animate pb-5 text-center">   <!--class="col-lg-8 col-md-6 ftco-animate text-center"-->
+                        <div class="text text-center">
+                            <form action="#" class="search-location-s mt-md-5">
+                                <div class="row justify-content-center">
+                                    <div class="col-lg-10 align-items-end">
+                                        <div class="form-group">
+                                            <div class="form-field">
+                                                <input type="text" id="playerName" class="form-control" placeholder="'플레이어명' 혹은 '플레이어명#배틀태그'를 입력해주세요">
+                                                <button type="button" id="btn-search"><span class="ion-ios-search"></span></button>  <!---->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section class="ftco-section goto-here">
+            <div class="resultContainer-detail">
+                <input type="hidden" class="category" value="{{category}}">
+                <div class="ranking-tab">
+                    <div class="total-tab-block  col-md-3" onclick="showBoardList('free'); return false;" style="cursor: pointer;">
+                        <h2 class="titular total_titular free-board active">익명게시판</h2>
+                    </div>
+                    <div class="tank-tab-block  col-md-3" onclick="showBoardList('party'); return false;" style="cursor: pointer;">
+                        <h2 class="titular tank_titular party-board">듀오/파티 모집</h2>
+                    </div>
+                    <div class="deal-tab-block col-md-3" onclick="showBoardList('mypage'); return false;" style="cursor: pointer;">
+                        <h2 class="titular deal_titular my-page">내가 쓴글</h2>
+                    </div>
+                </div>
+                <div class="row community-free" id="search-result">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th style="width: 10%">번호</th>
+                                <th style="width: 45%">제목</th>
+                                <th style="width: 15%">작성자</th>
+                                <th style="width: 10%">등록일</th>
+                                <th style="width: 10%">조회수</th>
+                                <th style="width: 10%">추천수</th>
+                            </tr>
+                            </thead>
+                            <tbody class="free-tbody">
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="writing-button">
+                    <a href="javascript:void(0);" onclick="goToWrite(); return false;"><img class="edit-button" src="/HWimages/util/edit.png"></a>
+                </div>
+                <div class="paging-button-container">
+                </div>
+
+            </div>
+
+        </section>
+
+    {{/inline}}
+
+    {{!--=================== scripts content ======================--}}
+    {{#*inline "scripts-blick"}}
+        <script>
+            const goToWrite = () => {
+                if({{isLogin}}) {
+                    const playerId = "{{SessionUserId}}";
+                    const battleTag = "{{SessionBattleTag}}"
+
+                    // console.log("playerId : " + playerId);
+                    // console.log("battleTag : " + battleTag);
+                    if($('.free-board').hasClass('active') === true) {
+                        // console.log("goto write");
+                        location.href = "/write/free";
+                    }else if($('.party-board').hasClass('active') === true) {
+                        location.href = "/write/party";
+                    }
+
+                }else {
+                    alert("배틀넷 계정으로 로그인한 유저분만 글을 작성 할 수 있습니다.\n" +
+                            "로그인 후에 이용해주시면 감사하겠습니다.");
+                }
+            }
+        </script>
+
+        <script id="more_player_list" type="text/x-handlebars-template" charset="UTF-8">
+            \{{#contents}}
+            <tr>
+                <td class="align-items-left" href="javascript:void(0);" onclick="playerDetail(this); return false;" attr-p="\{{isPublic}}" attr-u="\{{forUrl}}" style="cursor: pointer; text-align: left;">
+                    <div class="content-num" > \{{contNum}}</div>
+                </td>
+                <td href="javascript:void(0);" onclick="playerDetail(this); return false;" attr-p="\{{isPublic}}" attr-u="\{{forUrl}}" style="cursor: pointer">
+                    <div class="content-title">\{{title}}</div>
+                </td>
+                <td href="javascript:void(0);" onclick="playerDetail(this); return false;" attr-p="\{{isPublic}}" attr-u="\{{forUrl}}" style="cursor: pointer">
+                    <div class="content-writer">\{{writer}}</div>
+                </td>
+                <td href="javascript:void(0);" onclick="playerDetail(this); return false;" attr-p="\{{isPublic}}" attr-u="\{{forUrl}}" style="cursor: pointer">
+                    <div class="content-rgtDtm">\{{rgtDtm}}</div>
+                </td>
+                <td href="javascript:void(0);" onclick="playerDetail(this); return false;" attr-p="\{{isPublic}}" attr-u="\{{forUrl}}" style="cursor: pointer">
+                    <div class="content-watchingCount">\{{watchingCount}}</div>
+                </td>
+                <td href="javascript:void(0);" onclick="playerDetail(this); return false;" attr-p="\{{isPublic}}" attr-u="\{{forUrl}}" style="cursor: pointer">
+                    <div class="content-likeCount">\{{likeCount}}</div>
+                </td>
+            </tr>
+            \{{/contents}}
+        </script>
+
+        <script src="/js/app/hangbok-comuFree.js" charset="UTF-8"></script>
+    {{/inline}}
+
+{{/layouts/base}}

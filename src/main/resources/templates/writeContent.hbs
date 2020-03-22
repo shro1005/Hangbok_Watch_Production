@@ -1,0 +1,60 @@
+
+{{#> layouts/base}}
+{{!--=================== head content ======================--}}
+{{#*inline "head-block"}}
+<link href="/js/summernote-0.8.16-dist/summernote.css" rel="stylesheet">
+
+{{/inline}}
+{{!--=================== Main content ======================--}}
+{{#*inline "content-block"}}
+    <div class="hero-wrap-s" style="background-image: url('/HWimages/background/bg_5.jpg');" data-stellar-background-ratio="0.5">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row justify-content-center align-items-center no-gutters slider-text-s">
+                <div class="col-md-9 ftco-animate pb-5 text-center">   <!--class="col-lg-8 col-md-6 ftco-animate text-center"-->
+                    <div class="text text-center">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="ftco-section" style="padding: 0 0 6em 0;">
+        <div class="resultContainer-write">
+
+            <form action="/community/saveContent" method="post" id="content-form">
+                <div class="content-header">{{category}} > 게시글 작성
+                    <div class="content-button get-list float-right"><a href="javascript:void(0);" onclick="goBack();">목록</a></div>
+                </div>
+                <input type="hidden" id="player-id" name="playerId" value="{{SessionUserId}}">
+                <input type="hidden" id="battle-tag" name="battleTag" value="{{SessionBattleTag}}">
+                <input type="hidden" id="category" name="saveCategory" value="{{category}}">
+                <input type="text" class="content-title" id="content-title" name="title" placeholder="  제목을 입력해 주세요.">
+                <textarea id="summernote" name="editordata"></textarea>
+            </form>
+
+            <div class="content-button-container">
+                <div class="content-button save-content bottom-button float-right"><a href="javascript:void(0);" onclick="saveContent();">작성완료</a></div>
+<!--                <div class="content-button preview bottom-button float-right"><a href="javascript:void(0);" onclick="showPreview();">미리보기</a></div>-->
+                <div class="content-button get-list bottom-button float-left"><a href="javascript:void(0);" onclick="goBack();">목록</a></div>
+            </div>
+        </div>
+
+    </section>
+
+{{/inline}}
+
+{{!--=================== scripts content ======================--}}
+{{#*inline "scripts-blick"}}
+<!--    <script src="/js/toast-ui-editor/toast-ui-editor.js" charset="UTF-8"></script>-->
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="/js/summernote-0.8.16-dist/summernote.min.js"></script>
+<script src="/js/summernote-0.8.16-dist/lang/summernote-ko-KR.js"></script>
+
+<script src="/js/app/hangbok-writeContent.js" charset="UTF-8"></script>
+{{/inline}}
+
+{{/layouts/base}}

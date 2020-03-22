@@ -42,9 +42,10 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().authorizeRequests() // 메소드를 통해 여러 자식을 추가하여 URL에 대한 요구사항을 정의할 수 있다 (antMatch를 사용할 수 있다.).
                     .antMatchers("/", "/search/**", "/showPlayerList", "/crawlingPlayerList", "/getDetailData", "/refreshFavorite", "/getFavoriteData",
                             "/showPlayerDetail/**", "/refreshPlayerDetail/**", "/myFavorite/**", "/ranking/**", "/login/** ", "/mobile/**", "/ranker/**",
-                            "/css/**", "/images/**", "/js/**", "/fonts/**", "/scss/**", "/logout", "/oauth2/**", "/HWimages/**", "/profile", "/getBanHero").permitAll()
-                    .antMatchers("/findDuo/**").hasRole(Role.USER.name()).anyRequest().authenticated()
-                    .antMatchers("/oNlYAdMIn/**", "/findDuo/**").hasRole(Role.ADMIN.name()).anyRequest().authenticated()
+                            "/css/**", "/images/**", "/js/**", "/fonts/**", "/scss/**", "/logout", "/oauth2/**", "/HWimages/**", "/profile", "/getBanHero",
+                            "/community/**").permitAll()
+                    .antMatchers("/write/**").hasAnyRole(Role.USER.name(), Role.ADMIN.name()).anyRequest().authenticated()
+                    .antMatchers("/oNlYAdMIn/**").hasRole(Role.ADMIN.name()).anyRequest().authenticated()
                 .and().logout().logoutSuccessUrl("/")
 
                 .and().oauth2Login().successHandler(successHandler())

@@ -46,6 +46,7 @@ public class CustomLoginSuccessHandler extends SavedRequestAwareAuthenticationSu
         log.debug("{} onAuthenticationSuccess >>>>>>>> Data Parsing | user id : {} / battle-tag : {}", registrationId, id, battleTag);
         OAuthAttributes customAttributes = OAuthAttributes.of(registrationId, id, attributes);
         User user = saveOrUpdate(customAttributes);
+        log.debug("{} onAuthenticationSuccess >>>>>>>> getAuthorities | {}",registrationId, authentication.getAuthorities());
 
         HttpSession session = request.getSession();
         session.setAttribute("user", new SessionUser(user));

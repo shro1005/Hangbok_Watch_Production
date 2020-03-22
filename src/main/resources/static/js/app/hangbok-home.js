@@ -1,8 +1,18 @@
 let playerData = [];
 let count = 0;
+const total_ranker_list = [];
+const tank_ranker_list = [];
+const deal_ranker_list = [];
+const heal_ranker_list = [];
+let total_offset = 0;
+let tank_offset = 0;
+let deal_offset = 0;
+let heal_offset = 0;
+const limit = 25;
 
 const main = {
     init : function(){
+        $('.navbar-nav .index-nav').addClass("active");
         // alert('main init 호출');
         $(window).on('load', function () {
             const flag = $('.fromDetail').attr("id");
@@ -68,6 +78,7 @@ const main = {
         }
 
         drawBanHero();
+        showRankerList("total");
     },
     search : function (userInput) {
         // alert('main search 호출');
@@ -178,7 +189,7 @@ function initPlayers(template) {
             alert(data.playerName);
             return false;
         }
-        const player = drawList(data);
+        const player = drawPlayerList(data);
         item.players.push(player);
     }
 
@@ -211,7 +222,7 @@ function morePlayers() {
             alert(data.playerName);
             return false;
         }
-        const player = drawList(data);
+        const player = drawPlayerList(data);
         item.players.push(player);
     }
 
@@ -243,16 +254,25 @@ function playerDetail(obj) {
     // }
 }
 
-function drawList(data) {
+function drawPlayerList(data) {
     // return new Promise(function(data){})
     if(data.battleTag === 'message') {
         alert(data.playerName);
         return false;
     }
+
+    let tag = data.battleTag.substring(data.battleTag.indexOf("#"));
+    if(tag.length === 5) {
+        tag = tag.substring(0, 3) + "XX";
+    }else if(tag.length === 6) {
+        tag = tag.substring(0, 3) + "XXX";
+    }else if(tag.length === 7) {
+        tag = tag.substring(0, 3) + "XXXX";
+    }
     // console.log(data.udtDtm);
     return {portrait: data.portrait, battleTag: data.battleTag, playerLevel: data.playerLevel, platform: data.platform, tankRatingPoint: data.tankRatingPoint, dealRatingPoint: data.dealRatingPoint, healRatingPoint: data.healRatingPoint, winRate: data.winRate,
     mostHero1: "/HWimages/hero/"+data.mostHero1+"_s.png", mostHero2: "/HWimages/hero/"+data.mostHero2+"_s.png", mostHero3: "/HWimages/hero/"+data.mostHero3+"_s.png", isPublic: data.isPublic, forUrl: data.forUrl, tankRatingImg: data.tankRatingImg,
-    dealRatingImg: data.dealRatingImg, healRatingImg: data.healRatingImg, wingame: data.winGame, losegame: data.loseGame, udtDtm: data.udtDtm};
+    dealRatingImg: data.dealRatingImg, healRatingImg: data.healRatingImg, wingame: data.winGame, losegame: data.loseGame, udtDtm: data.udtDtm, playerName: data.playerName, tag: tag};
 }
 
 function drawBanHero() {
@@ -312,5 +332,243 @@ const getSrc = (role) => {
         return "/HWimages/role/icon-support-46311a4210.png";
     }
 };
+
+const getRankerData = (target, offset, limit) => {
+    const input = {target : target, offset : offset, limit : limit};
+
+    // 랭커 목록에 들어갈 각 내용들 조회
+    $.ajax({type: 'POST',
+        url: '/ranking/getRankerData',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(input),
+        async : false
+    }).done(function (datas) {
+        // console.log(datas);
+        $.each(datas, function (i, data) {
+            if(target == "total") {
+                total_ranker_list.push(data);
+            }else if(target == "tank") {
+                tank_ranker_list.push(data);
+            }else if(target == "deal") {
+                deal_ranker_list.push(data);
+            }else if(target == "heal") {
+                heal_ranker_list.push(data);
+            }
+        });
+    });
+};
+
+function drawList(i, data) {
+    let tag = data.battleTag.substring(data.battleTag.indexOf("#"));
+    if(tag.length === 5) {
+        tag = tag.substring(0, 3) + "XX";
+    }else if(tag.length === 6) {
+        tag = tag.substring(0, 3) + "XXX";
+    }else if(tag.length === 7) {
+        tag = tag.substring(0, 3) + "XXXX";
+    }
+    // console.log(data);
+    // console.log(data.portrait, data.battleTag, data.playerLevel, data.mostHero1, data.mostHero3, data.tankRatingPoint);
+    return {portrait: data.portrait, battleTag: data.battleTag, playerLevel: data.playerLevel, platform: data.platform, tankRatingPoint: data.tankRatingPoint, dealRatingPoint: data.dealRatingPoint, healRatingPoint: data.healRatingPoint, winRate: data.winRate,
+        mostHero1: "/HWimages/hero/"+data.mostHero1+"_s.png", mostHero2: "/HWimages/hero/"+data.mostHero2+"_s.png", mostHero3: "/HWimages/hero/"+data.mostHero3+"_s.png", isPublic: data.isPublic, forUrl: data.forUrl, tankRatingImg: data.tankRatingImg,
+        dealRatingImg: data.dealRatingImg, healRatingImg: data.healRatingImg, wingame: data.winGame, losegame: data.loseGame, udtDtm: data.udtDtm, ranking : (i+1), playerName: data.playerName, tag: tag};
+}
+
+const drawMoreButton = (target) => {
+    if(target == "total") {
+        if (total_offset < 75) {
+            const moreButtonDiv = $('<div class="more-btn-div" align="center">'
+                + '<hr><a id="more_btn" href="javascript:moreRankers(\''+target+'\');">더보기(More)</a><hr>'
+                + '</div>');
+            $(".ranker-list-container").append(moreButtonDiv);
+        }
+
+    }else if(target == "tank") {
+        if (tank_offset < 75) {
+            const moreButtonDiv = $('<div class="more-btn-div" align="center">'
+                + '<hr><a id="more_btn" href="javascript:moreRankers(\''+target+'\');">더보기(More)</a><hr>'
+                + '</div>');
+            $(".ranker-list-container").append(moreButtonDiv);
+        }
+
+    }else if(target == "deal") {
+        if (deal_offset < 75) {
+            const moreButtonDiv = $('<div class="more-btn-div" align="center">'
+                + '<hr><a id="more_btn" href="javascript:moreRankers(\''+target+'\');">더보기(More)</a><hr>'
+                + '</div>');
+            $(".ranker-list-container").append(moreButtonDiv);
+        }
+    }else if(target == "heal") {
+        if (heal_offset < 75) {
+            const moreButtonDiv = $('<div class="more-btn-div" align="center">'
+                + '<hr><a id="more_btn" href="javascript:moreRankers(\''+target+'\');">더보기(More)</a><hr>'
+                + '</div>');
+            $(".ranker-list-container").append(moreButtonDiv);
+        }
+    }
+};
+
+const drawRankerList = (target) => {
+    $(".ranker-list-container").empty();
+    const item = {
+        players: []
+    };
+
+    if(target == "total") {
+        $.each(total_ranker_list, function (i, data) {
+            const player = drawList(i, data);
+            item.players.push(player);
+        });
+
+    }else if(target == "tank") {
+        // console.log(tank_ranker_list);
+        $.each(tank_ranker_list, function (i, data) {
+            const player = drawList(i, data);
+            item.players.push(player);
+        });
+
+    }else if(target == "deal") {
+        // console.log(deal_ranker_list);
+        $.each(deal_ranker_list, function (i, data) {
+            const player = drawList(i, data);
+            item.players.push(player);
+        });
+
+    }else if(target == "heal") {
+        // console.log(heal_ranker_list);
+        $.each(heal_ranker_list, function (i, data) {
+            const player = drawList(i, data);
+            item.players.push(player);
+        });
+
+    }
+    const ranker_list = $("#ranking_player_list").html();
+    // console.log(ranker_list);
+    const template = Handlebars.compile(ranker_list);
+    const player_list = template(item);
+    $(".ranker-list-container").append(player_list);
+
+    drawMoreButton(target);
+};
+
+const showRankerList = (target) => {
+    $('.active').removeClass('active');
+    if(target == "total") {
+        $('.total_titular').addClass('active');
+        // console.log("total_offset : " +total_offset);
+        if (total_offset == 0) {
+            getRankerData(target, total_offset, limit);
+            drawRankerList(target);
+            total_offset += limit;
+        }else {
+            drawRankerList(target);
+        }
+    }else if(target == "tank") {
+        $('.tank_titular').addClass('active');
+        // console.log("tank_offset : " +tank_offset);
+        if (tank_offset == 0) {
+            getRankerData(target, tank_offset, limit);
+            drawRankerList(target);
+            tank_offset += limit;
+        }else {
+            drawRankerList(target);
+        }
+    }else if(target == "deal") {
+        $('.deal_titular').addClass('active');
+        // console.log("deal_offset : " +deal_offset);
+        if (deal_offset == 0) {
+            getRankerData(target, deal_offset, limit);
+            drawRankerList(target);
+            deal_offset += limit;
+        }else {
+            drawRankerList(target);
+        }
+    }else if(target == "heal") {
+        $('.heal_titular').addClass('active');
+        // console.log("heal_offset : " +heal_offset);
+        if (heal_offset == 0) {
+            getRankerData(target, heal_offset, limit);
+            drawRankerList(target);
+            heal_offset += limit;
+        }else {
+            drawRankerList(target);
+        }
+    }
+};
+
+const drawMoreRankerList = (target, offset) => {
+    const item = {
+        players: []
+    };
+
+    if(target == "total") {
+        $.each(total_ranker_list, function (i, data) {
+            if (i >= offset) {
+                const player = drawList(i, data);
+                item.players.push(player);
+            }
+        });
+
+    }else if(target == "tank") {
+        $.each(tank_ranker_list, function (i, data) {
+            if (i >= offset) {
+                const player = drawList(i, data);
+                item.players.push(player);
+            }
+        });
+
+    }else if(target == "deal") {
+        $.each(deal_ranker_list, function (i, data) {
+            if (i >= offset) {
+                const player = drawList(i, data);
+                item.players.push(player);
+            }
+        });
+
+    }else if(target == "heal") {
+        $.each(heal_ranker_list, function (i, data) {
+            if (i >= offset) {
+                const player = drawList(i, data);
+                item.players.push(player);
+            }
+        });
+
+    }
+    const ranker_list = $("#more_ranker_list").html();
+    const template = Handlebars.compile(ranker_list);
+    const player_list = template(item);
+    $('.ranker-tbody:last').append(player_list);
+
+    drawMoreButton(target);
+};
+
+const moreRankers = (target) => {
+    $(".more-btn-div").remove();
+    if(target == "total") {
+        getRankerData(target, total_offset, limit);
+        drawMoreRankerList(target, total_offset);
+        total_offset += limit;
+
+    }else if(target == "tank") {
+        getRankerData(target, tank_offset, limit);
+        drawMoreRankerList(target, tank_offset);
+        tank_offset += limit;
+
+    }else if(target == "deal") {
+        getRankerData(target, deal_offset, limit);
+        drawMoreRankerList(target, deal_offset);
+        deal_offset += limit;
+
+    }else if(target == "heal") {
+        getRankerData(target, heal_offset, limit);
+        drawMoreRankerList(target, heal_offset);
+        heal_offset += limit;
+    }
+};
+
+const sendMessage = () => {
+    alert("현재 준비중입니다.");
+}
 
 main.init();

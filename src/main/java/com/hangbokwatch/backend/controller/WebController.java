@@ -5,6 +5,7 @@ import com.hangbokwatch.backend.dto.CompetitiveDetailDto;
 import com.hangbokwatch.backend.dto.PlayerListDto;
 import com.hangbokwatch.backend.dto.auth.SessionUser;
 import com.hangbokwatch.backend.service.ShowPlayerDetailService;
+import com.hangbokwatch.backend.service.auth.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +13,7 @@ import org.springframework.mobile.device.Device;
 import org.springframework.mobile.device.DeviceUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -31,6 +30,7 @@ import java.util.Map;
 @Controller
 public class WebController {
     private final ShowPlayerDetailService spd;
+    private final UserService us;
     private final HttpSession httpSession;
 
     @GetMapping("/")
@@ -38,6 +38,10 @@ public class WebController {
 
         Map<String, Object> sessionItems = sessionCheck(model);
         String sessionBattleTag = (String) sessionItems.get("sessionBattleTag");
+
+        if(!"".equals(sessionItems.get("SessionUserId"))) {
+            us.loadUserByUsername(sessionItems.get("SessionUserId").toString());
+        }
 
         String result = "index";
         if(device.isMobile()) {
@@ -69,6 +73,13 @@ public class WebController {
         if(cdDto.getPlayer() != null) {
             String battleTag = cdDto.getPlayer().getBattleTag();
             String tag = battleTag.substring(battleTag.indexOf("#"));
+            if(tag.length() == 5) {
+                tag = tag.substring(0, 3) + "XX";
+            }else if(tag.length() == 6) {
+                tag = tag.substring(0, 3) + "XXX";
+            }else if(tag.length() == 7) {
+                tag = tag.substring(0, 3) + "XXXX";
+            }
 
             model.addAttribute("tag", tag);
             model.addAttribute("player", cdDto.getPlayer());
@@ -135,6 +146,13 @@ public class WebController {
         if(cdDto.getPlayer() != null) {
             String battleTag = cdDto.getPlayer().getBattleTag();
             String tag = battleTag.substring(battleTag.indexOf("#"));
+            if(tag.length() == 5) {
+                tag = tag.substring(0, 3) + "XX";
+            }else if(tag.length() == 6) {
+                tag = tag.substring(0, 3) + "XXX";
+            }else if(tag.length() == 7) {
+                tag = tag.substring(0, 3) + "XXXX";
+            }
 
             model.addAttribute("tag", tag);
             model.addAttribute("player", cdDto.getPlayer());
@@ -220,12 +238,60 @@ public class WebController {
         return "management";
     }
 
+    @GetMapping("/community")
+    public String community(Model model, Device device, @RequestParam(required = false, value = "category") String category) {
+        Map<String, Object> sessionItems = sessionCheck(model);
+        String sessionBattleTag = (String) sessionItems.get("sessionBattleTag");
+
+        if("".equals(category) || category == null) {
+            category = "free";
+        }
+        model.addAttribute("category", category);
+
+        String returnUrl = "communityFree";
+
+        log.info("{} >>>>>>>> goToCommunity 호출 | 커뮤니티 화면으로 이동합니다..", sessionBattleTag);
+        if(device.isMobile()) {
+            returnUrl = "mobile-community";
+        }
+
+        log.info("{} >>>>>>>> goToCommunity 종료 | 커뮤니티 페이지({}}.html)로 이동", sessionBattleTag, returnUrl);
+        log.info("===================================================================");
+        return returnUrl;
+    }
+
+    @GetMapping("/write/{category}")
+    public String goToWrite(@PathVariable String category, Model model, Device device) {
+        Map<String, Object> sessionItems = sessionCheck(model);
+        String sessionBattleTag = (String) sessionItems.get("sessionBattleTag");
+
+        if("free".equals(category)) {
+            category = "익명게시판";
+        }else if("party".equals(category)) {
+            category = "듀오/파티 모집";
+        }
+        model.addAttribute("category" , category);
+
+        String returnUrl = "writeContent";
+
+        log.info("{} >>>>>>>> goToWrite 호출 | {} 게시글 작성으로 이동합니다..", sessionBattleTag);
+        if(device.isMobile()) {
+            returnUrl = "mobile-writeContent";
+        }
+
+        log.info("{} >>>>>>>> goToWrite 종료 | 게시글 작성페이지({}}.html)로 이동", sessionBattleTag, returnUrl);
+        log.info("===================================================================");
+        return returnUrl;
+    }
+
     private Map<String, Object> sessionCheck(Model model) {
         // CustomOAuth2UserService에서 로그인 성공시 세션에 SessionUser를 저장하도록 구성했으므로
         // 세션에서 httpSession.getAttribute("user")를 통해 User 객체를 가져올 수 있다.
         SessionUser user = (SessionUser) httpSession.getAttribute("user");
         String battleTag = "미로그인 유저";
+        String userId = "";
         if(user != null) {
+            userId = user.getId().toString();
             model.addAttribute("SessionUserId", user.getId());
             model.addAttribute("SessionBattleTag", user.getBattleTag());
             boolean isAdmin = false;
@@ -242,6 +308,7 @@ public class WebController {
 
         Map<String, Object> map = new HashMap<>();
         map.put("loginUser", user); map.put("sessionBattleTag", battleTag);
+        map.put("SessionUserId",userId);
         return map;
     }
 }

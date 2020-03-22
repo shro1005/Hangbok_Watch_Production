@@ -22,6 +22,7 @@ const header = {
 
         if(window.location.pathname.indexOf("myFavorite") > 0) {$('.navbar-nav .favorite-nav').addClass("active");}
         else if(window.location.pathname.indexOf("ranking") > 0) {$('.navbar-nav .ranking-nav').addClass("active");}
+        else if(window.location.pathname.indexOf("community") > 0) {$('.navbar-nav .commu-nav').addClass("active");}
         else if(window.location.pathname.indexOf("oNlYAdMIn") > 0) {$('.navbar-nav .maintain-nav').addClass("active");}
         else {$('.navbar-nav .index-nav').addClass("active");}
     },
@@ -37,6 +38,10 @@ const header = {
         // console.log("검색한 playerName : " + playerName);
         location.href = "/search/" + playerName;
     }
+};
+
+const sendMessage = () => {
+    alert("현재 준비중입니다.");
 };
 
 header.init();

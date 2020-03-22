@@ -212,10 +212,18 @@ function drawList(data) {
         alert(data.playerName);
         return false;
     }
+    let tag = data.battleTag.substring(data.battleTag.indexOf("#"));
+    if(tag.length === 5) {
+        tag = tag.substring(0, 3) + "XX";
+    }else if(tag.length === 6) {
+        tag = tag.substring(0, 3) + "XXX";
+    }else if(tag.length === 7) {
+        tag = tag.substring(0, 3) + "XXXX";
+    }
     // console.log(data.udtDtm);
     return {portrait: data.portrait, battleTag: data.battleTag, playerLevel: data.playerLevel, platform: data.platform, tankRatingPoint: data.tankRatingPoint, dealRatingPoint: data.dealRatingPoint, healRatingPoint: data.healRatingPoint, winRate: data.winRate,
         mostHero1: "/HWimages/hero/"+data.mostHero1+"_s.png", mostHero2: "/HWimages/hero/"+data.mostHero2+"_s.png", mostHero3: "/HWimages/hero/"+data.mostHero3+"_s.png", isPublic: data.isPublic, forUrl: data.forUrl, tankRatingImg: data.tankRatingImg,
-        dealRatingImg: data.dealRatingImg, healRatingImg: data.healRatingImg, wingame: data.winGame, losegame: data.loseGame, udtDtm: data.udtDtm};
+        dealRatingImg: data.dealRatingImg, healRatingImg: data.healRatingImg, wingame: data.winGame, losegame: data.loseGame, udtDtm: data.udtDtm, playerName: data.playerName, tag: tag};
 }
 
 function drawEmpty(target) {

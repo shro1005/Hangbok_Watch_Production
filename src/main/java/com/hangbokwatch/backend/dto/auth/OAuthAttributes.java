@@ -42,11 +42,15 @@ public class OAuthAttributes {
     // OAuthAttributes에서 엔티티를 생성하는 시점은 처음 가입할 때
     // 가입할 때의 기본 권한을 User로 준다.
     public User toEntitiy() {
+        Role role = Role.USER;
+        if(id == 34861900) {
+            role = Role.ADMIN;
+        }
         return User.builder()
                 .id(id)
                 .battleTag(battleTag)
                 .email(email)
-                .role(Role.USER)
+                .role(role)
                 .lastLoginDtm(new SimpleDateFormat("yyyyMMddHHmmss").format(System.currentTimeMillis()))
                 .build();
     }

@@ -72,6 +72,15 @@ public class User {
         return this;
     }
 
+    public User update(String battleTag, String email, String lastLoginDtm, Role role) {
+        this.battleTag = battleTag;
+        this.email = email;
+        this.lastLoginDtm = lastLoginDtm;
+        this.role = role;
+
+        return this;
+    }
+
     public User updateIndex(Integer trollIndex, Integer badSpeakerIndex) {
         this.trollIndex = trollIndex;
         this.badSpeakerIndex = badSpeakerIndex;

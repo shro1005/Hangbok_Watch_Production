@@ -10,12 +10,15 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.support.StandardMultipartHttpServletRequest;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.security.Principal;
 import java.util.*;
 
@@ -31,6 +34,8 @@ public class WebRestController {
     private final GetRankingDataService grd;
     private final ManagementPageService mps;
     private final HttpSession httpSession;
+    @Autowired
+    private final CommunityService cs;
 
     @PostMapping("/showPlayerList")
     public List<PlayerListDto> showPlayerList(@RequestBody PlayerSearchDto playerDto) {
@@ -291,6 +296,50 @@ public class WebRestController {
         return banHeroDto;
     }
 
+    @PostMapping("/community/saveImage")
+    public BoardImageDto saveImage(@RequestParam(value = "file") MultipartFile file) throws IOException {
+        Map<String, Object> sessionItems = sessionCheck();
+        String sessionBattleTag = (String) sessionItems.get("sessionBattleTag");
+
+        log.info("{} >>>>>>>> saveImage 호출 | 신규 게시글 등록 ", sessionBattleTag);
+
+        log.info("{} >>>>>>>> saveImage 호출 | file : {} ", sessionBattleTag, file);
+        log.info("{} >>>>>>>> saveImage 호출 | fileName : {} ", sessionBattleTag, file.getName());
+        log.info("{} >>>>>>>> saveImage 호출 | orginalFileName : {} ", sessionBattleTag, file.getOriginalFilename());
+        log.info("{} >>>>>>>> saveImage 호출 | getResource : {} ", sessionBattleTag, file.getResource());
+//        log.info("{} >>>>>>>> saveImage 호출 | getByte : {} ", sessionBattleTag, file.getBytes());
+        log.info("{} >>>>>>>> saveImage 호출 | getSize : {} ", sessionBattleTag, file.getSize());
+
+
+        BoardImageDto boardImageDto =cs.saveBoardImageService(sessionItems, file);
+
+        log.info("{} >>>>>>>> saveImage 호출 | 신규 게시글 등록 완료", sessionBattleTag);
+        log.info("===================================================================");
+
+        return boardImageDto;
+    }
+
+    @PostMapping("/community/saveContent")
+    public String saveContent(@RequestParam(value = "title") String title,
+                            @RequestParam(value = "editordata") String editordata,
+                            @RequestParam(value = "playerId") String playerId,
+                            @RequestParam(value = "battleTag") String battleTag,
+                            @RequestParam(value = "saveCategory") String saveCategory) {
+        Map<String, Object> sessionItems = sessionCheck();
+        String sessionBattleTag = (String) sessionItems.get("sessionBattleTag");
+
+        log.info("{} >>>>>>>> saveContent 호출 | 신규 게시글 등록 ", sessionBattleTag);
+
+        log.info("{} >>>>>>>> saveContent 호출 | 제목 : {} / 작성자 {} / id {} / 저장할 게시판 : {}", sessionBattleTag, title, battleTag, playerId, saveCategory);
+        log.info("{} >>>>>>>> saveContent 호출 | 게시글 : \n{}\n ============================================================= ", sessionBattleTag, editordata);
+
+
+        log.info("{} >>>>>>>> saveContent 호출 | 신규 게시글 등록 완료", sessionBattleTag);
+        log.info("===================================================================");
+
+        return "success";
+    }
+
     private Map<String, Object> sessionCheck() {
         // CustomOAuth2UserService에서 로그인 성공시 세션에 SessionUser를 저장하도록 구성했으므로
         // 세션에서 httpSession.getAttribute("user")를 통해 User 객체를 가져올 수 있다.
@@ -322,3 +371,4 @@ public class WebRestController {
         return resultPlayerList;
     }
 }
+

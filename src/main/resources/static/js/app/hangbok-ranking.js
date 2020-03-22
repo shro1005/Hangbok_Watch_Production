@@ -16,6 +16,7 @@ $(window).resize(function () {
 
 const main = {
     init: function () {
+        $('.navbar-nav .ranking-nav').addClass("active");
         // console.log("main.init 호출");
         const _this = this;
         $('#btn-search').on('click', function (event) {
@@ -138,9 +139,18 @@ const getRankerData = (target, offset, limit) => {
 function drawList(i, data) {
     // console.log(data);
     // console.log(data.portrait, data.battleTag, data.playerLevel, data.mostHero1, data.mostHero3, data.tankRatingPoint);
+    let tag = data.battleTag.substring(data.battleTag.indexOf("#"));
+    if(tag.length === 5) {
+        tag = tag.substring(0, 3) + "XX";
+    }else if(tag.length === 6) {
+        tag = tag.substring(0, 3) + "XXX";
+    }else if(tag.length === 7) {
+        tag = tag.substring(0, 3) + "XXXX";
+    }
+
     return {portrait: data.portrait, battleTag: data.battleTag, playerLevel: data.playerLevel, platform: data.platform, tankRatingPoint: data.tankRatingPoint, dealRatingPoint: data.dealRatingPoint, healRatingPoint: data.healRatingPoint, winRate: data.winRate,
         mostHero1: "/HWimages/hero/"+data.mostHero1+"_s.png", mostHero2: "/HWimages/hero/"+data.mostHero2+"_s.png", mostHero3: "/HWimages/hero/"+data.mostHero3+"_s.png", isPublic: data.isPublic, forUrl: data.forUrl, tankRatingImg: data.tankRatingImg,
-        dealRatingImg: data.dealRatingImg, healRatingImg: data.healRatingImg, wingame: data.winGame, losegame: data.loseGame, udtDtm: data.udtDtm, ranking : (i+1)};
+        dealRatingImg: data.dealRatingImg, healRatingImg: data.healRatingImg, wingame: data.winGame, losegame: data.loseGame, udtDtm: data.udtDtm, ranking : (i+1), playerName: data.playerName, tag : tag};
 }
 
 const drawMoreButton = (target) => {

@@ -13,9 +13,9 @@ spring:
       enabled: true
   datasource:
     hikari:
-      jdbc-url: jdbc:postgresql://hangbok-watch-db.c6shpgnskepj.ap-northeast-2.rds.amazonaws.com:5432/hangbokwatch
-      username: kyun_admin
-      password: accurate45
+      jdbc-url: jdbc:postgresql://localhost:5432/hangbokwatch
+      username: kyun
+      password: pass
       driver-class-name: org.postgresql.Driver
       connection-timeout: 99999
   jpa:
@@ -57,6 +57,18 @@ spring:
             token-uri: https://kr.battle.net/oauth/token
             user-info-uri: https://kr.battle.net/oauth/userinfo
             jwk-set-uri: https://kr.battle.net/oauth/jwks/certs
+  #AWS S3 연동
+cloud:
+  aws:
+    s3:
+      bucket: hangbok-watch-s3
+    region:
+      static: ap-northeast-2
+    credentials:
+      accessKey: AKIAXT7WWNODJ4R2PDR4
+      secretKey: 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
+    stack:
+      auto: false
 
 #로깅 설정
 logging:

@@ -1,5 +1,6 @@
 const management = {
     init : function() {
+        $('.navbar-nav .maintain-nav').addClass("active");
         const _this = this;
         $('#btn-search-tap').on('click', function (event) {
             _this.search("");
@@ -14,7 +15,7 @@ const management = {
     },
     search : function () {
         // alert('main search 호출');
-        let playerName = $('input[id="playerName-tap"]').val();
+        let playerName = $('input[id="playerName"]').val();
         if(playerName =="") {return false;}
         else if(playerName.indexOf("#") != -1) {
             // alert("detail playerName # : " + playerName);
