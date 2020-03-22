@@ -117,6 +117,19 @@ logging:
     org.hibernate: error
     sql: info
 
+  #AWS S3 연동
+cloud:
+  aws:
+    s3:
+      bucket: hangbok-watch-s3
+    region:
+      static: ap-northeast-2
+    credentials:
+      accessKey: AKIAXT7WWNODJ4R2PDR4
+      secretKey: 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
+    stack:
+      auto: false
+
 
 ### pro1
 ---
@@ -143,6 +156,19 @@ logging:
     org.hibernate: error
     sql: info
 
+  #AWS S3 연동
+cloud:
+  aws:
+    s3:
+      bucket: hangbok-watch-s3
+    region:
+      static: ap-northeast-2
+    credentials:
+      accessKey: AKIAXT7WWNODJ4R2PDR4
+      secretKey: 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
+    stack:
+      auto: false
+
 ### pro2
 ---
 server:
@@ -168,6 +194,18 @@ logging:
     org.hibernate: error
     sql: info
 
+  #AWS S3 연동
+cloud:
+  aws:
+    s3:
+      bucket: hangbok-watch-s3
+    region:
+      static: ap-northeast-2
+    credentials:
+      accessKey: AKIAXT7WWNODJ4R2PDR4
+      secretKey: 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
+    stack:
+      auto: false
 
 ### DB 설정
 ---
