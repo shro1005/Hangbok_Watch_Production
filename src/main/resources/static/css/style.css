@@ -10439,7 +10439,8 @@ a:hover {
 }
 
 .ban-hero {
-  width: 440px;
+  /*width: 440px;*/
+  width: 550px;
   display: inline-block;
 }
 
@@ -10447,6 +10448,15 @@ a:hover {
   display: flex;
   font-size: 17px;
   font-weight: 600;
+}
+
+.ban-col-2{
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 16.66%;
+  flex: 0 0 16.66%;
+  max-width: 16.66%;
+  position: relative;
+  width: 100%;
 }
 
 .ban-col-3{
@@ -10679,6 +10689,33 @@ a:hover {
   width: 100%;
   padding: 10px;
 }
+
+.select-tag {
+  height: 40px;
+  margin-right: 5px;
+}
+
+.board-tag-buttons {
+  display: flex;
+}
+
+.board-tag-button {
+  height: 30px;
+  width: 100px;
+  margin-right: 5px;
+  border-radius: 5px;
+  background-color: rgba(0,0,0,0.04);
+  border-bottom: 1.2px solid rgba(0,0,0,0.11);
+  border-right: 1.2px solid rgba(0,0,0,0.11);
+  text-align: center;
+  color: black;
+}
+
+.board-tag-button.clicked {
+  background-color: #fcb150;
+  color: white;
+}
+
 
 /****************** Mobile *********************/
 .mobile-footer {

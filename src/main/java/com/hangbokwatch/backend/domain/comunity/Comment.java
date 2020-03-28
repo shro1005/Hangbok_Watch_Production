@@ -52,7 +52,7 @@ public class Comment {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "board_id")
     @JsonIgnore
-    private FreeBoard freeBoard;
+    private Board board;
 
     public void setCommentList(List<Comment> commentList) {
         this.commentList = commentList;

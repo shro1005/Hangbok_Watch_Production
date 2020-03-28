@@ -1,6 +1,9 @@
 package com.hangbokwatch.backend.controller;
 
+import com.hangbokwatch.backend.dao.community.BoardTagCdRepository;
 import com.hangbokwatch.backend.domain.Season;
+import com.hangbokwatch.backend.domain.comunity.Board;
+import com.hangbokwatch.backend.domain.comunity.BoardTagCd;
 import com.hangbokwatch.backend.domain.hero.BanHero;
 import com.hangbokwatch.backend.dto.*;
 import com.hangbokwatch.backend.dto.auth.SessionUser;
@@ -9,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.data.domain.Page;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -33,6 +37,8 @@ public class WebRestController {
     private final ShowUserFavoriteService suf;
     private final GetRankingDataService grd;
     private final ManagementPageService mps;
+    @Autowired
+    private BoardTagCdRepository boardTagCdRepository;
     private final HttpSession httpSession;
     @Autowired
     private final CommunityService cs;
@@ -296,6 +302,27 @@ public class WebRestController {
         return banHeroDto;
     }
 
+    @PostMapping("/community/getContentData")
+    public Page<Board> getContentData(@RequestBody HashMap<String, Object> recvMap) {
+        Map<String, Object> sessionItems = sessionCheck();
+        String sessionBattleTag = (String) sessionItems.get("sessionBattleTag");
+
+        String target = (String) recvMap.get("target");
+        Integer pageNum = (Integer) recvMap.get("pageNum");
+        String boardTagCd = (String) recvMap.get("boardTagCd");
+
+        log.info("{} >>>>>>>> getContentData 호출 | {} 게시글 리스트 {} 페이지 조회 / 게시글 종류 : {}", sessionBattleTag, target, pageNum, boardTagCd);
+
+        Page<Board> boardList = cs.getContentDataService(sessionItems, target, pageNum, boardTagCd);
+        log.info("총 element 수 : {}, 전체 page 수 : {}, 페이지에 표시할 element 수 : {}, 현재 페이지 index : {}, 현재 페이지의 element 수 : {}",
+                boardList.getTotalElements(), boardList.getTotalPages(), boardList.getSize(),
+                boardList.getNumber(), boardList.getNumberOfElements());
+
+        log.info("{} >>>>>>>> getContentData 호출 | {} 게시글 리스트 {} 페이지 조회 완료 ", sessionBattleTag, target, pageNum);
+
+        return boardList;
+    }
+
     @PostMapping("/community/saveImage")
     public BoardImageDto saveImage(@RequestParam(value = "file") MultipartFile file) throws IOException {
         Map<String, Object> sessionItems = sessionCheck();
@@ -320,24 +347,58 @@ public class WebRestController {
     }
 
     @PostMapping("/community/saveContent")
-    public String saveContent(@RequestParam(value = "title") String title,
+    public void saveContent(@RequestParam(value = "title") String title,
                             @RequestParam(value = "editordata") String editordata,
                             @RequestParam(value = "playerId") String playerId,
                             @RequestParam(value = "battleTag") String battleTag,
-                            @RequestParam(value = "saveCategory") String saveCategory) {
+                            @RequestParam(value = "saveCategory") String category,
+                              @RequestParam(value = "boardTag") String boardTag) {
         Map<String, Object> sessionItems = sessionCheck();
         String sessionBattleTag = (String) sessionItems.get("sessionBattleTag");
 
         log.info("{} >>>>>>>> saveContent 호출 | 신규 게시글 등록 ", sessionBattleTag);
 
-        log.info("{} >>>>>>>> saveContent 호출 | 제목 : {} / 작성자 {} / id {} / 저장할 게시판 : {}", sessionBattleTag, title, battleTag, playerId, saveCategory);
+        log.info("{} >>>>>>>> saveContent 호출 | 제목 : {} / 작성자 {} / id {} / 저장할 게시판 : {} / 게시판 유형 : {}", sessionBattleTag, title, battleTag, playerId, category, boardTag);
         log.info("{} >>>>>>>> saveContent 호출 | 게시글 : \n{}\n ============================================================= ", sessionBattleTag, editordata);
-
+        if (category.equals("익명게시판")) {
+            category = "01";
+        }else if (category.equals("듀오/파티 모집")) {
+            category = "02";
+        }
+        String message = cs.saveBoardContent(sessionItems, title, editordata, playerId, battleTag, category, boardTag);
 
         log.info("{} >>>>>>>> saveContent 호출 | 신규 게시글 등록 완료", sessionBattleTag);
         log.info("===================================================================");
 
-        return "success";
+        return;
+    }
+
+    @PostMapping("/community/getBoardTag")
+    public List<BoardTagDto> getBoardTag(@RequestBody HashMap<String, Object> recvMap) {
+        Map<String, Object> sessionItems = sessionCheck();
+        String sessionBattleTag = (String) sessionItems.get("sessionBattleTag");
+        log.info("{} >>>>>>>> getBoardTag 호출 | 게시글 태그 리스트 추출 ", sessionBattleTag);
+
+        List<BoardTagDto> boardTagDtoList = new ArrayList<>();
+
+        String category = (String) recvMap.get("category");
+        if (category.equals("익명게시판")) {
+            category = "01";
+        }else if (category.equals("듀오/파티 모집")) {
+            category = "02";
+        }
+        List<BoardTagCd> boardTagCdList = boardTagCdRepository.findBoardTagCdsByUseYNAndCategoryCdOrderByBoardTagCdAsc("Y", category);
+        for(BoardTagCd boardTagCd : boardTagCdList) {
+            BoardTagDto boardTagDto = new BoardTagDto(boardTagCd.getCategoryCd(), boardTagCd.getBoardTagCd(),
+                    boardTagCd.getCategoryVal(), boardTagCd.getBoardTagVal());
+
+            boardTagDtoList.add(boardTagDto);
+        }
+
+        log.info("{} >>>>>>>> saveContent 호출 | 게시글 태그 리스트 추출 완료", sessionBattleTag);
+        log.info("===================================================================");
+
+        return boardTagDtoList;
     }
 
     private Map<String, Object> sessionCheck() {

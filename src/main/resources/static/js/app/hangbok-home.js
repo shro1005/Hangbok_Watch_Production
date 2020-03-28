@@ -312,6 +312,17 @@ function drawBanHero() {
                 src2 : getSrc(datas.heroRole2),
                 src3 : getSrc(datas.heroRole3),
                 src4 : getSrc(datas.heroRole4),
+                // 6개인 경우
+                heroNameDeal3: datas.heroName5,
+                srcDeal3: "/HWimages/hero/" + datas.heroName5 + "_s.png",
+                heroNameKRDeal3: datas.heroNameKR5,
+                heroNameDeal4: datas.heroName6,
+                srcDeal4: "/HWimages/hero/" + datas.heroName6 + "_s.png",
+                heroNameKRDeal4: datas.heroNameKR6,
+                container5 : datas.heroRole5+"-container",
+                container6 : datas.heroRole6+"-container",
+                src5 : getSrc(datas.heroRole5),
+                src6 : getSrc(datas.heroRole6),
             });
             let ban_list = $("#ban_hero_card").html();
             // console.log(ban_list);

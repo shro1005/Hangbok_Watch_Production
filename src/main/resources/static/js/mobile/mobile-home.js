@@ -192,18 +192,6 @@ function drawBanHero() {
         // console.log(datas);
         if(datas.length != 0) {
             items.hero.push({
-                // heroNameTank: datas.heroNameTank,
-                // srcTank: "/HWimages/hero/" + datas.heroNameTank + "_s.png",
-                // heroNameKRTank: datas.heroNameKRTank,
-                // heroNameDeal1: datas.heroNameDeal1,
-                // srcDeal1: "/HWimages/hero/" + datas.heroNameDeal1 + "_s.png",
-                // heroNameKRDeal1: datas.heroNameKRDeal1,
-                // heroNameDeal2: datas.heroNameDeal2,
-                // srcDeal2: "/HWimages/hero/" + datas.heroNameDeal2 + "_s.png",
-                // heroNameKRDeal2: datas.heroNameKRDeal2,
-                // heroNameHeal: datas.heroNameHeal,
-                // srcHeal: "/HWimages/hero/" + datas.heroNameHeal + "_s.png",
-                // heroNameKRHeal: datas.heroNameKRHeal
                 heroNameTank: datas.heroName1,
                 srcTank: "/HWimages/hero/" + datas.heroName1 + "_s.png",
                 heroNameKRTank: datas.heroNameKR1,
@@ -224,6 +212,18 @@ function drawBanHero() {
                 src2 : getSrc(datas.heroRole2),
                 src3 : getSrc(datas.heroRole3),
                 src4 : getSrc(datas.heroRole4),
+
+                // 6개인 경우
+                heroNameDeal3: datas.heroName5,
+                srcDeal3: "/HWimages/hero/" + datas.heroName5 + "_s.png",
+                heroNameKRDeal3: datas.heroNameKR5,
+                heroNameDeal4: datas.heroName6,
+                srcDeal4: "/HWimages/hero/" + datas.heroName6 + "_s.png",
+                heroNameKRDeal4: datas.heroNameKR6,
+                container5 : datas.heroRole5+"-container",
+                container6 : datas.heroRole6+"-container",
+                src5 : getSrc(datas.heroRole5),
+                src6 : getSrc(datas.heroRole6),
             });
             let ban_list = $("#ban_hero_card").html();
             // console.log(ban_list);

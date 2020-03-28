@@ -27,10 +27,16 @@
                 <div class="content-header">{{category}} > 게시글 작성
                     <div class="content-button get-list float-right"><a href="javascript:void(0);" onclick="goBack();">목록</a></div>
                 </div>
+                <input type="hidden" id="is-admin" value="{{isAdmin}}">
                 <input type="hidden" id="player-id" name="playerId" value="{{SessionUserId}}">
                 <input type="hidden" id="battle-tag" name="battleTag" value="{{SessionBattleTag}}">
                 <input type="hidden" id="category" name="saveCategory" value="{{category}}">
-                <input type="text" class="content-title" id="content-title" name="title" placeholder="  제목을 입력해 주세요.">
+                <div style="display: flex">
+                    <select class="select-tag" name="boardTag">
+
+                    </select>
+                    <input type="text" class="content-title" id="content-title" name="title" placeholder="  제목을 입력해 주세요.">
+                </div>
                 <textarea id="summernote" name="editordata"></textarea>
             </form>
 

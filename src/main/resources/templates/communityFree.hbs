@@ -33,34 +33,18 @@
             <div class="resultContainer-detail">
                 <input type="hidden" class="category" value="{{category}}">
                 <div class="ranking-tab">
-                    <div class="total-tab-block  col-md-3" onclick="showBoardList('free'); return false;" style="cursor: pointer;">
+                    <div class="total-tab-block  col-md-3" onclick="showBoardList('free', 1, '00'); return false;" style="cursor: pointer;">
                         <h2 class="titular total_titular free-board active">익명게시판</h2>
                     </div>
-                    <div class="tank-tab-block  col-md-3" onclick="showBoardList('party'); return false;" style="cursor: pointer;">
+                    <div class="tank-tab-block  col-md-3" onclick="showBoardList('party', 1, '00'); return false;" style="cursor: pointer;">
                         <h2 class="titular tank_titular party-board">듀오/파티 모집</h2>
                     </div>
-                    <div class="deal-tab-block col-md-3" onclick="showBoardList('mypage'); return false;" style="cursor: pointer;">
+                    <div class="deal-tab-block col-md-3" onclick="showBoardList('mypage', 1, '00'); return false;" style="cursor: pointer;">
                         <h2 class="titular deal_titular my-page">내가 쓴글</h2>
                     </div>
                 </div>
-                <div class="row community-free" id="search-result">
-                    <div class="table-responsive">
-                        <table class="table table-hover">
-                            <thead>
-                            <tr>
-                                <th style="width: 10%">번호</th>
-                                <th style="width: 45%">제목</th>
-                                <th style="width: 15%">작성자</th>
-                                <th style="width: 10%">등록일</th>
-                                <th style="width: 10%">조회수</th>
-                                <th style="width: 10%">추천수</th>
-                            </tr>
-                            </thead>
-                            <tbody class="free-tbody">
+                <div class="row community-container" id="search-result" style="margin-left: 0; margin-right: 0;">
 
-                            </tbody>
-                        </table>
-                    </div>
                 </div>
                 <div class="writing-button">
                     <a href="javascript:void(0);" onclick="goToWrite(); return false;"><img class="edit-button" src="/HWimages/util/edit.png"></a>
@@ -98,7 +82,56 @@
             }
         </script>
 
-        <script id="more_player_list" type="text/x-handlebars-template" charset="UTF-8">
+        <script id="board-tag-buttons" type="text/x-handlebars-template">
+            <div class="board-tag-buttons">
+                \{{#buttons}}
+                <div class="board-tag-button \{{boardTagCd}}-category \{{clicked}}">\{{boardTagVal}}</div>
+                \{{/buttons}}
+            </div>
+        </script>
+
+        <script id="content-list" type="text/x-handlebars-template" charset="UTF-8">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th style="width: 10%">번호</th>
+                        <th style="width: 45%">제목</th>
+                        <th style="width: 15%">작성자</th>
+                        <th style="width: 10%">등록일</th>
+                        <th style="width: 10%">조회수</th>
+                        <th style="width: 10%">추천수</th>
+                    </tr>
+                    </thead>
+                    <tbody class="board-tbody">
+                    \{{#contents}}
+                    <tr>
+                        <td class="align-items-left" href="javascript:void(0);" onclick="playerDetail(this); return false;" attr-p="\{{isPublic}}" attr-u="\{{forUrl}}" style="cursor: pointer; text-align: left;">
+                            <div class="content-num" > \{{contNum}}</div>
+                        </td>
+                        <td href="javascript:void(0);" onclick="playerDetail(this); return false;" attr-p="\{{isPublic}}" attr-u="\{{forUrl}}" style="cursor: pointer">
+                            <div class="content-title">\{{title}}</div>
+                        </td>
+                        <td href="javascript:void(0);" onclick="playerDetail(this); return false;" attr-p="\{{isPublic}}" attr-u="\{{forUrl}}" style="cursor: pointer">
+                            <div class="content-writer">\{{writer}}</div>
+                        </td>
+                        <td href="javascript:void(0);" onclick="playerDetail(this); return false;" attr-p="\{{isPublic}}" attr-u="\{{forUrl}}" style="cursor: pointer">
+                            <div class="content-rgtDtm">\{{rgtDtm}}</div>
+                        </td>
+                        <td href="javascript:void(0);" onclick="playerDetail(this); return false;" attr-p="\{{isPublic}}" attr-u="\{{forUrl}}" style="cursor: pointer">
+                            <div class="content-watchingCount">\{{watchingCount}}</div>
+                        </td>
+                        <td href="javascript:void(0);" onclick="playerDetail(this); return false;" attr-p="\{{isPublic}}" attr-u="\{{forUrl}}" style="cursor: pointer">
+                            <div class="content-likeCount">\{{likeCount}}</div>
+                        </td>
+                    </tr>
+                    \{{/contents}}
+                    </tbody>
+                </table>
+            </div>
+        </script>
+
+        <script id="more_content_list" type="text/x-handlebars-template" charset="UTF-8">
             \{{#contents}}
             <tr>
                 <td class="align-items-left" href="javascript:void(0);" onclick="playerDetail(this); return false;" attr-p="\{{isPublic}}" attr-u="\{{forUrl}}" style="cursor: pointer; text-align: left;">

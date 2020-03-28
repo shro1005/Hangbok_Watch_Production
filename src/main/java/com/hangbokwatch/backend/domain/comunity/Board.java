@@ -11,7 +11,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class FreeBoard {
+public class Board {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -44,7 +44,13 @@ public class FreeBoard {
     @Column(name = "udt_dtm")
     private String udtDtm;
 
-    @OneToMany(mappedBy = "freeBoard", cascade = CascadeType.ALL)
+    @Column(name = "board_tag_cd")
+    private String boardTagCd;
+
+    @Column(name = "category_cd")
+    private String categoryCd;
+
+    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
     @Builder.Default
     private List<Comment> commentList = new ArrayList<Comment>();
 
@@ -52,8 +58,17 @@ public class FreeBoard {
         this.commentList = commentList;
         if(this.commentList != null && this.commentList.size() > 0) {
             for (Comment c : commentList) {
-                c.setFreeBoard(this);
+                c.setBoard(this);
             }
         }
+    }
+
+    public Board(String title, String contents, Long playerId, String battleTag,
+                 String delYN, Long seeCount, Long likeCount, String boardTagCd, String categoryCd,
+                 String rgtDtm, String udtDtm) {
+        this.title = title; this.contents = contents; this.playerId = playerId;
+        this.battleTag = battleTag; this.delYN = delYN; this.seeCount = seeCount;
+        this.likeCount = likeCount; this.boardTagCd = boardTagCd; this.categoryCd = categoryCd;
+        this.rgtDtm = rgtDtm; this.udtDtm = udtDtm;
     }
 }

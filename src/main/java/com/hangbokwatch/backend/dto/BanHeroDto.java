@@ -20,4 +20,11 @@ public class BanHeroDto {
     private String heroRole2;
     private String heroRole3;
     private String heroRole4;
+
+    private String heroName5;
+    private String heroNameKR5;
+    private String heroName6;
+    private String heroNameKR6;
+    private String heroRole5;
+    private String heroRole6;
 }

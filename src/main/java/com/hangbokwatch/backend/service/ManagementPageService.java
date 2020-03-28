@@ -119,6 +119,11 @@ public class ManagementPageService {
                     banHeroDto.setHeroNameKR4(banHero.getHeroNameKR());
                     banHeroDto.setHeroRole4("deal");
                     break;
+                case "Deal4":
+                    banHeroDto.setHeroName5(banHero.getHeroName());
+                    banHeroDto.setHeroNameKR5(banHero.getHeroNameKR());
+                    banHeroDto.setHeroRole5("deal");
+                    break;
                 case "Heal2":
                     banHeroDto.setHeroName3(banHero.getHeroName());
                     banHeroDto.setHeroNameKR3(banHero.getHeroNameKR());
@@ -128,6 +133,16 @@ public class ManagementPageService {
                     banHeroDto.setHeroName4(banHero.getHeroName());
                     banHeroDto.setHeroNameKR4(banHero.getHeroNameKR());
                     banHeroDto.setHeroRole4("heal");
+                    break;
+                case "Heal3":
+                    banHeroDto.setHeroName5(banHero.getHeroName());
+                    banHeroDto.setHeroNameKR5(banHero.getHeroNameKR());
+                    banHeroDto.setHeroRole5("heal");
+                    break;
+                case "Heal4":
+                    banHeroDto.setHeroName6(banHero.getHeroName());
+                    banHeroDto.setHeroNameKR6(banHero.getHeroNameKR());
+                    banHeroDto.setHeroRole6("heal");
                     break;
                 default:
                     break;

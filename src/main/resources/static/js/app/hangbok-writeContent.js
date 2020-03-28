@@ -22,6 +22,37 @@ $(document).ready(function() {
     });
 });
 
+const writeContent = {
+    init : function () {
+        let category = $("#category").val();
+
+        const inputData = {category : category};
+
+        $.ajax({
+            type: 'POST',
+            url: '/community/getBoardTag',
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(inputData),
+            async : false
+        }).done(function (datas) {
+            let option = "";
+            let isAdmin = $("#is-admin").val();
+            $.each(datas, function (i, val) {
+                if(val.boardTagVal === "공지" && !isAdmin) {
+
+                }else {
+                    option += "<option value='" + val.boardTagCd + "'>" + val.boardTagVal + "</option>"
+                }
+            });
+
+            $(".select-tag").append(option);
+        });
+    }
+};
+
+writeContent.init();
+
 function SubirImagen(file)
 {
     if(file.type.includes('image'))
@@ -76,6 +107,21 @@ function SubirImagen(file)
 //
 // };
 
+const goBack = () => {
+    let conFlag = confirm('글을 저장하지 않고 목록으로 이동하시겠습니까?');
+
+    if(conFlag) {
+        let category = $("#category").val();
+        if (category === "익명게시판") {
+            category = "free";
+        } else if (category === "듀오/파티 모집") {
+            category = "party";
+        }
+
+        location.href = "/community?category=" + category;
+    }
+};
+
 const saveContent = () => {
     if($(".content-title").val()=="" || $(".content-title").val()==null) {
         alert("제목이 비어있습니다. 제목을 작성해주세요.");
@@ -90,7 +136,8 @@ const saveContent = () => {
             if(markup == null) {
                 markup = $('#summernote').summernote('code');
             }
-            $("#content-form").submit();
+            let message = $("#content-form").submit();
+            console.log(message);
         }
     }else {
         let saveFlag = confirm("작성한 내용을 저장하시겠습니까?");
@@ -99,16 +146,18 @@ const saveContent = () => {
             if(markup == null) {
                 markup = $('#summernote').summernote('code');
             }
-            $("#content-form").submit();
+            let message = $("#content-form").submit();
+            console.log(message);
         }
     }
 
     let category = $("#category").val();
     if (category === "익명게시판") {
         category = "free";
-    }else if (category === "듀오/티 모집") {
+    }else if (category === "듀오/파티 모집") {
         category = "party";
     }
 
     location.href = "/community?category=" +category;
 };
+
