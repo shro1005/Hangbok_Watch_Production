@@ -41,12 +41,12 @@ public class CommunityService {
     @Value("${spring.HWresource.HWimages}")
     private String imagePath;
 
-    public Page<Board> getContentDataService(Map<String, Object> sessionItems, String target, Integer pageNum, String clickButton) {
+    public Page<Board> getContentDataService(Map<String, Object> sessionItems, String target, Integer pageNum, String clickButton, boolean isFirst) {
         String sessionBattleTag = (String) sessionItems.get("sessionBattleTag");
 
         log.info("{} >>>>>>>> getContentDataService 호출 | 게시판 리스트 조합니다.", sessionBattleTag);
 
-        Pageable pageable = PageRequest.of(pageNum-1, 40);
+        Pageable pageable = PageRequest.of(pageNum-1, 2);
         if(target.equals("mypage")) {
             SessionUser user = (SessionUser) sessionItems.get("loginUser");
             Long playerId = user.getId();
@@ -130,7 +130,7 @@ public class CommunityService {
 
         log.info("{} >>>>>>>> saveBoardContent 호출 | 게시판 글을 저장합니다.", sessionBattleTag);
         String rgtDtm = new SimpleDateFormat("yyyyMMddHHmmss").format(System.currentTimeMillis());
-        Board board = new Board(title, content, Long.parseLong(playerId), battleTag, "Y", 0l ,0l ,
+        Board board = new Board(title, content, Long.parseLong(playerId), battleTag, "N", 0l ,0l ,
                 boardTagCd, categoryCd, rgtDtm, rgtDtm);
         String message = "success";
         try {

@@ -10697,6 +10697,7 @@ a:hover {
 
 .board-tag-buttons {
   display: flex;
+  margin-bottom: 10px;
 }
 
 .board-tag-button {
@@ -10714,6 +10715,16 @@ a:hover {
 .board-tag-button.clicked {
   background-color: #fcb150;
   color: white;
+}
+
+.cont-title {
+
+}
+
+.board-tbody td{
+  padding: 5px;
+  text-align: center;
+  vertical-align: middle;
 }
 
 

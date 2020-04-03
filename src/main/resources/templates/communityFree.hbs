@@ -32,6 +32,9 @@
         <section class="ftco-section goto-here">
             <div class="resultContainer-detail">
                 <input type="hidden" class="category" value="{{category}}">
+                <input type="hidden" class="free-page-num" value="">
+                <input type="hidden" class="party-page-num" value="">
+                <input type="hidden" class="my-page-num" value="">
                 <div class="ranking-tab">
                     <div class="total-tab-block  col-md-3" onclick="showBoardList('free', 1, '00'); return false;" style="cursor: pointer;">
                         <h2 class="titular total_titular free-board active">익명게시판</h2>
@@ -50,6 +53,7 @@
                     <a href="javascript:void(0);" onclick="goToWrite(); return false;"><img class="edit-button" src="/HWimages/util/edit.png"></a>
                 </div>
                 <div class="paging-button-container">
+
                 </div>
 
             </div>
@@ -85,7 +89,7 @@
         <script id="board-tag-buttons" type="text/x-handlebars-template">
             <div class="board-tag-buttons">
                 \{{#buttons}}
-                <div class="board-tag-button \{{boardTagCd}}-category \{{clicked}}">\{{boardTagVal}}</div>
+                <div class="board-tag-button \{{boardTagCd}}-category \{{clicked}}" style="cursor: pointer;">\{{boardTagVal}}</div>
                 \{{/buttons}}
             </div>
         </script>
@@ -106,11 +110,11 @@
                     <tbody class="board-tbody">
                     \{{#contents}}
                     <tr>
-                        <td class="align-items-left" href="javascript:void(0);" onclick="playerDetail(this); return false;" attr-p="\{{isPublic}}" attr-u="\{{forUrl}}" style="cursor: pointer; text-align: left;">
+                        <td href="javascript:void(0);" onclick="playerDetail(this); return false;" attr-p="\{{isPublic}}" attr-u="\{{forUrl}}" style="cursor: pointer;">
                             <div class="content-num" > \{{contNum}}</div>
                         </td>
                         <td href="javascript:void(0);" onclick="playerDetail(this); return false;" attr-p="\{{isPublic}}" attr-u="\{{forUrl}}" style="cursor: pointer">
-                            <div class="content-title">\{{title}}</div>
+                            <div class="cont-title">\{{title}}</div>
                         </td>
                         <td href="javascript:void(0);" onclick="playerDetail(this); return false;" attr-p="\{{isPublic}}" attr-u="\{{forUrl}}" style="cursor: pointer">
                             <div class="content-writer">\{{writer}}</div>
@@ -134,11 +138,11 @@
         <script id="more_content_list" type="text/x-handlebars-template" charset="UTF-8">
             \{{#contents}}
             <tr>
-                <td class="align-items-left" href="javascript:void(0);" onclick="playerDetail(this); return false;" attr-p="\{{isPublic}}" attr-u="\{{forUrl}}" style="cursor: pointer; text-align: left;">
+                <td href="javascript:void(0);" onclick="playerDetail(this); return false;" attr-p="\{{isPublic}}" attr-u="\{{forUrl}}" style="cursor: pointer;">
                     <div class="content-num" > \{{contNum}}</div>
                 </td>
                 <td href="javascript:void(0);" onclick="playerDetail(this); return false;" attr-p="\{{isPublic}}" attr-u="\{{forUrl}}" style="cursor: pointer">
-                    <div class="content-title">\{{title}}</div>
+                    <div class="cont-title">\{{title}}</div>
                 </td>
                 <td href="javascript:void(0);" onclick="playerDetail(this); return false;" attr-p="\{{isPublic}}" attr-u="\{{forUrl}}" style="cursor: pointer">
                     <div class="content-writer">\{{writer}}</div>

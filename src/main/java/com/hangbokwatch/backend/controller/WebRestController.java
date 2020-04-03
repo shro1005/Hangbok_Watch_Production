@@ -310,10 +310,11 @@ public class WebRestController {
         String target = (String) recvMap.get("target");
         Integer pageNum = (Integer) recvMap.get("pageNum");
         String boardTagCd = (String) recvMap.get("boardTagCd");
+        boolean isFirst = (boolean) recvMap.get("isFirst");
 
-        log.info("{} >>>>>>>> getContentData 호출 | {} 게시글 리스트 {} 페이지 조회 / 게시글 종류 : {}", sessionBattleTag, target, pageNum, boardTagCd);
+        log.info("{} >>>>>>>> getContentData 호출 | {} 게시글 리스트 {} 페이지 조회 / 게시글 종류 : {} / 최초 조회 여부 : {}", sessionBattleTag, target, pageNum, boardTagCd, isFirst);
 
-        Page<Board> boardList = cs.getContentDataService(sessionItems, target, pageNum, boardTagCd);
+        Page<Board> boardList = cs.getContentDataService(sessionItems, target, pageNum, boardTagCd, isFirst);
         log.info("총 element 수 : {}, 전체 page 수 : {}, 페이지에 표시할 element 수 : {}, 현재 페이지 index : {}, 현재 페이지의 element 수 : {}",
                 boardList.getTotalElements(), boardList.getTotalPages(), boardList.getSize(),
                 boardList.getNumber(), boardList.getNumberOfElements());
