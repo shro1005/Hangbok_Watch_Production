@@ -44,13 +44,13 @@ public class CommunityService {
     public Page<Board> getContentDataService(Map<String, Object> sessionItems, String target, Integer pageNum, String clickButton, boolean isFirst) {
         String sessionBattleTag = (String) sessionItems.get("sessionBattleTag");
 
-        log.info("{} >>>>>>>> getContentDataService 호출 | 게시판 리스트 조합니다.", sessionBattleTag);
+        log.info("{} >>>>>>>> getContentDataService 호출 | 게시판 리스트 조화합니다.", sessionBattleTag);
 
         Pageable pageable = PageRequest.of(pageNum-1, 2);
         if(target.equals("mypage")) {
             SessionUser user = (SessionUser) sessionItems.get("loginUser");
             Long playerId = user.getId();
-            log.info("{} >>>>>>>> getContentDataService 호출 | 게시판 회리스트 조회 완료.", sessionBattleTag);
+            log.info("{} >>>>>>>> getContentDataService 호출 | 게시판 내가 쓴 글 리스트 조회 완료.", sessionBattleTag);
             return boardRepository.findAllByPlayerIdAndDelYNOrderByBoardIdDesc(playerId, "N", pageable);
         }else {
             if (target.equals("free")) {
@@ -59,16 +59,61 @@ public class CommunityService {
                 target = "02";
             }
             if(clickButton.equals("전체") || clickButton.equals("all") || clickButton.equals("00")) {
-                log.info("{} >>>>>>>> getContentDataService 호출 | 게시판 회리스트 조회 완료.", sessionBattleTag);
-                return boardRepository.findAllByCategoryCdAndDelYNOrderByBoardIdDesc(target, "N", pageable);
+                log.info("{} >>>>>>>> getContentDataService 호출 | 게시판 전체 리스트 조회 완료.", sessionBattleTag);
+                return boardRepository.findAllByCategoryCdAndDelYNAndBoardTagCdNotOrderByBoardIdDesc(target, "N", "01", pageable);
             }else if (clickButton.equals("10추글") || clickButton.equals("99") || clickButton.equals("like")) {
-                log.info("{} >>>>>>>> getContentDataService 호출 | 게시판 회리스트 조회 완료.", sessionBattleTag);
-                return boardRepository.findAllByCategoryCdAndDelYNAndSeeCountGreaterThanEqualOrderByBoardIdDesc(target, "N", 10l, pageable);
+                log.info("{} >>>>>>>> getContentDataService 호출 | 게시판 10추글 리스트 조회 완료.", sessionBattleTag);
+                return boardRepository.findAllByCategoryCdAndDelYNAndSeeCountGreaterThanEqualAndBoardTagCdNotOrderByBoardIdDesc(target, "N", 10l, "01", pageable);
             } else {
-                log.info("{} >>>>>>>> getContentDataService 호출 | 게시판 회리스트 조회 완료.", sessionBattleTag);
-                return boardRepository.findAllByCategoryCdAndBoardTagCdAndDelYNOrderByBoardIdDesc(target, clickButton, "N", pageable);
+                log.info("{} >>>>>>>> getContentDataService 호출 | 게시판 카테고리별 리스트 조회 완료.", sessionBattleTag);
+                return boardRepository.findAllByCategoryCdAndBoardTagCdAndDelYNAndBoardTagCdNotOrderByBoardIdDesc(target, clickButton, "N", "01", pageable);
             }
         }
+    }
+
+    public List<Board> getOtherPageDataService(Map<String, Object> sessionItems, String target, Integer pageNum, String clickButton, boolean isFirst) {
+        String sessionBattleTag = (String) sessionItems.get("sessionBattleTag");
+
+        log.info("{} >>>>>>>> getOtherPageDataService 호출 | 게시판 리스트 조화합니다.", sessionBattleTag);
+
+        int limit = 2; int offset = (pageNum-1)*limit;
+        if(target.equals("mypage")) {
+            SessionUser user = (SessionUser) sessionItems.get("loginUser");
+            Long playerId = user.getId();
+            log.info("{} >>>>>>>> getOtherPageDataService 호출 | 게시판 내가 쓴 글 리스트 조회 완료.", sessionBattleTag);
+            return boardRepository.findListByPlayerIdAndDelYNOrderByBoardIdDesc(playerId, "N", limit, offset);
+        }else {
+            if (target.equals("free")) {
+                target = "01";
+            } else if (target.equals("party")) {
+                target = "02";
+            }
+            if(clickButton.equals("전체") || clickButton.equals("all") || clickButton.equals("00")) {
+                log.info("{} >>>>>>>> getOtherPageDataService 호출 | 게시판 전체 리스트 조회 완료.", sessionBattleTag);
+                return boardRepository.findListByCategoryCdAndDelYNOrderByBoardIdDesc(target, "N", limit, offset);
+            }else if (clickButton.equals("10추글") || clickButton.equals("99") || clickButton.equals("like")) {
+                log.info("{} >>>>>>>> getOtherPageDataService 호출 | 게시판 10추글 리스트 조회 완료.", sessionBattleTag);
+                return boardRepository.findListByCategoryCdAndDelYNAndSeeCountGreaterThanEqualOrderByBoardIdDesc(target, "N", 10l, limit, offset);
+            } else {
+                log.info("{} >>>>>>>> getOtherPageDataService 호출 | 게시판 카테고리별 리스트 조회 완료.", sessionBattleTag);
+                return boardRepository.findListByCategoryCdAndBoardTagCdAndDelYNOrderByBoardIdDesc(target, clickButton, "N", limit, offset);
+            }
+        }
+    }
+
+    public List<Board> getNoticeDataService(Map<String, Object> sessionItems, String target) {
+        String sessionBattleTag = (String) sessionItems.get("sessionBattleTag");
+
+        if (target.equals("free")) {
+            target = "01";
+        } else if (target.equals("party")) {
+            target = "02";
+        }
+
+        log.info("{} >>>>>>>> getNoticeDataService 호출 | {} 게시판 리스트 조회합니다.", sessionBattleTag, target);
+
+        return boardRepository.findNoticeListByCategoryCdAndBoardTagCdAndDelYNOrderByBoardIdDesc(target, "01", "N", 40, 0);
+
     }
 
     public BoardImageDto saveBoardImageService(Map<String, Object> sessionItems,  MultipartFile mFile) {

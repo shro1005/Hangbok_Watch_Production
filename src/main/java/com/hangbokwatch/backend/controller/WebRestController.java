@@ -302,6 +302,23 @@ public class WebRestController {
         return banHeroDto;
     }
 
+    @PostMapping("/community/getNoticeData")
+    public List<Board> getNoticeData(@RequestBody HashMap<String, Object> recvMap) {
+        Map<String, Object> sessionItems = sessionCheck();
+        String sessionBattleTag = (String) sessionItems.get("sessionBattleTag");
+
+        String target = (String) recvMap.get("target");
+
+
+        log.info("{} >>>>>>>> getNoticeData 호출 | {} 게시글 리스트 {} 페이지 조회 / 게시글 종류 : {} / 최초 조회 여부 : {}", sessionBattleTag, target);
+
+        List<Board> boardList = cs.getNoticeDataService(sessionItems, target);
+        System.out.println(boardList.size());
+        log.info("{} >>>>>>>> getNoticeData 호출 | {} 게시글 리스트 {} 페이지 조회 완료 ", sessionBattleTag, target);
+
+        return boardList;
+    }
+
     @PostMapping("/community/getContentData")
     public Page<Board> getContentData(@RequestBody HashMap<String, Object> recvMap) {
         Map<String, Object> sessionItems = sessionCheck();
@@ -320,6 +337,25 @@ public class WebRestController {
                 boardList.getNumber(), boardList.getNumberOfElements());
 
         log.info("{} >>>>>>>> getContentData 호출 | {} 게시글 리스트 {} 페이지 조회 완료 ", sessionBattleTag, target, pageNum);
+
+        return boardList;
+    }
+
+    @PostMapping("/community/getOtherPageData")
+    public List<Board> getOtherPageData(@RequestBody HashMap<String, Object> recvMap) {
+        Map<String, Object> sessionItems = sessionCheck();
+        String sessionBattleTag = (String) sessionItems.get("sessionBattleTag");
+
+        String target = (String) recvMap.get("target");
+        Integer pageNum = (Integer) recvMap.get("pageNum");
+        String boardTagCd = (String) recvMap.get("boardTagCd");
+        boolean isFirst = (boolean) recvMap.get("isFirst");
+
+        log.info("{} >>>>>>>> getOtherPageData 호출 | {} 게시글 리스트 {} 페이지 조회 / 게시글 종류 : {} / 최초 조회 여부 : {}", sessionBattleTag, target, pageNum, boardTagCd, isFirst);
+
+        List<Board> boardList = cs.getOtherPageDataService(sessionItems, target, pageNum, boardTagCd, isFirst);
+
+        log.info("{} >>>>>>>> getOtherPageData 호출 | {} 게시글 리스트 {} 페이지 조회 완료 ", sessionBattleTag, target, pageNum);
 
         return boardList;
     }

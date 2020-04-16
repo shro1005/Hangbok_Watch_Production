@@ -203,6 +203,7 @@ public class AllPlayerRefreshBatchMainProcessor implements ItemProcessor<Player,
                 case "젠야타":     hero = "zenyatta";     winLoseGame = heroDetailParsing(competitiveDetailDto, playerDetailList, player, pdDto, competitiveDatas, "0x02E0000000000020", hero);  healWinGame += winLoseGame.get(0); healLoseGame += winLoseGame.get(1); break;
                 case "루시우":     hero = "lucio";        winLoseGame = heroDetailParsing(competitiveDetailDto, playerDetailList, player, pdDto, competitiveDatas, "0x02E0000000000079", hero);  healWinGame += winLoseGame.get(0); healLoseGame += winLoseGame.get(1); break;
                 case "메르시":     hero = "mercy";        winLoseGame = heroDetailParsing(competitiveDetailDto, playerDetailList, player, pdDto, competitiveDatas, "0x02E0000000000004", hero);  healWinGame += winLoseGame.get(0); healLoseGame += winLoseGame.get(1); break;
+                case "에코":     hero = "echo";        winLoseGame = heroDetailParsing(competitiveDetailDto, playerDetailList, player, pdDto, competitiveDatas, "0x02E0000000000206", hero);  dealWinGame += winLoseGame.get(0); dealLoseGame += winLoseGame.get(1); break;
                 default: break;
             }
 
@@ -2134,6 +2135,58 @@ public class AllPlayerRefreshBatchMainProcessor implements ItemProcessor<Player,
 
                     log.debug("{} >>>>>>>> playerDetailItemProcessor | {} 플레이어 ({}) >>> {}, playerDetail객체 JopParameter에 저장", JOB_NAME , player.getBattleTag(), player.getId(), pdDto.getHeroNameKR());
                     log.debug("{} >>>>>>>> playerDetailItemProcessor | {} 플레이어 ({}) >>> {}", JOB_NAME, player.getBattleTag(), player.getId(), hanzo.toString());
+
+                    winLoseGame.add(0, winGame);
+                    winLoseGame.add(1, loseGame);
+
+                    return winLoseGame;
+
+                    /**에코 시작*/
+                }else if("0x02E0000000000206".equals(heroDetails.attr("data-category-id"))){
+                    //에코 영웅 특별 데이터
+                    String forcusingBeamKillAvg = "0"; String stickyBombsKillAvg = "0"; String duplicateKillAvg = "0";
+
+
+                    for (Element tr : detailDatas) {
+                        Elements td;
+                        switch (tr.attr("data-stat-id")) {
+                            case "0x08600000000006FC":                  // 평균 광선 집중 처치 (10분)
+                                td = tr.select("td");
+                                forcusingBeamKillAvg = td.last().text();
+                                break;
+                            case "0x08600000000006FF":                  // 평균 점착 폭탄 처치 (10분)
+                                td = tr.select("td");
+                                stickyBombsKillAvg = td.last().text();
+                                break;
+                            case "0x0860000000000702":                  // 평균 복제 처치 (10분)
+                                td = tr.select("td");
+                                duplicateKillAvg = td.last().text();
+                                break;
+                            case "0x08600000000004DA":                  // 평균 단독 처치 (10분)
+                                td = tr.select("td");
+                                soloKillAvg = td.last().text();
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                    Double lastHitPerLife = Math.round((lastHit / ((double) death + 1)) * 100) / 100.0;
+                    Double damageToHeroPerLife = Math.round((damageToHero / ((double) death + 1)) * 100) / 100.0;
+                    Double damageToShieldPerLife = Math.round((damageToShield / ((double) death + 1)) * 100) / 100.0;
+
+                    Echo echo = new Echo(player.getId(), winGame, loseGame, entireGame, winRate, playTime, killPerDeath, spentOnFireAvg, deathAvg, lastHitAvg,
+                            damageToHeroAvg, damageToShieldAvg, forcusingBeamKillAvg, stickyBombsKillAvg, duplicateKillAvg, soloKillAvg, goldMedal, silverMedal, bronzeMedal);
+
+                    competitiveDetailDto.setEcho(echo);
+
+                    PlayerDetail playerDetail = new PlayerDetail(pdDto.getId(), pdDto.getSeason(), pdDto.getOrder(), hero, pdDto.getHeroNameKR(), killPerDeath,
+                            winRate, playTime, deathAvg, spentOnFireAvg, "0", "0", lastHitAvg, damageToHeroAvg, damageToShieldAvg,
+                            forcusingBeamKillAvg, stickyBombsKillAvg, stickyBombsKillAvg, soloKillAvg, "", "평균 광선 집중 처치", "평균 점착 폭탄 처치", "평균 복제 처치", "평균 단독처치", "");
+
+                    playerDetailList.add(playerDetail);
+
+                    log.debug("{} >>>>>>>> playerDetailItemProcessor | {} 플레이어 ({}) >>> {}, playerDetail객체 JopParameter에 저장", JOB_NAME , player.getBattleTag(), player.getId(), pdDto.getHeroNameKR());
+                    log.debug("{} >>>>>>>> playerDetailItemProcessor | {} 플레이어 ({}) >>> {}", JOB_NAME, player.getBattleTag(), player.getId(), echo.toString());
 
                     winLoseGame.add(0, winGame);
                     winLoseGame.add(1, loseGame);

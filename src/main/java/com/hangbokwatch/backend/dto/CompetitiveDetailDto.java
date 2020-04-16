@@ -48,6 +48,7 @@ public class CompetitiveDetailDto {
     private Pharah pharah;
     private Hanzo hanzo;
     private Ashe ashe;
+    private Echo echo;
     private Trendline trendline;
     private int count;
     private String favorite;

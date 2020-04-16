@@ -4228,8 +4228,8 @@ input[type="button"].btn-block {
 .page-item.active .page-link {
   z-index: 1;
   color: #fff;
-  background-color: #007bff;
-  border-color: #007bff; }
+  background-color: #fcb150;
+  border-color: #fcb150; }
 
 .page-item.disabled .page-link {
   color: #6c757d;
@@ -10513,11 +10513,11 @@ a:hover {
 
 .writing-button {
   z-index: 30;
-  position: sticky;
-  bottom: 10px;
-  float: right;
-  padding-right: 10px;
-
+  position: absolute;
+  /*bottom: 10px;*/
+  /*float: right;*/
+  /*padding-right: 10px;*/
+  right: 50px;
 }
 
 .writing-button .edit-button{
@@ -10712,6 +10712,14 @@ a:hover {
   color: black;
 }
 
+.category-99 {
+     background-color: #394264;
+     border-bottom: 1.2px solid rgba(0,0,0,0.11);
+     border-right: 1.2px solid rgba(0,0,0,0.11);
+     text-align: center;
+     color: white;
+}
+
 .board-tag-button.clicked {
   background-color: #fcb150;
   color: white;
@@ -10725,6 +10733,14 @@ a:hover {
   padding: 5px;
   text-align: center;
   vertical-align: middle;
+}
+
+.paging-button-container {
+  display: inline-block;
+}
+
+.notice-content {
+  background-color: rgba(0,0,0,0.04);
 }
 
 

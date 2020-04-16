@@ -70,6 +70,9 @@ public class UpdateTierDetailDataBatchJobProcessor implements ItemProcessor<List
         int zaryaCnt = 0;
         int zenyattaCnt = 0;
 
+        // 신규 추가 영웅
+        int echoCnt = 0;
+
         for (Player player : items) {
             log.debug("{} >>>>>>> process 진행중 | {} 의 데이터 추출 시작", JOB_NAME, player.getBattleTag());
             List<PlayerDetail> playerDetails = playerDetailRepository.findByIdAndSeasonOrderByHeroOrderAsc(player.getId(), season);
@@ -1077,6 +1080,68 @@ public class UpdateTierDetailDataBatchJobProcessor implements ItemProcessor<List
                                 datas[15][12] += time;
                             }
                             genjiCnt ++ ;
+                            break;
+                        case "에코":
+                            datas[31][0] += Double.parseDouble(playerDetail.getKillPerDeath());
+                            datas[31][1] += Double.parseDouble(playerDetail.getDeathAvg());
+                            if (!"".equals(playerDetail.getHealPerLife()) && playerDetail.getHealPerLife() != null) {
+                                datas[31][2] += Double.parseDouble(playerDetail.getHealPerLife());
+                            }
+                            if (!"".equals(playerDetail.getBlockDamagePerLife()) && playerDetail.getBlockDamagePerLife() != null) {
+                                datas[31][3] += Double.parseDouble(playerDetail.getBlockDamagePerLife());
+                            }
+                            if (!"".equals(playerDetail.getLastHitPerLife()) && playerDetail.getLastHitPerLife() != null) {
+                                datas[31][4] += Double.parseDouble(playerDetail.getLastHitPerLife());
+                            }
+                            if (!"".equals(playerDetail.getDamageToHeroPerLife()) && playerDetail.getDamageToHeroPerLife() != null) {
+                                datas[31][5] += Double.parseDouble(playerDetail.getDamageToHeroPerLife());
+                            }
+                            if (!"".equals(playerDetail.getDamageToShieldPerLife()) && playerDetail.getDamageToShieldPerLife() != null) {
+                                datas[31][6] += Double.parseDouble(playerDetail.getDamageToShieldPerLife());
+                            }
+                            if (playerDetail.getIndex1().indexOf("%") == -1) {
+                                if(!"".equals(playerDetail.getIndex1()) && playerDetail.getIndex1() != null) {
+                                    datas[31][7] += Double.parseDouble(playerDetail.getIndex1());
+                                }
+                            } else {
+                                datas[31][7] += Double.parseDouble(playerDetail.getIndex1().replace("%", ""));
+                            }
+                            if (playerDetail.getIndex2().indexOf("%") == -1) {
+                                if(!"".equals(playerDetail.getIndex2()) && playerDetail.getIndex2() != null) {
+                                    datas[31][8] += Double.parseDouble(playerDetail.getIndex2());
+                                }
+                            } else {
+                                datas[31][8] += Double.parseDouble(playerDetail.getIndex2().replace("%", ""));
+                            }
+                            if (playerDetail.getIndex3().indexOf("%") == -1) {
+                                if(!"".equals(playerDetail.getIndex3()) && playerDetail.getIndex3() != null) {
+                                    datas[31][9] += Double.parseDouble(playerDetail.getIndex3());
+                                }
+                            } else {
+                                datas[31][9] += Double.parseDouble(playerDetail.getIndex3().replace("%", ""));
+                            }
+                            if (playerDetail.getIndex4().indexOf("%") == -1) {
+                                if(!"".equals(playerDetail.getIndex4()) && playerDetail.getIndex4() != null) {
+                                    datas[31][10] += Double.parseDouble(playerDetail.getIndex4());
+                                }
+                            } else {
+                                datas[31][10] += Double.parseDouble(playerDetail.getIndex4().replace("%", ""));
+                            }
+                            if (playerDetail.getIndex5().indexOf("%") == -1) {
+                                if(!"".equals(playerDetail.getIndex5()) && playerDetail.getIndex5() != null) {
+                                    datas[31][11] += Double.parseDouble(playerDetail.getIndex5());
+                                }
+                            } else {
+                                datas[31][11] += Double.parseDouble(playerDetail.getIndex5().replace("%", ""));
+                            }
+                            if (!"".equals(playerDetail.getSpentOnFireAvg()) && playerDetail.getSpentOnFireAvg() != null) {
+                                String timeValue = playerDetail.getSpentOnFireAvg();
+                                Double time = Double.parseDouble(timeValue.substring(timeValue.lastIndexOf(":")-2, timeValue.lastIndexOf(":"))) * 60;
+                                time += Double.parseDouble(timeValue.substring(timeValue.lastIndexOf(":")+1));
+
+                                datas[31][12] += time;
+                            }
+                            echoCnt ++ ;
                             break;
                         default:
                             break;
@@ -2335,7 +2400,17 @@ public class UpdateTierDetailDataBatchJobProcessor implements ItemProcessor<List
                 calculateData(datas[30][12],mercyCnt), calculateData(datas[30][2],mercyCnt), calculateData(datas[30][3],lucioCnt), calculateData(datas[30][4],mercyCnt),
                 calculateData(datas[30][5],mercyCnt), calculateData(datas[30][6],mercyCnt), calculateData(datas[30][7],mercyCnt),
                 calculateData(datas[30][8],mercyCnt), calculateData(datas[30][9],mercyCnt), calculateData(datas[30][10],mercyCnt),
-                calculateData(datas[03][11],mercyCnt), "평균 부활", "평균 공격력 증폭", "평균 공격형 도움", "평균 방어형 도움", "");
+                calculateData(datas[30][11],mercyCnt), "평균 부활", "평균 공격력 증폭", "평균 공격형 도움", "평균 방어형 도움", "");
+
+        playerDetailList.add(mercyDetail);
+
+        log.debug("{} >>>>>>> process 진행중 | ======== 에코 데이터 계산 시작 ==========", JOB_NAME);
+        PlayerDetail echoDetail = new PlayerDetail((long)min, season, 31, "echo", "에코",
+                calculateData(datas[31][0], mercyCnt), "", "", calculateData(datas[31][1], mercyCnt),
+                calculateData(datas[31][12],mercyCnt), calculateData(datas[31][2],mercyCnt), calculateData(datas[31][3],lucioCnt), calculateData(datas[31][4],mercyCnt),
+                calculateData(datas[31][5],mercyCnt), calculateData(datas[31][6],mercyCnt), calculateData(datas[31][7],mercyCnt),
+                calculateData(datas[31][8],mercyCnt), calculateData(datas[31][9],mercyCnt), calculateData(datas[31][10],mercyCnt),
+                calculateData(datas[31][11],mercyCnt), "평균 광선 집중 처치", "평균 점착 폭탄 처치", "평균 복제 처치", "평균 단독 처치", "");
 
         playerDetailList.add(mercyDetail);
 

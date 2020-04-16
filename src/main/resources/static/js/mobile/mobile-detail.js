@@ -23,7 +23,7 @@ let rankerRadarLabel = [];
 let rankerRadarData = [];
 const chartColors = ['#fcb150', '#11a8ab' ,'#e64c65'];
 const heal_hero = "/아나/바티스트/브리기테/루시우/메르시/모이라/젠야타";
-const deal_hero = "/애쉬/바스티온/둠피스트/겐지/한조/정크랫/맥크리/메이/파라/리퍼/솔저: 76/솜브라/시메트라/토르비욘/트레이서/위도우메이커";
+const deal_hero = "/애쉬/바스티온/둠피스트/겐지/한조/정크랫/맥크리/메이/파라/리퍼/솔저: 76/솜브라/시메트라/토르비욘/트레이서/위도우메이커/에코";
 const tank_hero = "/디바/오리사/라인하르트/윈스턴/자리야/로드호그/레킹볼/시그마";
 let season = 0;
 let nowSeason = 0;
@@ -389,7 +389,7 @@ const checkHero = (hero, detail, text, radar_data, radar_label) => {
                     "평균 나노강화제 주입" == title[i] || "평균 불사장치 세이브" == title[i] || "평균 강화메트릭스 사용" == title[i] ||
                     "평균 전차모드 처치" == title[i] || "평균 죽이는 타이어 처치" == title[i] || "평균 난사 처치" == title[i] ||
                     "평균 BOB 처치" == title[i] || "평균 초고열 용광로 처치" == title[i] || "평균 눈보라 처치" == title[i] ||
-                    "평균 중력자탄 처치" == title[i] ) {
+                    "평균 중력자탄 처치" == title[i] || "평균 복제 처치" == title[i] ) {
                     if (index_val >= 5.5) { index_val = 100;} else { index_val = index_val*18; }
                 }else if("평균 끈 적" == title[i] || "평균 직접 처치" == title[i]) {
                     if (index_val >= 18) { index_val = 100;} else { index_val = index_val*5.55; }
@@ -412,7 +412,8 @@ const checkHero = (hero, detail, text, radar_data, radar_label) => {
                 }else if("평균 자힐량" == title[i]) {
                     if (index_val >= 5000) { index_val = 100;} else { index_val = index_val/50; }  //350
                 }else if("평균 소리방벽 사용" == title[i] || "평균 덫으로 묶은 적" == title[i] || "평균 포탑 처치" == title[i] ||
-                    "평균 얼린적" == title[i] || "평균 감시포탑 처치" == title[i] || "평균 중력붕괴 처치" == title[i]) {
+                    "평균 얼린적" == title[i] || "평균 감시포탑 처치" == title[i] || "평균 중력붕괴 처치" == title[i] ||
+                    "평균 광선 집중 처치" == title[i]) {
                     if (index_val >= 15) { index_val = 100;} else { index_val = index_val*6.66; }
                 }else if("평균 기술로 준 피해" == title[i]) {
                     if (index_val >= 5500) { index_val = 100;} else { index_val = index_val/55; }
@@ -423,7 +424,8 @@ const checkHero = (hero, detail, text, radar_data, radar_label) => {
                     if (index_val >= 4) { index_val = 100;} else { index_val = index_val*25; }
                 }else if("평균 해킹한 적" == title[i] || "평균 순간이동한 아군" == title[i]) {
                     if (index_val >= 30) { index_val = 100;} else { index_val = index_val*3.33; }
-                }else if("평균 EMP맞춘 적" == title[i] || "평균 나선 로켓 처치" == title[i] || "평균 점프팩 처치" == title[i]) {
+                }else if("평균 EMP맞춘 적" == title[i] || "평균 나선 로켓 처치" == title[i] || "평균 점프팩 처치" == title[i] ||
+                    "평균 점착 폭찬 처치" == title[i]) {
                     if (index_val >= 12) { index_val = 100;} else { index_val = 8.33*index_val; }
                 }else if("평균 로켓 명중" == title[i]) {
                     if (index_val >= 40) { index_val = 100;} else { index_val = index_val*2.5; }
@@ -534,7 +536,7 @@ const checkTierAndRankerData = (hero, radar_data) => {
                     "평균 나노강화제 주입" == title[i] || "평균 불사장치 세이브" == title[i] || "평균 강화메트릭스 사용" == title[i] ||
                     "평균 전차모드 처치" == title[i] || "평균 죽이는 타이어 처치" == title[i] || "평균 난사 처치" == title[i] ||
                     "평균 BOB 처치" == title[i] || "평균 초고열 용광로 처치" == title[i] || "평균 눈보라 처치" == title[i] ||
-                    "평균 중력자탄 처치" == title[i]) {
+                    "평균 중력자탄 처치" == title[i] || "평균 복제 처치" == title[i]) {
                     if (index_val >= 5.5) { index_val = 100;} else { index_val = index_val*18; }
                 }else if("평균 끈 적" == title[i] || "평균 직접 처치" == title[i]) {
                     if (index_val >= 18) { index_val = 100;} else { index_val = index_val*5.55; }
@@ -557,7 +559,8 @@ const checkTierAndRankerData = (hero, radar_data) => {
                 }else if("평균 자힐량" == title[i]) {
                     if (index_val >= 5000) { index_val = 100;} else { index_val = index_val/50; }  //350
                 }else if("평균 소리방벽 사용" == title[i] || "평균 덫으로 묶은 적" == title[i] || "평균 포탑 처치" == title[i] ||
-                    "평균 얼린적" == title[i] || "평균 감시포탑 처치" == title[i] || "평균 중력붕괴 처치" == title[i]) {
+                    "평균 얼린적" == title[i] || "평균 감시포탑 처치" == title[i] || "평균 중력붕괴 처치" == title[i] ||
+                    "평균 광선 집중 처치" == title[i]) {
                     if (index_val >= 15) { index_val = 100;} else { index_val = index_val*6.66; }
                 }else if("평균 기술로 준 피해" == title[i]) {
                     if (index_val >= 5500) { index_val = 100;} else { index_val = index_val/55; }
@@ -568,7 +571,8 @@ const checkTierAndRankerData = (hero, radar_data) => {
                     if (index_val >= 4) { index_val = 100;} else { index_val = index_val*25; }
                 }else if("평균 해킹한 적" == title[i] || "평균 순간이동한 아군" == title[i]) {
                     if (index_val >= 30) { index_val = 100;} else { index_val = index_val*3.33; }
-                }else if("평균 EMP맞춘 적" == title[i] || "평균 나선 로켓 처치" == title[i] || "평균 점프팩 처치" == title[i]) {
+                }else if("평균 EMP맞춘 적" == title[i] || "평균 나선 로켓 처치" == title[i] || "평균 점프팩 처치" == title[i] ||
+                    "평균 점착 폭찬 처치" == title[i]) {
                     if (index_val >= 12) { index_val = 100;} else { index_val = 8.33*index_val; }
                 }else if("평균 로켓 명중" == title[i]) {
                     if (index_val >= 40) { index_val = 100;} else { index_val = index_val * 2.5; }
