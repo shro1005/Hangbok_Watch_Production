@@ -16,7 +16,7 @@ artifacts:
     - appspec.yml
     - build/libs/*.jar
     - scripts/**
-    - HangbokWatch_Resource/HWimages/hero/echo_s.png
+#    - HangbokWatch_Resource/HWimages/hero/echo_s.png
   discard-paths: yes
 
 cache:
