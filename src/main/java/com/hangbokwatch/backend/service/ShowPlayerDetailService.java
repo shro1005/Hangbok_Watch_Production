@@ -215,7 +215,7 @@ public class ShowPlayerDetailService {
 
     public List<PlayerDetailDto> getTierDetail(Long playerId, Map<String, Object> sessionItems, List<PlayerDetailDto> playerDetailList) {
         String healHero = "/아나/바티스트/브리기테/루시우/메르시/모이라/젠야타";
-        String dealHero = "/애쉬/바스티온/둠피스트/겐지/한조/정크랫/맥크리/메이/파라/리퍼/솔저: 76/솜브라/시메트라/토르비욘/트레이서/위도우메이커";
+        String dealHero = "/애쉬/바스티온/둠피스트/겐지/한조/정크랫/맥크리/메이/파라/리퍼/솔저: 76/솜브라/시메트라/토르비욘/트레이서/위도우메이커/에코";
         String tankHero = "/디바/오리사/라인하르트/윈스턴/자리야/로드호그/레킹볼/시그마";
         String sessionBattleTag = (String) sessionItems.get("sessionBattleTag");
 
