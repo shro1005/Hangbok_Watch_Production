@@ -2412,7 +2412,7 @@ public class UpdateTierDetailDataBatchJobProcessor implements ItemProcessor<List
                 calculateData(datas[31][8],mercyCnt), calculateData(datas[31][9],mercyCnt), calculateData(datas[31][10],mercyCnt),
                 calculateData(datas[31][11],mercyCnt), "평균 광선 집중 처치", "평균 점착 폭탄 처치", "평균 복제 처치", "평균 단독 처치", "");
 
-        playerDetailList.add(mercyDetail);
+        playerDetailList.add(echoDetail);
 
 
 

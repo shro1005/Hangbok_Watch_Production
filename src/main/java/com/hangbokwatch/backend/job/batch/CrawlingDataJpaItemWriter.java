@@ -116,6 +116,8 @@ public class CrawlingDataJpaItemWriter<T> implements ItemWriter<T>, Initializing
                     Pharah pharah = ((CompetitiveDetailDto) item).getPharah();
                     Hanzo hanzo = ((CompetitiveDetailDto) item).getHanzo();
 
+                    Echo echo = ((CompetitiveDetailDto) item).getEcho();
+
                     if(player != null) {
                         log.debug("batch >>>>>>>> player 정보 등록 or 수정 | {} (id : {}) ", player.getBattleTag(), player.getId());
                         entityManager.merge(player);
@@ -270,6 +272,10 @@ public class CrawlingDataJpaItemWriter<T> implements ItemWriter<T>, Initializing
                     }
                     if (hanzo != null) {
                         entityManager.merge(hanzo);
+                        mergeCount++;
+                    }
+                    if (echo != null) {
+                        entityManager.merge(echo);
                         mergeCount++;
                     }
                 }
