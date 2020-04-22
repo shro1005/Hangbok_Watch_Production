@@ -10436,6 +10436,7 @@ a:hover {
   width: 100%;
   margin-top: -50px;
   text-align: center;
+  margin-bottom: 50px;
 }
 
 .ban-hero {
@@ -10741,6 +10742,10 @@ a:hover {
 
 .notice-content {
   background-color: rgba(0,0,0,0.04);
+}
+
+.adsbygoogle {
+  text-align: center;
 }
 
 
