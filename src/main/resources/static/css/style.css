@@ -9553,6 +9553,7 @@ a:hover {
 .inside-block {
    background: #394264;
    border-radius: 5px;
+  margin-bottom: 10px;
 }
 
 .menu-box {
@@ -10744,9 +10745,9 @@ a:hover {
   background-color: rgba(0,0,0,0.04);
 }
 
-.adsbygoogle {
-  text-align: center;
-}
+/*.adsbygoogle {*/
+/*  text-align: center;*/
+/*}*/
 
 
 /****************** Mobile *********************/
