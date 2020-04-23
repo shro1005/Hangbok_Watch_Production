@@ -10745,9 +10745,9 @@ a:hover {
   background-color: rgba(0,0,0,0.04);
 }
 
-/*.adsbygoogle {*/
-/*  text-align: center;*/
-/*}*/
+.adsbygoogle {
+  text-align: center;
+}
 
 
 /****************** Mobile *********************/
